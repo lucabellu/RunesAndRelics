@@ -24,8 +24,12 @@ public class PlayerInteract : MonoBehaviour
 
             if(Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
             {
-                print("Hit");
-                DrawRay(playerCam.transform.position, playerCam.transform.forward * interactDistance, Color.red);
+                IInteractable interactable = transform.GetComponent<IInteractable>();
+
+                if (interactable != null)
+                {
+                    interactable.OnInteract();
+                }
             }
             else
             {
@@ -54,5 +58,10 @@ public class PlayerInteract : MonoBehaviour
     private void DisableLineRenderer()
     {
         lineRenderer.enabled = false;
+    }
+
+    private void PickUpInteractable()
+    {
+
     }
 }
