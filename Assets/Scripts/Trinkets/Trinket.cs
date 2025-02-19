@@ -9,6 +9,6 @@ public class Trinket : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-
+        print("do something");
     }
 }
