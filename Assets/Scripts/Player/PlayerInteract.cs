@@ -9,9 +9,13 @@ public class PlayerInteract : MonoBehaviour
 
     private GameObject pickUpObject;
     private Rigidbody pickUpRb;
+
     [SerializeField] private Transform objectHoldPos;
     [SerializeField] private float objectMoveSpeed;
     [SerializeField] private float linearDampingValue;
+
+    private Vector3 velocitySmoothDamp;
+    [SerializeField] private float smoothTime = 0.1f;
 
     private void Start()
     {
@@ -112,7 +116,7 @@ public class PlayerInteract : MonoBehaviour
         Vector3 targetVelocity = direction * objectMoveSpeed;
 
         // Apply damping to reduce oscillation
-        pickUpRb.linearVelocity = Vector3.Lerp(pickUpRb.linearVelocity, targetVelocity, linearDampingValue * Time.fixedDeltaTime);
+        pickUpRb.linearVelocity = Vector3.SmoothDamp(pickUpRb.linearVelocity, targetVelocity, ref velocitySmoothDamp, smoothTime);
 
         //pickUpRb.linearVelocity += (objectHoldPos.position - pickUpObject.transform.position) * objectMoveSpeed * Time.fixedDeltaTime;
     }
