@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class CustomerLogic : MonoBehaviour
@@ -10,12 +11,17 @@ public class CustomerLogic : MonoBehaviour
     //
 
     private CustomerMovement customerMovement;
+
     [SerializeField] private Canvas canvas;
+    [SerializeField] private TextMeshProUGUI dialogueText;
+
+    [SerializeField] private CustomerDataSO customerData;
 
     private void Start()
     {
         customerMovement = GetComponent<CustomerMovement>();
         canvas.gameObject.SetActive(false);
+        dialogueText.text = customerData.customerDialogue;
     }
 
     private void Update()
