@@ -28,6 +28,8 @@ public class PlayerInteract : MonoBehaviour
 
     private void Update()
     {
+        RaycastHit hit;
+
         if (Input.GetMouseButtonDown(0))
         {
             if (pickUpObject == null)
@@ -38,15 +40,27 @@ public class PlayerInteract : MonoBehaviour
             {
                 DropObject();
             }
+        }
 
-            /* Put this in getmousedown 1 to check with raycast then open any ui element for it for example for a script/book
-             * 
-             * IInteractable interactable = transform.GetComponent<IInteractable>();
-             * if (interactable != null)
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
+            {
+                IInteractable interactable = hit.transform.GetComponent<IInteractable>();
+                if (interactable != null)
                 {
                     interactable.OnInteract();
                 }
-             */
+            }
+        }
+
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
+        {
+            IHighlightable highlightable = hit.transform.GetComponent<IHighlightable>();
+            if (highlightable != null)
+            {
+                highlightable.OnHighlight();
+            }
         }
     }
 

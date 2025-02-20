@@ -1,14 +1,11 @@
 using UnityEngine;
 
-public class Trinket : MonoBehaviour, IInteractable
+public class Trinket : MonoBehaviour, IHighlightable
 {
     //objectives
     //
     //can be interacted with by player
     //can be given to customer
 
-    public void OnInteract()
-    {
-        print("do something");
-    }
+
 }
