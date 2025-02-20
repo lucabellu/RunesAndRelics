@@ -1,4 +1,5 @@
 using UnityEngine;
+using static GameManager;
 
 public class PlayerInteract : MonoBehaviour
 {
@@ -53,7 +54,32 @@ public class PlayerInteract : MonoBehaviour
                 {
                     if (trinket.inCustomerRange && isPlayerInCustomerRange)
                     {
-                        Destroy(trinket.gameObject);
+                        CustomerLogic currentCustomer = GameManager.Instance.currentCustomer;
+
+                        ItemRequirements itemRequirements = new ItemRequirements
+                        {
+                            ActiveRequirements = trinket.ActiveRequirements,
+                            RequiredRace = trinket.requiredRace,
+                            RequiredKingdom = trinket.requiredKingdom,
+                            RequiredOccupation = trinket.requiredOccupation,
+                            RequiredLevel = trinket.requiredLevel
+                        };
+
+                        bool meetsRequirements = GameManager.Instance.CheckRequirements
+                            (itemRequirements, 
+                            currentCustomer.customerRace, 
+                            currentCustomer.customerKingdom, 
+                            currentCustomer.customerOccupation, 
+                            currentCustomer.customerLevel);
+
+                        if (meetsRequirements)
+                        {
+                            Debug.Log("Customer meets the trinket's requirements!");
+                        }
+                        else
+                        {
+                            Debug.Log("Customer does not meet the trinket's requirements.");
+                        }
                     }
                     else
                     {

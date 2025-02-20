@@ -900,7 +900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customers: []
-  currentCustomer: {fileID: 0}
+  currentCustomer: {fileID: 1419200663408021, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
 --- !u!4 &859325192
 Transform:
   m_ObjectHideFlags: 0
@@ -1678,6 +1678,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1040048154}
+    - target: {fileID: 9053885798929048424, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

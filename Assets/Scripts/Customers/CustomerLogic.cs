@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using static GameManager;
 
 public class CustomerLogic : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class CustomerLogic : MonoBehaviour
     public int customerLevel { get; private set; }
     public Race customerRace { get; private set; }
     public Kingdom customerKingdom { get; private set; }
-    public Occupation customerOoccupation { get; private set; }
+    public Occupation customerOccupation { get; private set; }
 
 
     private void Start()
@@ -34,7 +35,7 @@ public class CustomerLogic : MonoBehaviour
         customerLevel = customerData.customerLevel;
         customerRace = customerData.customerRace;
         customerKingdom = customerData.kingdom;
-        customerOoccupation = customerData.occupation;
+        customerOccupation = customerData.occupation;
     }
 
     private void Update()
@@ -69,6 +70,28 @@ public class CustomerLogic : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(HideDialogue(0.5f));
+        }
+    }
+
+    public RequirementFlags customerFields
+    {
+        get
+        {
+            RequirementFlags flags = RequirementFlags.None;
+
+            if (customerRace != Race.NONE) // Assuming Race.None is a default/unset value
+                flags |= RequirementFlags.Race;
+
+            if (customerKingdom != Kingdom.NONE) // Assuming Kingdom.None is a default/unset value
+                flags |= RequirementFlags.Kingdom;
+
+            if (customerOccupation != Occupation.NONE) // Assuming Occupation.None is a default/unset value
+                flags |= RequirementFlags.Occupation;
+
+            if (customerLevel > 0) // Assuming 0 means no level requirement
+                flags |= RequirementFlags.Level;
+
+            return flags;
         }
     }
 }

@@ -65,5 +65,4 @@ public class Trinket : MonoBehaviour, IHighlightable
             return flags;
         }
     }
-
 }
