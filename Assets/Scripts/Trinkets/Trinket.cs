@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using static GameManager;
 
 public class Trinket : MonoBehaviour, IHighlightable
 {
@@ -42,8 +44,26 @@ public class Trinket : MonoBehaviour, IHighlightable
         }
     }
 
-    public void MakeSale()
+    public RequirementFlags ActiveRequirements
     {
+        get
+        {
+            RequirementFlags flags = RequirementFlags.None;
 
+            if (requiredRace != Race.NONE) // Assuming Race.None is a default/unset value
+                flags |= RequirementFlags.Race;
+
+            if (requiredKingdom != Kingdom.NONE) // Assuming Kingdom.None is a default/unset value
+                flags |= RequirementFlags.Kingdom;
+
+            if (requiredOccupation != Occupation.NONE) // Assuming Occupation.None is a default/unset value
+                flags |= RequirementFlags.Occupation;
+
+            if (requiredLevel > 0) // Assuming 0 means no level requirement
+                flags |= RequirementFlags.Level;
+
+            return flags;
+        }
     }
+
 }
