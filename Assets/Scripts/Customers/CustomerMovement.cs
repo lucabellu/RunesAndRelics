@@ -11,10 +11,17 @@ public class CustomerMovement : MonoBehaviour
     [SerializeField] private Transform target;
     private Vector3 spawnPos;
     [SerializeField] private float moveSpeed;
+
+    private CustomerLogic customerLogic;
+
+    public bool showDialogue { get; private set; } = false;
+    private bool firstDialogue = true;
+
     private bool hasMadeSale = false;
 
     private void Start()
     {
+        customerLogic = GetComponent<CustomerLogic>();
         spawnPos = transform.position;
     }
 
@@ -32,6 +39,16 @@ public class CustomerMovement : MonoBehaviour
 
             // Move the object smoothly towards the target on the XZ plane
             transform.position = Vector3.Lerp(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(currentPosition, targetPosition) < 0.01f)
+            {
+                if (firstDialogue)
+                {
+                    customerLogic.ShowDialogue();
+                    StartCoroutine(customerLogic.HideDialogue(4f));
+                    firstDialogue = false;
+                }
+            }
         }
         else
         {

@@ -4,6 +4,6 @@ public interface IHighlightable
 {
     public void OnHighlight()
     {
-        Debug.Log("Test");
+        //Debug.Log("Test");
     }
 }
