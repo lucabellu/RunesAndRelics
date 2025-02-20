@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
+    #region Object Detection
+    [Header("Object detection")]
+    [Tooltip("Minimum distance between player and object needed to interact.")]
     [SerializeField] private float interactDistance;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private Transform playerCam;
@@ -9,13 +12,16 @@ public class PlayerInteract : MonoBehaviour
 
     private GameObject pickUpObject;
     private Rigidbody pickUpRb;
+    #endregion
 
+    #region Held Object
+    [Header("Held object")]
     [SerializeField] private Transform objectHoldPos;
     [SerializeField] private float objectMoveSpeed;
     [SerializeField] private float linearDampingValue;
-
-    private Vector3 velocitySmoothDamp;
     [SerializeField] private float smoothTime = 0.1f;
+    private Vector3 velocitySmoothDamp;
+    #endregion
 
     private void Start()
     {
@@ -38,7 +44,17 @@ public class PlayerInteract : MonoBehaviour
             }
             else
             {
-                DropObject();
+                if (pickUpObject.TryGetComponent<Trinket>(out Trinket trinket))
+                {
+                    if (trinket.inCustomerRange)
+                    {
+                        Destroy(trinket.gameObject);
+                    }
+                    else
+                    {
+                        DropObject();
+                    }
+                }
             }
         }
 
