@@ -7,6 +7,11 @@ public class Trinket : MonoBehaviour, IHighlightable
     //can be interacted with by player
     //can be given to customer
 
+    public Race requiredRace;
+    public Kingdom requiredKingdom;
+    public Occupation requiredOccupation;
+    public int requiredLevel;
+
     public bool inCustomerRange { get; private set; } = false;
 
     private void OnTriggerEnter(Collider other)
@@ -35,5 +40,10 @@ public class Trinket : MonoBehaviour, IHighlightable
         {
             GetComponent<Outline>().enabled = false;
         }
+    }
+
+    public void MakeSale()
+    {
+
     }
 }

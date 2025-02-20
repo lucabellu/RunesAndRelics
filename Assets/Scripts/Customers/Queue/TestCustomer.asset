@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestCustomer
   m_EditorClassIdentifier: 
   customerName: Test
-  customerDialogue: Hello there, I am a test customer
+  customerDialogue: I would like to purchase the red book
   customerLevel: 10
   customerRace: 0
   kingdom: 0
