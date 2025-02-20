@@ -23,6 +23,8 @@ public class PlayerInteract : MonoBehaviour
     private Vector3 velocitySmoothDamp;
     #endregion
 
+    private bool isPlayerInCustomerRange = false;
+
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -46,7 +48,7 @@ public class PlayerInteract : MonoBehaviour
             {
                 if (pickUpObject.TryGetComponent<Trinket>(out Trinket trinket))
                 {
-                    if (trinket.inCustomerRange)
+                    if (trinket.inCustomerRange && isPlayerInCustomerRange)
                     {
                         Destroy(trinket.gameObject);
                     }
@@ -149,5 +151,21 @@ public class PlayerInteract : MonoBehaviour
         pickUpRb.linearVelocity = Vector3.SmoothDamp(pickUpRb.linearVelocity, targetVelocity, ref velocitySmoothDamp, smoothTime);
 
         //pickUpRb.linearVelocity += (objectHoldPos.position - pickUpObject.transform.position) * objectMoveSpeed * Time.fixedDeltaTime;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Customer"))
+        {
+            isPlayerInCustomerRange = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Customer"))
+        {
+            isPlayerInCustomerRange = false;
+        }
     }
 }
