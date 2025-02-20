@@ -24,4 +24,16 @@ public class Trinket : MonoBehaviour, IHighlightable
             inCustomerRange = false;
         }
     }
+
+    public void OnHighlight(bool isHovering)
+    {
+        if (isHovering)
+        {
+            GetComponent<Outline>().enabled = true;
+        }
+        else
+        {
+            GetComponent<Outline>().enabled = false;
+        }
+    }
 }

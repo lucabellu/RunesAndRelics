@@ -8,6 +8,7 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private float interactDistance;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private Transform playerCam;
+    private GameObject highlightedObject;
     private LineRenderer lineRenderer;
 
     private GameObject pickUpObject;
@@ -20,6 +21,8 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private float objectMoveSpeed;
     [SerializeField] private float linearDampingValue;
     [SerializeField] private float smoothTime = 0.1f;
+
+    private bool isHoldingObject = false;
     private Vector3 velocitySmoothDamp;
     #endregion
 
@@ -72,12 +75,33 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
+        if (!isHoldingObject)
         {
-            IHighlightable highlightable = hit.transform.GetComponent<IHighlightable>();
-            if (highlightable != null)
+            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
             {
-                highlightable.OnHighlight();
+                GameObject hitObject = hit.transform.gameObject;
+
+                if (hitObject != highlightedObject)
+                {
+                    if (highlightedObject != null)
+                    {
+                        highlightedObject.GetComponent<IHighlightable>().OnHighlight(false);
+                    }
+                }
+
+                if (hitObject.TryGetComponent<IHighlightable>(out IHighlightable highlightable))
+                {
+                    highlightable.OnHighlight(true);
+                    highlightedObject = hitObject;
+                }
+            }
+            else
+            {
+                if (highlightedObject != null)
+                {
+                    highlightedObject.GetComponent<IHighlightable>().OnHighlight(false);
+                    highlightedObject = null;
+                }
             }
         }
     }
@@ -114,6 +138,8 @@ public class PlayerInteract : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
         {
+            isHoldingObject = true;
+
             pickUpObject = hit.transform.gameObject;
             pickUpRb = pickUpObject.GetComponent<Rigidbody>();
             //pickUpRb.linearDamping = linearDampingValue;
@@ -132,6 +158,8 @@ public class PlayerInteract : MonoBehaviour
     {
         if (pickUpObject != null)
         {
+            isHoldingObject = false;
+
             pickUpRb.useGravity = true;
             pickUpRb.freezeRotation = false;
 
