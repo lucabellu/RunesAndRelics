@@ -31,12 +31,15 @@ public class GameManager : MonoBehaviour
     }
 
     public List<CustomerLogic> customers;
-    public CustomerLogic currentCustomer;
-    private Transform customerSpawn;
+    public CustomerLogic currentCustomer { get; private set; }
+    public Transform customerSpawn;
+    public Transform target;
     private int customerIndex;
 
     private void Start()
     {
+        customerIndex = 0;
+
         if (customers.Count > 0)
         {
             SpawnNextCustomer(customerIndex);

@@ -80,6 +80,9 @@ public class PlayerInteract : MonoBehaviour
                         {
                             Debug.Log("Customer does not meet the trinket's requirements.");
                         }
+
+                        Destroy(pickUpObject);
+                        pickUpObject = null;
                     }
                     else
                     {

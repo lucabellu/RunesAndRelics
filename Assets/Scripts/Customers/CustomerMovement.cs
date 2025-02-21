@@ -8,7 +8,7 @@ public class CustomerMovement : MonoBehaviour
     //on spawn in from manager, move to counter
     // on sale finish, move to exit
 
-    [SerializeField] private Transform target;
+    private Transform target;
     private Vector3 spawnPos;
     [SerializeField] private float moveSpeed;
 
@@ -22,7 +22,8 @@ public class CustomerMovement : MonoBehaviour
     private void Start()
     {
         customerLogic = GetComponent<CustomerLogic>();
-        spawnPos = transform.position;
+        spawnPos = GameManager.Instance.customerSpawn.position;
+        target = GameManager.Instance.target;
     }
 
     private void Update()
