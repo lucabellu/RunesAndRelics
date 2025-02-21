@@ -105,4 +105,23 @@ public class GameManager : MonoBehaviour
         currentCustomer = customer;
         customerIndex++;
     }
+
+    public void SetPlayerDocumentState(bool isInDocument)
+    {
+        if (isInDocument)
+        {
+            SetDocumentState(CursorLockMode.None, true, 0);
+        }
+        else
+        {
+            SetDocumentState(CursorLockMode.Locked, false, 1);
+        }
+    }
+
+    private void SetDocumentState(CursorLockMode cursorLockMode, bool visible, float timeScale)
+    {
+        Cursor.lockState = cursorLockMode;
+        Cursor.visible = visible;
+        Time.timeScale = timeScale;
+    }
 }

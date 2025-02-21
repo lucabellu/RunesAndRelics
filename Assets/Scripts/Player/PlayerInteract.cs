@@ -28,159 +28,183 @@ public class PlayerInteract : MonoBehaviour
     #endregion
 
     private bool isPlayerInCustomerRange = false;
+    private Document currentDocument;
 
     private void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
+        InitializeLineRenderer();
+    }
 
+    private void Update()
+    {
+        HandleObjectInteraction();
+        HandleDocumentInteraction();
+        HighlightObject();
+    }
+
+    private void FixedUpdate()
+    {
+        if (isHoldingObject)
+        {
+            MoveObjectToHoldPos();
+        }
+    }
+
+    private void InitializeLineRenderer()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.startWidth = 0.1f;
         lineRenderer.endWidth = 0.1f;
         lineRenderer.startColor = Color.green;
     }
 
-    private void Update()
+    private void HandleObjectInteraction()
     {
-        RaycastHit hit;
-
         if (Input.GetMouseButtonDown(0))
         {
             if (pickUpObject == null)
             {
-                PickUpObject();
+                TryPickUpObject();
             }
             else
             {
-                if (pickUpObject.TryGetComponent<Trinket>(out Trinket trinket))
-                {
-                    if (trinket.inCustomerRange && isPlayerInCustomerRange)
-                    {
-                        CustomerLogic currentCustomer = GameManager.Instance.currentCustomer;
-
-                        ItemRequirements itemRequirements = new ItemRequirements
-                        {
-                            ActiveRequirements = trinket.ActiveRequirements,
-                            RequiredRace = trinket.requiredRace,
-                            RequiredKingdom = trinket.requiredKingdom,
-                            RequiredOccupation = trinket.requiredOccupation,
-                            RequiredLevel = trinket.requiredLevel
-                        };
-
-                        bool meetsRequirements = GameManager.Instance.CheckRequirements
-                            (itemRequirements, 
-                            currentCustomer.customerRace, 
-                            currentCustomer.customerKingdom, 
-                            currentCustomer.customerOccupation, 
-                            currentCustomer.customerLevel);
-
-                        if (meetsRequirements)
-                        {
-                            Debug.Log("Customer meets the trinket's requirements!");
-                        }
-                        else
-                        {
-                            Debug.Log("Customer does not meet the trinket's requirements.");
-                        }
-
-                        Destroy(pickUpObject);
-                        pickUpObject = null;
-                    }
-                    else
-                    {
-                        DropObject();
-                    }
-                }
+                HandlePickUpObject();
             }
         }
+    }
 
+    private void HandleDocumentInteraction()
+    {
         if (Input.GetMouseButtonDown(1))
         {
-            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
+            if (currentDocument == null)
             {
-                IInteractable interactable = hit.transform.GetComponent<IInteractable>();
-                if (interactable != null)
-                {
-                    interactable.OnInteract();
-                }
+                TryInteractWithDocument();
+            }
+            else
+            {
+                currentDocument.OnInteract(false);
+                GameManager.Instance.SetPlayerDocumentState(false);
             }
         }
+    }
 
+    private void HighlightObject()
+    {
         if (!isHoldingObject)
         {
+            RaycastHit hit;
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
             {
                 GameObject hitObject = hit.transform.gameObject;
 
                 if (hitObject != highlightedObject)
                 {
-                    if (highlightedObject != null)
-                    {
-                        highlightedObject.GetComponent<IHighlightable>().OnHighlight(false);
-                    }
-                }
-
-                if (hitObject.TryGetComponent<IHighlightable>(out IHighlightable highlightable))
-                {
-                    highlightable.OnHighlight(true);
-                    highlightedObject = hitObject;
+                    UnhighlightCurrentObject();
+                    HighlightNewObject(hitObject);
                 }
             }
             else
             {
-                if (highlightedObject != null)
-                {
-                    highlightedObject.GetComponent<IHighlightable>().OnHighlight(false);
-                    highlightedObject = null;
-                }
+                UnhighlightCurrentObject();
             }
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (pickUpObject != null)
-        {
-            MoveObjectToHoldPos();
-        }
-    }
-
-    private void DrawRay(Vector3 start, Vector3 end, Color colour)
-    {
-        lineRenderer.enabled = true;
-
-        lineRenderer.enabled = true; // Enable the LineRenderer
-        lineRenderer.SetPosition(0, start); // Set the start point
-        lineRenderer.SetPosition(1, end); // Set the end point
-        lineRenderer.startColor = colour; // Set the start color
-        lineRenderer.endColor = colour;
-
-        Invoke("DisableLineRenderer", 5f); // Disable after 1 second
-
-    }
-
-    private void DisableLineRenderer()
-    {
-        lineRenderer.enabled = false;
-    }
-
-    private void PickUpObject()
+    private void TryPickUpObject()
     {
         RaycastHit hit;
         if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
         {
             isHoldingObject = true;
-
             pickUpObject = hit.transform.gameObject;
             pickUpRb = pickUpObject.GetComponent<Rigidbody>();
-            //pickUpRb.linearDamping = linearDampingValue;
-
             pickUpRb.useGravity = false;
             pickUpRb.freezeRotation = true;
-
             pickUpObject.transform.SetParent(objectHoldPos);
             pickUpObject.transform.localPosition = Vector3.zero;
         }
+    }
 
+    private void HandlePickUpObject()
+    {
+        if (pickUpObject.TryGetComponent<Trinket>(out Trinket trinket))
+        {
+            if (trinket.inCustomerRange && isPlayerInCustomerRange)
+            {
+                HandleCustomerInteraction(trinket);
+            }
+            else
+            {
+                DropObject();
+            }
+        }
+    }
 
+    private void HandleCustomerInteraction(Trinket trinket)
+    {
+        CustomerLogic currentCustomer = GameManager.Instance.currentCustomer;
+
+        ItemRequirements itemRequirements = new ItemRequirements
+        {
+            ActiveRequirements = trinket.ActiveRequirements,
+            RequiredRace = trinket.requiredRace,
+            RequiredKingdom = trinket.requiredKingdom,
+            RequiredOccupation = trinket.requiredOccupation,
+            RequiredLevel = trinket.requiredLevel
+        };
+
+        bool meetsRequirements = GameManager.Instance.CheckRequirements
+            (itemRequirements,
+            currentCustomer.customerRace,
+            currentCustomer.customerKingdom,
+            currentCustomer.customerOccupation,
+            currentCustomer.customerLevel);
+
+        Debug.Log(meetsRequirements ? "Customer meets the trinket's requirements!" : "Customer does not meet the trinket's requirements.");
+        Destroy(pickUpObject);
+        pickUpObject = null;
+        isHoldingObject = false;
+    }
+
+    private void TryInteractWithDocument()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
+        {
+            IInteractable interactable = hit.transform.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                interactable.OnInteract(true);
+                GameManager.Instance.SetPlayerDocumentState(true);
+            }
+        }
+    }
+
+    private void UnhighlightCurrentObject()
+    {
+        if (highlightedObject != null)
+        {
+            highlightedObject.GetComponent<IHighlightable>().OnHighlight(false);
+            highlightedObject = null;
+        }
+    }
+
+    private void HighlightNewObject(GameObject hitObject)
+    {
+        if (hitObject.TryGetComponent<IHighlightable>(out IHighlightable highlightable))
+        {
+            highlightable.OnHighlight(true);
+            highlightedObject = hitObject;
+        }
+    }
+
+    private void MoveObjectToHoldPos()
+    {
+        Vector3 direction = (objectHoldPos.position - pickUpObject.transform.position);
+        Vector3 targetVelocity = direction * objectMoveSpeed;
+
+        pickUpRb.linearVelocity = Vector3.SmoothDamp(pickUpRb.linearVelocity, targetVelocity, ref velocitySmoothDamp, smoothTime);
     }
 
     private void DropObject()
@@ -188,26 +212,12 @@ public class PlayerInteract : MonoBehaviour
         if (pickUpObject != null)
         {
             isHoldingObject = false;
-
             pickUpRb.useGravity = true;
             pickUpRb.freezeRotation = false;
-
             pickUpObject.transform.SetParent(null);
             pickUpObject = null;
             pickUpRb = null;
         }
-    }
-
-    private void MoveObjectToHoldPos()
-    {
-        // Calculate the direction and distance to the target position
-        Vector3 direction = (objectHoldPos.position - pickUpObject.transform.position);
-        Vector3 targetVelocity = direction * objectMoveSpeed;
-
-        // Apply damping to reduce oscillation
-        pickUpRb.linearVelocity = Vector3.SmoothDamp(pickUpRb.linearVelocity, targetVelocity, ref velocitySmoothDamp, smoothTime);
-
-        //pickUpRb.linearVelocity += (objectHoldPos.position - pickUpObject.transform.position) * objectMoveSpeed * Time.fixedDeltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
