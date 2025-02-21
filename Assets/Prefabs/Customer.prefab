@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193914eb6a1d92d4bbb27c6b2b732b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   moveSpeed: 2
 --- !u!114 &1837545177901407731
 MonoBehaviour:
@@ -251,7 +250,7 @@ GameObject:
   - component: {fileID: 9113303757736324582}
   - component: {fileID: 2768931455196993588}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: DialogueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

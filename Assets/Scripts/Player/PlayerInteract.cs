@@ -85,6 +85,7 @@ public class PlayerInteract : MonoBehaviour
             {
                 currentDocument.OnInteract(false);
                 GameManager.Instance.SetPlayerDocumentState(false);
+                currentDocument = null;
             }
         }
     }
@@ -175,6 +176,7 @@ public class PlayerInteract : MonoBehaviour
             IInteractable interactable = hit.transform.GetComponent<IInteractable>();
             if (interactable != null)
             {
+                currentDocument = hit.transform.GetComponent<Document>();
                 interactable.OnInteract(true);
                 GameManager.Instance.SetPlayerDocumentState(true);
             }

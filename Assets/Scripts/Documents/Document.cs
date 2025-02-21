@@ -8,21 +8,17 @@ public class Document : MonoBehaviour, IInteractable, IHighlightable
     //create a parent class for document types to derive from
     //base class requires a canvas reference
 
-    private Canvas documentCanvas;
-    private void Start()
-    {
-        documentCanvas = GetComponentInChildren<Canvas>();
-    }
+    [SerializeField] private GameObject documentCanvas;
 
     public void OnInteract(bool isInteracting)
     {
         if (isInteracting)
         {
-            documentCanvas.enabled = true;
+            documentCanvas.gameObject.SetActive(true);
         }
         else
         {
-            documentCanvas.enabled = false;
+            documentCanvas.gameObject.SetActive(false);
         }
     }
 
