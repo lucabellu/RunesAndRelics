@@ -29,6 +29,7 @@ public class PlayerInteract : MonoBehaviour
 
     private bool isPlayerInCustomerRange = false;
     private Document currentDocument;
+    private bool isInteractingWithDocument = false;
 
     private void Start()
     {
@@ -77,15 +78,19 @@ public class PlayerInteract : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            if (currentDocument == null)
+            if (!isHoldingObject)
             {
-                TryInteractWithDocument();
-            }
-            else
-            {
-                currentDocument.OnInteract(false);
-                GameManager.Instance.SetPlayerDocumentState(false);
-                currentDocument = null;
+                if (currentDocument == null)
+                {
+                    TryInteractWithDocument();
+                }
+                else
+                {
+                    currentDocument.OnInteract(false);
+                    GameManager.Instance.SetPlayerDocumentState(false);
+                    isInteractingWithDocument = false;
+                    currentDocument = null;
+                }
             }
         }
     }
@@ -114,16 +119,19 @@ public class PlayerInteract : MonoBehaviour
 
     private void TryPickUpObject()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
+        if (!isInteractingWithDocument)
         {
-            isHoldingObject = true;
-            pickUpObject = hit.transform.gameObject;
-            pickUpRb = pickUpObject.GetComponent<Rigidbody>();
-            pickUpRb.useGravity = false;
-            pickUpRb.freezeRotation = true;
-            pickUpObject.transform.SetParent(objectHoldPos);
-            pickUpObject.transform.localPosition = Vector3.zero;
+            RaycastHit hit;
+            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
+            {
+                isHoldingObject = true;
+                pickUpObject = hit.transform.gameObject;
+                pickUpRb = pickUpObject.GetComponent<Rigidbody>();
+                pickUpRb.useGravity = false;
+                pickUpRb.freezeRotation = true;
+                pickUpObject.transform.SetParent(objectHoldPos);
+                pickUpObject.transform.localPosition = Vector3.zero;
+            }
         }
     }
 
@@ -139,6 +147,10 @@ public class PlayerInteract : MonoBehaviour
             {
                 DropObject();
             }
+        }
+        else
+        {
+            DropObject();
         }
     }
 
@@ -179,6 +191,7 @@ public class PlayerInteract : MonoBehaviour
                 currentDocument = hit.transform.GetComponent<Document>();
                 interactable.OnInteract(true);
                 GameManager.Instance.SetPlayerDocumentState(true);
+                isInteractingWithDocument = true;
             }
         }
     }
