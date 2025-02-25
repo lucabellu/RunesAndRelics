@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using static GameManager;
 
 public class PlayerInteract : MonoBehaviour
@@ -41,6 +42,12 @@ public class PlayerInteract : MonoBehaviour
         HandleObjectInteraction();
         HandleDocumentInteraction();
         HighlightObject();
+
+        if (isHoldingObject)
+        {
+            GameManager.Instance.TogglePopup(true, false);
+            GameManager.Instance.TogglePopup(false, false);
+        }
     }
 
     private void FixedUpdate()
@@ -184,6 +191,8 @@ public class PlayerInteract : MonoBehaviour
         Destroy(pickUpObject);
         pickUpObject = null;
         isHoldingObject = false;
+
+        GameManager.Instance.OnSale.Invoke();
     }
 
     private void TryInteractWithDocument()

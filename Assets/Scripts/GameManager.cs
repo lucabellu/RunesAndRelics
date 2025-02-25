@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class GameManager : MonoBehaviour
     public GameObject rightPopup;
 
     private AudioSource audioSource;
+
+    public UnityEvent OnSale;
 
     private void Start()
     {
