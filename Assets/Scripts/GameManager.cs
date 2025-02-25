@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,6 +40,8 @@ public class GameManager : MonoBehaviour
     public GameObject leftPopup;
     public GameObject rightPopup;
 
+    private AudioSource audioSource;
+
     private void Start()
     {
         customerIndex = 0;
@@ -47,6 +50,8 @@ public class GameManager : MonoBehaviour
         {
             SpawnNextCustomer(customerIndex);
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     [Flags]
@@ -151,6 +156,19 @@ public class GameManager : MonoBehaviour
             {
                 rightPopup.SetActive(false);
             }
+        }
+    }
+
+    public void PlayAudio(AudioResource audioResource, float volume)
+    {
+        if (audioResource != null)
+        {
+            audioSource.volume = volume;
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("AudioResource is not assigned to " + name);
         }
     }
 }
