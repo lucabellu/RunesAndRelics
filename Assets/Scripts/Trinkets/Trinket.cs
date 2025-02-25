@@ -14,7 +14,24 @@ public class Trinket : MonoBehaviour, IHighlightable
     public Occupation requiredOccupation;
     public int requiredLevel;
 
+    [SerializeField] private TrinketDataSO trinketDataSO;
+
     public bool inCustomerRange { get; private set; } = false;
+
+    private void Start()
+    {
+        if (trinketDataSO != null)
+        {
+            requiredRace = trinketDataSO.requiredRace;
+            requiredKingdom = trinketDataSO.requiredKingdom;
+            requiredOccupation = trinketDataSO.requiredOccupation;
+            requiredLevel = trinketDataSO.requiredLevel;
+        }
+        else
+        {
+            Debug.LogWarning("TrinketDataSO is not assigned to " + name);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {

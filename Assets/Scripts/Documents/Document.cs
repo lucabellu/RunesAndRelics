@@ -1,5 +1,5 @@
 using UnityEngine;
-// I want to create a c# script that stores the data for different documents but the document type can be chosen via an enum and the required data for each document depends on the enum type
+// I want to create a c# script that stores the data for different documents and create varients as a child class
 
 public class Document : MonoBehaviour, IInteractable, IHighlightable
 {
