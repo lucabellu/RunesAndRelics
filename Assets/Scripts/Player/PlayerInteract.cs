@@ -109,9 +109,15 @@ public class PlayerInteract : MonoBehaviour
                     UnhighlightCurrentObject();
                     HighlightNewObject(hitObject);
                 }
+
+                if (hitObject.TryGetComponent<IInteractable>(out IInteractable interactable))
+                {
+                    GameManager.Instance.TogglePopup(false, true);
+                }
             }
             else
             {
+                GameManager.Instance.TogglePopup(false, false);
                 UnhighlightCurrentObject();
             }
         }

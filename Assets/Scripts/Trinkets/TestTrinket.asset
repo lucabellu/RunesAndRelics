@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73670634db8522e44a350475d133b9fb, type: 3}
   m_Name: TestTrinket
   m_EditorClassIdentifier: 
+  requiredRace: 6
+  requiredKingdom: 2
+  requiredOccupation: 3
+  requiredLevel: 50

@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     public Transform target;
     private int customerIndex;
 
+    public GameObject leftPopup;
+    public GameObject rightPopup;
+
     private void Start()
     {
         customerIndex = 0;
@@ -123,5 +126,31 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = cursorLockMode;
         Cursor.visible = visible;
         Time.timeScale = timeScale;
+    }
+
+    public void TogglePopup(bool isLeft, bool on)
+    {
+        if (isLeft)
+        {
+            if (on)
+            {
+                leftPopup.SetActive(true);
+            }
+            else
+            {
+                leftPopup.SetActive(false);
+            }
+        }
+        else
+        {
+            if (on)
+            {
+                rightPopup.SetActive(true);
+            }
+            else
+            {
+                rightPopup.SetActive(false);
+            }
+        }
     }
 }

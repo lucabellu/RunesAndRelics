@@ -27,10 +27,12 @@ public class Document : MonoBehaviour, IInteractable, IHighlightable
         if (isHovering)
         {
             GetComponent<Outline>().enabled = true;
+            GameManager.Instance.TogglePopup(true, true);
         }
         else
         {
             GetComponent<Outline>().enabled = false;
+            GameManager.Instance.TogglePopup(true, false);
         }
     }
 }
