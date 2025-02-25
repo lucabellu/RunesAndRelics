@@ -886,6 +886,9 @@ MonoBehaviour:
   target: {fileID: 1040048154}
   leftPopup: {fileID: 1091047876}
   rightPopup: {fileID: 877724058}
+  OnSale:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &859325192
 Transform:
   m_ObjectHideFlags: 0
