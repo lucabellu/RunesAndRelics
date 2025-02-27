@@ -10,6 +10,8 @@ public class CustomerDataSO : ScriptableObject
     public Race customerRace;
     public Kingdom kingdom;
     public Occupation occupation;
+    public Guild guild;
+    public GuildRank guildRank;
 }
 
 public enum Race
@@ -41,5 +43,25 @@ public enum Occupation
     DRUID,
     RANGER,
     WIZARD,
+    NONE
+}
+
+public enum Guild
+{
+    HOLY,
+    ASSASSIN,
+    MERCHANT,
+    MAGE,
+    NATURE,
+    NONE
+}
+
+public enum GuildRank
+{
+    NOVICE,
+    APPRENTICE,
+    JOURNEYMAN,
+    VICEMASTER,
+    MASTER,
     NONE
 }

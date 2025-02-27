@@ -197,7 +197,9 @@ public class PlayerInteract : MonoBehaviour
             currentCustomer.customerRace,
             currentCustomer.customerKingdom,
             currentCustomer.customerOccupation,
-            currentCustomer.customerAge);
+            currentCustomer.customerAge,
+            currentCustomer.customerGuild,
+            currentCustomer.customerGuildRank);
 
         Debug.Log(meetsRequirements ? "Customer meets the trinket's requirements!" : "Customer does not meet the trinket's requirements.");
         Destroy(pickUpObject);

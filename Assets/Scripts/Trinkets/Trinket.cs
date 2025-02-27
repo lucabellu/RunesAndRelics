@@ -9,10 +9,13 @@ public class Trinket : MonoBehaviour, IHighlightable
     //can be interacted with by player
     //can be given to customer
 
-    public Race requiredRace;
-    public Kingdom requiredKingdom;
-    public Occupation requiredOccupation;
-    public int requiredAge;
+    public Race requiredRace { get; private set; }
+    public Kingdom requiredKingdom {get; private set;}
+    public Occupation requiredOccupation {get; private set;}
+    public int requiredAge {get; private set;}
+    public Guild requiredGuild {get; private set;}
+    public GuildRank requiredGuildRank {get; private set;}
+
 
     [SerializeField] private TrinketDataSO trinketDataSO;
 
@@ -25,7 +28,9 @@ public class Trinket : MonoBehaviour, IHighlightable
             requiredRace = trinketDataSO.requiredRace;
             requiredKingdom = trinketDataSO.requiredKingdom;
             requiredOccupation = trinketDataSO.requiredOccupation;
-            requiredAge = trinketDataSO.requiredLevel;
+            requiredAge = trinketDataSO.requiredAge;
+            requiredGuild = trinketDataSO.requiredGuild;
+            requiredGuildRank = trinketDataSO.requiredGuildRank;
         }
         else
         {
@@ -80,6 +85,12 @@ public class Trinket : MonoBehaviour, IHighlightable
 
             if (requiredAge > 0) // Assuming 0 means no age requirement
                 flags |= RequirementFlags.Age;
+
+            if (requiredGuild != Guild.NONE) // Assuming Guild.None is a default/unset value
+                flags |= RequirementFlags.Guild;
+
+            if (requiredGuildRank != GuildRank.NONE) // Assuming GuildRank.None is a default/unset value
+                flags |= RequirementFlags.GuildRank;
 
             return flags;
         }

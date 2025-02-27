@@ -6,5 +6,7 @@ public class TrinketDataSO : ScriptableObject
     public Race requiredRace;
     public Kingdom requiredKingdom;
     public Occupation requiredOccupation;
-    public int requiredLevel;
+    public int requiredAge;
+    public Guild requiredGuild;
+    public GuildRank requiredGuildRank;
 }

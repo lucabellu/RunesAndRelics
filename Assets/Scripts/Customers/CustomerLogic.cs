@@ -12,28 +12,28 @@ public class CustomerLogic : MonoBehaviour
     //show dialogue if player enters collision
     //
 
-    private CustomerMovement customerMovement;
     [SerializeField] private CustomerDataSO customerData;
 
-
-    public string customerName { get; private set; }
     public int customerAge { get; private set; }
     public Race customerRace { get; private set; }
     public Kingdom customerKingdom { get; private set; }
     public Occupation customerOccupation { get; private set; }
+    public Guild customerGuild { get; private set; }
+    public GuildRank customerGuildRank { get; private set; }
+
 
 
     private void Start()
     {
-        customerMovement = GetComponent<CustomerMovement>();
-
-        customerName = customerData.customerName;
         customerAge = customerData.customerAge;
         customerRace = customerData.customerRace;
         customerKingdom = customerData.kingdom;
         customerOccupation = customerData.occupation;
+        customerGuild = customerData.guild;
+        customerGuildRank = customerData.guildRank;
     }
 
+    /*
     public RequirementFlags customerFields
     {
         get
@@ -55,4 +55,5 @@ public class CustomerLogic : MonoBehaviour
             return flags;
         }
     }
+    */
 }
