@@ -189,7 +189,7 @@ public class PlayerInteract : MonoBehaviour
             RequiredRace = trinket.requiredRace,
             RequiredKingdom = trinket.requiredKingdom,
             RequiredOccupation = trinket.requiredOccupation,
-            RequiredLevel = trinket.requiredLevel
+            RequiredAge = trinket.requiredAge
         };
 
         bool meetsRequirements = GameManager.Instance.CheckRequirements
@@ -197,7 +197,7 @@ public class PlayerInteract : MonoBehaviour
             currentCustomer.customerRace,
             currentCustomer.customerKingdom,
             currentCustomer.customerOccupation,
-            currentCustomer.customerLevel);
+            currentCustomer.customerAge);
 
         Debug.Log(meetsRequirements ? "Customer meets the trinket's requirements!" : "Customer does not meet the trinket's requirements.");
         Destroy(pickUpObject);

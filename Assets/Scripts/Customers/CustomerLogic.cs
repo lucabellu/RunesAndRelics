@@ -20,7 +20,7 @@ public class CustomerLogic : MonoBehaviour
     [SerializeField] private CustomerDataSO customerData;
 
     public string customerName { get; private set; }
-    public int customerLevel { get; private set; }
+    public int customerAge { get; private set; }
     public Race customerRace { get; private set; }
     public Kingdom customerKingdom { get; private set; }
     public Occupation customerOccupation { get; private set; }
@@ -33,7 +33,7 @@ public class CustomerLogic : MonoBehaviour
         dialogueText.text = customerData.customerDialogue;
 
         customerName = customerData.customerName;
-        customerLevel = customerData.customerLevel;
+        customerAge = customerData.customerAge;
         customerRace = customerData.customerRace;
         customerKingdom = customerData.kingdom;
         customerOccupation = customerData.occupation;
@@ -102,8 +102,8 @@ public class CustomerLogic : MonoBehaviour
             if (customerOccupation != Occupation.NONE) // Assuming Occupation.None is a default/unset value
                 flags |= RequirementFlags.Occupation;
 
-            if (customerLevel > 0) // Assuming 0 means no level requirement
-                flags |= RequirementFlags.Level;
+            if (customerAge > 0) // Assuming 0 means no age requirement
+                flags |= RequirementFlags.Age;
 
             return flags;
         }

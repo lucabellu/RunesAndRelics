@@ -12,7 +12,7 @@ public class Trinket : MonoBehaviour, IHighlightable
     public Race requiredRace;
     public Kingdom requiredKingdom;
     public Occupation requiredOccupation;
-    public int requiredLevel;
+    public int requiredAge;
 
     [SerializeField] private TrinketDataSO trinketDataSO;
 
@@ -25,7 +25,7 @@ public class Trinket : MonoBehaviour, IHighlightable
             requiredRace = trinketDataSO.requiredRace;
             requiredKingdom = trinketDataSO.requiredKingdom;
             requiredOccupation = trinketDataSO.requiredOccupation;
-            requiredLevel = trinketDataSO.requiredLevel;
+            requiredAge = trinketDataSO.requiredLevel;
         }
         else
         {
@@ -78,8 +78,8 @@ public class Trinket : MonoBehaviour, IHighlightable
             if (requiredOccupation != Occupation.NONE) // Assuming Occupation.None is a default/unset value
                 flags |= RequirementFlags.Occupation;
 
-            if (requiredLevel > 0) // Assuming 0 means no level requirement
-                flags |= RequirementFlags.Level;
+            if (requiredAge > 0) // Assuming 0 means no age requirement
+                flags |= RequirementFlags.Age;
 
             return flags;
         }

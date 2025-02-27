@@ -5,7 +5,7 @@ public class CustomerDataSO : ScriptableObject
 {
     public string customerName;
     public string customerDialogue;
-    public int customerLevel;
+    public int customerAge;
 
     public Race customerRace;
     public Kingdom kingdom;

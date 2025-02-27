@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         Race = 1 << 0,         // 1
         Kingdom = 1 << 1,      // 2
         Occupation = 1 << 2,   // 4
-        Level = 1 << 3         // 8
+        Age = 1 << 3         // 8
     }
 
     public class ItemRequirements
@@ -79,35 +79,35 @@ public class GameManager : MonoBehaviour
         public Race RequiredRace { get; set; }
         public Kingdom RequiredKingdom { get; set; }
         public Occupation RequiredOccupation { get; set; }
-        public int RequiredLevel { get; set; }
+        public int RequiredAge { get; set; }
     }
 
-    public bool CheckRequirements(ItemRequirements itemRequirements, Race playerRace, Kingdom playerKingdom, Occupation playerOccupation, int playerLevel)
+    public bool CheckRequirements(ItemRequirements itemRequirements, Race customerRace, Kingdom customerKingdom, Occupation customerOccupation, int customerAge)
     {
         // Check Race requirement
         if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Race) &&
-            itemRequirements.RequiredRace != playerRace)
+            itemRequirements.RequiredRace != customerRace)
         {
             return false;
         }
 
         // Check Kingdom requirement
         if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Kingdom) &&
-            itemRequirements.RequiredKingdom != playerKingdom)
+            itemRequirements.RequiredKingdom != customerKingdom)
         {
             return false;
         }
 
         // Check Occupation requirement
         if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Occupation) &&
-            itemRequirements.RequiredOccupation != playerOccupation)
+            itemRequirements.RequiredOccupation != customerOccupation)
         {
             return false;
         }
 
         // Check Level requirement
-        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Level) &&
-            itemRequirements.RequiredLevel > playerLevel)
+        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Age) &&
+            itemRequirements.RequiredAge > customerAge)
         {
             return false;
         }

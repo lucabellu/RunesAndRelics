@@ -3,11 +3,6 @@ using UnityEngine;
 
 public class Document : MonoBehaviour, IInteractable, IHighlightable
 {
-    //objectives
-    //
-    //create a parent class for document types to derive from
-    //base class requires a canvas reference
-
     [SerializeField] private GameObject documentCanvas;
 
     public void OnInteract(bool isInteracting)
