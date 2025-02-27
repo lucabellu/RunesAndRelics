@@ -48,6 +48,18 @@ public class PlayerInteract : MonoBehaviour
             GameManager.Instance.TogglePopup(true, false);
             GameManager.Instance.TogglePopup(false, false);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Time.timeScale == 1)
+            {
+                GameManager.Instance.TogglePauseMenu(true);
+            }
+            else
+            {
+                GameManager.Instance.TogglePauseMenu(false);
+            }
+        }
     }
 
     private void FixedUpdate()

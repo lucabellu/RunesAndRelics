@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
     public List<Transform> trinketSpawnPoints;
     public List<Trinket> trinkets;
 
+    [SerializeField] private GameObject pauseMenu;
+
     private void Start()
     {
         customerIndex = 0;
@@ -193,6 +195,28 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("TrinketSpawnPoints is empty");
+        }
+    }
+
+    public void TogglePauseMenu(bool on)
+    {
+        if (on)
+        {
+            Time.timeScale = 0;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            pauseMenu.gameObject.SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            pauseMenu.gameObject.SetActive(false);
         }
     }
 }
