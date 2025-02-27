@@ -54,6 +54,8 @@ public class CustomerMovement : MonoBehaviour
         }
         else
         {
+            StartCoroutine(customerLogic.HideDialogue(0f));
+
             Vector3 currentPosition = transform.position;
             Vector3 targetPosition = new Vector3(spawnPos.x, currentPosition.y, spawnPos.z);
 

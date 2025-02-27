@@ -15,6 +15,7 @@ public class CustomerLogic : MonoBehaviour
 
     [SerializeField] private Canvas canvas;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private float textSpeed;
 
     [SerializeField] private CustomerDataSO customerData;
 
@@ -49,11 +50,24 @@ public class CustomerLogic : MonoBehaviour
     public void ShowDialogue()
     {
         canvas.gameObject.SetActive(true);
+        StartCoroutine(TypeLine(customerData.customerDialogue));
+    }
+
+    private IEnumerator TypeLine(string line)
+    {
+        dialogueText.text = "";
+        foreach (char c in line)
+        {
+            dialogueText.text += c;
+            yield return new WaitForSeconds(textSpeed);
+        }
     }
 
     public IEnumerator HideDialogue(float timeToHide)
     {
         yield return new WaitForSeconds(timeToHide);
+        dialogueText.text = "";
+        StopCoroutine(TypeLine(customerData.customerDialogue));
         canvas.gameObject.SetActive(false);
     }
 

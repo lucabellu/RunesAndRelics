@@ -162,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 3794917019528090462}
   dialogueText: {fileID: 2768931455196993588}
+  textSpeed: 0.04
   customerData: {fileID: 11400000, guid: 5682d60fe8841a64b979b953c0ad01a7, type: 2}
 --- !u!1 &752879516037912519
 GameObject:
@@ -331,9 +332,9 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 0.25
-  m_fontSizeBase: 36
+  m_fontSizeBase: 0.25
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 0
