@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
     public CustomerLogic currentCustomer { get; private set; }
     public Transform customerSpawn;
     public Transform target;
-    private int customerIndex;
+    public int customerIndex { get; private set; }
 
     public GameObject leftPopup;
     public GameObject rightPopup;
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
 
         if (customers.Count > 0)
         {
-            SpawnNextCustomer(customerIndex);
+            StartCoroutine(SpawnNextCustomer(customerIndex, 0));
         }
 
         audioSource = GetComponent<AudioSource>();
@@ -110,11 +111,13 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    private void SpawnNextCustomer(int index)
+    public IEnumerator SpawnNextCustomer(int index, float delay)
     {
+        yield return new WaitForSeconds(delay);
         CustomerLogic customer = Instantiate(customers[index], customerSpawn.position, Quaternion.identity);
         currentCustomer = customer;
         customerIndex++;
+        print("Customer spawned");
     }
 
     public void SetPlayerDocumentState(bool isInDocument)

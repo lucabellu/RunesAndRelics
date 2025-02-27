@@ -72,7 +72,6 @@ public class CustomerMovement : MonoBehaviour
                     isRotating = false;
                 }
             }
-
             Destroy(gameObject, 5f);
         }
     }
@@ -85,7 +84,6 @@ public class CustomerMovement : MonoBehaviour
     private void OnDisable()
     {
         GameManager.Instance.OnSale.RemoveListener(CustomerExit);
-        print("test");
     }
 
     public void CustomerExit()

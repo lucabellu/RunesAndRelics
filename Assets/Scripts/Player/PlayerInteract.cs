@@ -193,6 +193,7 @@ public class PlayerInteract : MonoBehaviour
         isHoldingObject = false;
 
         GameManager.Instance.OnSale.Invoke();
+        StartCoroutine(GameManager.Instance.SpawnNextCustomer(GameManager.Instance.customerIndex, 7f));
     }
 
     private void TryInteractWithDocument()
