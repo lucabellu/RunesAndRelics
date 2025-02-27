@@ -46,6 +46,9 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent OnSale;
 
+    public List<Transform> trinketSpawnPoints;
+    public List<Trinket> trinkets;
+
     private void Start()
     {
         customerIndex = 0;
@@ -175,6 +178,21 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("AudioResource is not assigned to " + name);
+        }
+    }
+
+    public void SpawnTrinkets()
+    {
+        if (trinketSpawnPoints.Count > 0 && trinkets.Count > 0)
+        {
+            foreach (Transform spawnPoint in trinketSpawnPoints)
+            {
+                Trinket trinket = Instantiate(trinkets[UnityEngine.Random.Range(0, trinkets.Count)], spawnPoint.position, Quaternion.identity);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("TrinketSpawnPoints is empty");
         }
     }
 }
