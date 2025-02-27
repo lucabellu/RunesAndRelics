@@ -821,6 +821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customers:
   - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
+  - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
   customerSpawn: {fileID: 1891883287}
   target: {fileID: 1040048154}
   leftPopup: {fileID: 1091047876}
@@ -828,6 +829,8 @@ MonoBehaviour:
   OnSale:
     m_PersistentCalls:
       m_Calls: []
+  trinketSpawnPoints: []
+  trinkets: []
 --- !u!4 &859325192
 Transform:
   m_ObjectHideFlags: 0
