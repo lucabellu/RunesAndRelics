@@ -16,8 +16,9 @@ public class CustomerLogic : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private float textSpeed;
-
     [SerializeField] private CustomerDataSO customerData;
+
+    private bool isTalking = false;
 
     public string customerName { get; private set; }
     public int customerAge { get; private set; }
@@ -49,18 +50,21 @@ public class CustomerLogic : MonoBehaviour
 
     public void ShowDialogue()
     {
+        if (isTalking) return;
         canvas.gameObject.SetActive(true);
         StartCoroutine(TypeLine(customerData.customerDialogue));
     }
 
     private IEnumerator TypeLine(string line)
     {
+        isTalking = true;
         dialogueText.text = "";
         foreach (char c in line)
         {
             dialogueText.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+        isTalking = false;
     }
 
     public IEnumerator HideDialogue(float timeToHide)
@@ -83,7 +87,7 @@ public class CustomerLogic : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(HideDialogue(0.5f));
+            StartCoroutine(HideDialogue(0f));
         }
     }
 

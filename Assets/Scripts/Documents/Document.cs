@@ -3,7 +3,13 @@ using UnityEngine;
 
 public class Document : MonoBehaviour, IInteractable, IHighlightable
 {
-    [SerializeField] private GameObject documentCanvas;
+    private GameObject documentCanvas;
+
+    private void Start()
+    {
+        documentCanvas = transform.GetChild(0).gameObject;
+        documentCanvas.gameObject.SetActive(false);
+    }
 
     public void OnInteract(bool isInteracting)
     {
