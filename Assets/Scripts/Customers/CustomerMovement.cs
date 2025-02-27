@@ -12,10 +12,10 @@ public class CustomerMovement : MonoBehaviour
     private Vector3 spawnPos;
     [SerializeField] private float moveSpeed;
 
-    private CustomerLogic customerLogic;
+    private CustomerDialogue customerDialogue;
 
-    public bool showDialogue { get; private set; } = false;
-    private bool firstDialogue = true;
+    public bool showDialogue = false;
+    public bool firstDialogue { get; private set; } = true;
 
     private bool hasMadeSale = false;
 
@@ -24,7 +24,7 @@ public class CustomerMovement : MonoBehaviour
 
     private void Start()
     {
-        customerLogic = GetComponent<CustomerLogic>();
+        customerDialogue = GetComponent<CustomerDialogue>();
         spawnPos = GameManager.Instance.customerSpawn.position;
         target = GameManager.Instance.target;
 
@@ -46,15 +46,15 @@ public class CustomerMovement : MonoBehaviour
             {
                 if (firstDialogue)
                 {
-                    customerLogic.ShowDialogue();
-                    StartCoroutine(customerLogic.HideDialogue(4f));
+                    showDialogue = true;
                     firstDialogue = false;
+                    customerDialogue.StartCoroutine(customerDialogue.HideDialogue(4f));
                 }
             }
         }
         else
         {
-            StartCoroutine(customerLogic.HideDialogue(0f));
+            StartCoroutine(customerDialogue.HideDialogue(0f));
 
             Vector3 currentPosition = transform.position;
             Vector3 targetPosition = new Vector3(spawnPos.x, currentPosition.y, spawnPos.z);

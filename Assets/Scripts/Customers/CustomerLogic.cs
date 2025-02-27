@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using static GameManager;
@@ -12,13 +13,8 @@ public class CustomerLogic : MonoBehaviour
     //
 
     private CustomerMovement customerMovement;
-
-    [SerializeField] private Canvas canvas;
-    [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private float textSpeed;
     [SerializeField] private CustomerDataSO customerData;
 
-    private bool isTalking = false;
 
     public string customerName { get; private set; }
     public int customerAge { get; private set; }
@@ -30,65 +26,12 @@ public class CustomerLogic : MonoBehaviour
     private void Start()
     {
         customerMovement = GetComponent<CustomerMovement>();
-        canvas.gameObject.SetActive(false);
-        dialogueText.text = customerData.customerDialogue;
 
         customerName = customerData.customerName;
         customerAge = customerData.customerAge;
         customerRace = customerData.customerRace;
         customerKingdom = customerData.kingdom;
         customerOccupation = customerData.occupation;
-    }
-
-    private void Update()
-    {
-        if (customerMovement.showDialogue)
-        {
-            ShowDialogue();
-        }
-    }
-
-    public void ShowDialogue()
-    {
-        if (isTalking) return;
-        canvas.gameObject.SetActive(true);
-        StartCoroutine(TypeLine(customerData.customerDialogue));
-    }
-
-    private IEnumerator TypeLine(string line)
-    {
-        isTalking = true;
-        dialogueText.text = "";
-        foreach (char c in line)
-        {
-            dialogueText.text += c;
-            yield return new WaitForSeconds(textSpeed);
-        }
-        isTalking = false;
-    }
-
-    public IEnumerator HideDialogue(float timeToHide)
-    {
-        yield return new WaitForSeconds(timeToHide);
-        dialogueText.text = "";
-        StopCoroutine(TypeLine(customerData.customerDialogue));
-        canvas.gameObject.SetActive(false);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            ShowDialogue();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            StartCoroutine(HideDialogue(0f));
-        }
     }
 
     public RequirementFlags customerFields
