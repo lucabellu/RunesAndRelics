@@ -9,34 +9,14 @@ public class Trinket : MonoBehaviour, IHighlightable
     //can be interacted with by player
     //can be given to customer
 
-    public Race requiredRace { get; private set; }
-    public Kingdom requiredKingdom {get; private set;}
-    public Occupation requiredOccupation {get; private set;}
-    public int requiredAge {get; private set;}
-    public Guild requiredGuild {get; private set;}
-    public GuildRank requiredGuildRank {get; private set;}
-
-
-    [SerializeField] private TrinketDataSO trinketDataSO;
+    public Race requiredRace;
+    public Kingdom requiredKingdom;
+    public Occupation requiredOccupation;
+    public int requiredAge;
+    public Guild requiredGuild;
+    public GuildRank requiredGuildRank;
 
     public bool inCustomerRange { get; private set; } = false;
-
-    private void Start()
-    {
-        if (trinketDataSO != null)
-        {
-            requiredRace = trinketDataSO.requiredRace;
-            requiredKingdom = trinketDataSO.requiredKingdom;
-            requiredOccupation = trinketDataSO.requiredOccupation;
-            requiredAge = trinketDataSO.requiredAge;
-            requiredGuild = trinketDataSO.requiredGuild;
-            requiredGuildRank = trinketDataSO.requiredGuildRank;
-        }
-        else
-        {
-            Debug.LogWarning("TrinketDataSO is not assigned to " + name);
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {

@@ -94,7 +94,10 @@ public class CustomerMovement : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.OnSale.RemoveListener(CustomerExit);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnSale.RemoveListener(CustomerExit);
+        }
     }
 
     public void CustomerExit()
