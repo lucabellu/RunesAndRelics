@@ -150,11 +150,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ecdde57e782f44c9d9540ba23482de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trinketName: Test trinket
+  trinketDescription: This is a description for the test trinket
+  trinketImage: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   requiredRace: 0
   requiredKingdom: 0
   requiredOccupation: 0
-  requiredLevel: 0
-  trinketDataSO: {fileID: 11400000, guid: a5463f562a6410d46aa74030cd07080e, type: 2}
+  requiredAge: 20
+  requiredGuild: 0
+  requiredGuildRank: 0
 --- !u!114 &3452669511734531719
 MonoBehaviour:
   m_ObjectHideFlags: 0

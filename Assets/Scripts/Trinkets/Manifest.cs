@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using static GameManager;
 
 public class Manifest : MonoBehaviour, IHighlightable, IInteractable
 {
@@ -34,7 +35,7 @@ public class Manifest : MonoBehaviour, IHighlightable, IInteractable
         {
             SetUIFromTrinket(trinkets[0], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
             SetUIFromTrinket(trinkets[1], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
-            currentIndex = 1;
+            currentIndex = 0;
         }
         else if (trinkets != null && trinkets.Count == 1)
         {
@@ -94,7 +95,8 @@ public class Manifest : MonoBehaviour, IHighlightable, IInteractable
             trinketDescriptionRight.text = "";
             trinketImageRight.sprite = null;
             trinketRequirementsRight.text = "";
-            currentIndex += 1;
+            currentIndex += 2;
+            Debug.Log("Current index: " + currentIndex);
         }
         else
         {
@@ -112,14 +114,13 @@ public class Manifest : MonoBehaviour, IHighlightable, IInteractable
             currentIndex -= 2;
             Debug.Log("Current index: " + currentIndex);
         }
+
         else if (currentIndex - 1 >= 0)
         {
-            SetUIFromTrinket(trinkets[currentIndex - 1], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
-            trinketNameRight.text = "";
-            trinketDescriptionRight.text = "";
-            trinketImageRight.sprite = null;
-            trinketRequirementsRight.text = "";
-            currentIndex -= 1;
+            SetUIFromTrinket(trinkets[currentIndex - 2], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
+            SetUIFromTrinket(trinkets[currentIndex - 1], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
+            currentIndex -= 2;
+            Debug.Log("Current index: " + currentIndex);
         }
         else
         {
@@ -134,8 +135,33 @@ public class Manifest : MonoBehaviour, IHighlightable, IInteractable
         desc.text = trinket.trinketDescription;
         image.sprite = trinket.trinketImage;
 
-        //use activerequirements to display requirements
-        requirements.text = trinket.ActiveRequirements.ToString();
+        requirements.text = "Requirements:\n";
+
+        if (trinket.requiredRace != Race.NONE)
+        {
+            requirements.text += trinket.requiredRace.ToString() + "\n";
+        }
+        if (trinket.requiredKingdom != Kingdom.NONE)
+        {
+            requirements.text += trinket.requiredKingdom.ToString() + "\n";
+        }
+        if (trinket.requiredOccupation != Occupation.NONE)
+        {
+            requirements.text += trinket.requiredOccupation.ToString() + "\n";
+        }
+        if (trinket.requiredAge != 0)
+        {
+            requirements.text += trinket.requiredAge.ToString() + "\n";
+        }
+        if (trinket.requiredGuild != Guild.NONE)
+        {
+            requirements.text += trinket.requiredGuild.ToString() + "\n";
+        }
+        if (trinket.requiredGuildRank != GuildRank.NONE)
+        {
+            requirements.text += trinket.requiredGuildRank.ToString() + "\n";
+        }
+
 
     }
 }
