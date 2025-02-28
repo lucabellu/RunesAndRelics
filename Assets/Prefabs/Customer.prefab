@@ -163,6 +163,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customerData: {fileID: 11400000, guid: 5682d60fe8841a64b979b953c0ad01a7, type: 2}
+  documents:
+  - {fileID: 3094992345798132577, guid: d6e4abdf37cb7804eba4d710f1f2af99, type: 3}
+  hasDocuments: 1
 --- !u!114 &7905669096062456207
 MonoBehaviour:
   m_ObjectHideFlags: 0

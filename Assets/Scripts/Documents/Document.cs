@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class Document : MonoBehaviour, IInteractable, IHighlightable
 {
-    private GameObject documentCanvas;
+    [SerializeField] private GameObject documentCanvas;
+    public CustomerDataSO customerData;
 
     private void Start()
     {
-        documentCanvas = transform.GetChild(0).gameObject;
         documentCanvas.gameObject.SetActive(false);
     }
 

@@ -13,6 +13,7 @@ public class CustomerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
 
     private CustomerDialogue customerDialogue;
+    private CustomerLogic customerLogic;
 
     public bool showDialogue = false;
     public bool firstDialogue { get; private set; } = true;
@@ -25,6 +26,8 @@ public class CustomerMovement : MonoBehaviour
     private void Start()
     {
         customerDialogue = GetComponent<CustomerDialogue>();
+        customerLogic = GetComponent<CustomerLogic>();
+
         spawnPos = GameManager.Instance.customerSpawn.position;
         target = GameManager.Instance.target;
 
@@ -49,6 +52,12 @@ public class CustomerMovement : MonoBehaviour
                     showDialogue = true;
                     firstDialogue = false;
                     customerDialogue.StartCoroutine(customerDialogue.HideDialogue(4f));
+                }
+
+                if (customerLogic.hasDocuments)
+                {
+                    customerLogic.SpawnDocuments();
+                    customerLogic.hasDocuments = false;
                 }
             }
         }

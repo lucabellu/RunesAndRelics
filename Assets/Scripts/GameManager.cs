@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
     public List<Transform> trinketSpawnPoints;
     public List<Trinket> trinkets;
 
+    public List<Transform> documentSpawnPoints;
+
     [SerializeField] private GameObject pauseMenu;
 
     private void Start()
