@@ -9,6 +9,10 @@ public class Trinket : MonoBehaviour, IHighlightable
     //can be interacted with by player
     //can be given to customer
 
+    public string trinketName;
+    public string trinketDescription;
+    public Sprite trinketImage;
+
     public Race requiredRace;
     public Kingdom requiredKingdom;
     public Occupation requiredOccupation;
