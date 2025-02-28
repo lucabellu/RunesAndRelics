@@ -10,7 +10,7 @@ public class CustomerDialogue : MonoBehaviour
     [SerializeField] private float textSpeed;
 
     private CustomerMovement customerMovement;
-    [SerializeField] private CustomerDataSO customerData;
+    private CustomerLogic customerLogic;
 
     private bool isTalking = false;
     private Coroutine talkingCoroutine;
@@ -18,16 +18,17 @@ public class CustomerDialogue : MonoBehaviour
     private void Start()
     {
         customerMovement = GetComponent<CustomerMovement>();
+        customerLogic = GetComponent<CustomerLogic>();
 
         canvas.gameObject.SetActive(false);
-        dialogueText.text = customerData.customerDialogue;
+        dialogueText.text = customerLogic.customerDialogue;
     }
 
     private void Update()
     {
         if (customerMovement.showDialogue)
         {
-            StartOrResetDialogue(customerData.customerDialogue);
+            StartOrResetDialogue(customerLogic.customerDialogue);
             customerMovement.showDialogue = false;
         }
     }
@@ -77,7 +78,7 @@ public class CustomerDialogue : MonoBehaviour
     {
         if (other.CompareTag("Player") && !customerMovement.firstDialogue)
         {
-            StartOrResetDialogue(customerData.customerDialogue);
+            StartOrResetDialogue(customerLogic.customerDialogue);
         }
     }
 

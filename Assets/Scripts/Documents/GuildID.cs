@@ -10,8 +10,6 @@ public class GuildID : Document
     [SerializeField] private TextMeshProUGUI guildRankText;
     [SerializeField] private TextMeshProUGUI kingdomText;
 
-
-    [SerializeField] private Sprite customerImage;
     [SerializeField] private Sprite seal;
 
     [SerializeField] private Image customerImageDisplay;
@@ -30,12 +28,12 @@ public class GuildID : Document
     {
         if (!isCustomSet)
         {
-            nameText.text = customerData.customerName;
-            guildText.text = customerData.guild.ToString();
-            guildRankText.text = customerData.guildRank.ToString();
-            kingdomText.text = customerData.kingdom.ToString();
+            nameText.text = customerLogic.customerName;
+            guildText.text = customerLogic.customerGuild.ToString();
+            guildRankText.text = customerLogic.customerGuildRank.ToString();
+            kingdomText.text = customerLogic.customerKingdom.ToString();
 
-            customerImageDisplay.sprite = customerImage;
+            customerImageDisplay.sprite = customerLogic.customerPortrait;
             sealDisplay.sprite = seal;
         }
         else

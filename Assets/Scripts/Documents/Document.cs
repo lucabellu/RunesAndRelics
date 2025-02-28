@@ -4,7 +4,7 @@ using UnityEngine;
 public class Document : MonoBehaviour, IInteractable, IHighlightable
 {
     [SerializeField] private GameObject documentCanvas;
-    public CustomerDataSO customerData;
+    public CustomerLogic customerLogic;
 
     private void Start()
     {
