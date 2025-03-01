@@ -73,6 +73,8 @@ public class GameManager : MonoBehaviour
     public bool hasTalkedWithBoss = false;
 
     [SerializeField] private ShopDoor shopDoor;
+    [SerializeField] private ShopDoor bossDoor;
+
 
     private void Start()
     {
@@ -89,6 +91,16 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (canTalkWithBoss)
+        {
+            bossDoor.HighlightDoor();
+        }
+        else
+        {
+            bossDoor.UnhighlightDoor();
+        }
+
+
         if (hasTalkedWithBoss)
         {
             shopDoor.HighlightDoor();
@@ -159,10 +171,12 @@ public class GameManager : MonoBehaviour
         customerIndex = 0;
         //cool trnasition screen
         IncrementDay();
+        canTalkWithBoss = false;
+        hasTalkedWithBoss = false;
 
         if (currentCustomers.Count > 0)
         {
-            StartCoroutine(SpawnNextCustomer(0f, currentCustomers));
+            StartCoroutine(SpawnNextCustomer(5f, currentCustomers));
         }
     }
 

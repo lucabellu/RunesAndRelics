@@ -45,7 +45,11 @@ public class CustomerDialogue : MonoBehaviour
         // If a coroutine is already running, stop it
         if (isTalking)
         {
-            StopCoroutine(talkingCoroutine);
+            if (talkingCoroutine != null)
+            {
+                StopCoroutine(talkingCoroutine);
+            }
+
             isTalking = false;
         }
 
@@ -82,7 +86,12 @@ public class CustomerDialogue : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToHide);
         dialogueText.text = "";
-        StopCoroutine(talkingCoroutine);
+
+        if (talkingCoroutine != null)
+        {
+            StopCoroutine(talkingCoroutine);
+        }
+
         canvas.gameObject.SetActive(false);
     }
 
