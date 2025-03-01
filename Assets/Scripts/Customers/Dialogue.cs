@@ -113,9 +113,17 @@ public class CustomerDialogue : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && GameManager.Instance.canTalkWithBoss)
+        if (other.CompareTag("Player"))
         {
             StartCoroutine(HideDialogue(0f));
+        }
+
+        if (!isCustomer)
+        {
+            if (other.CompareTag("Player") && GameManager.Instance.canTalkWithBoss)
+            {
+                StartCoroutine(HideDialogue(0f));
+            }
         }
     }
 }
