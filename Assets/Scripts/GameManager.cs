@@ -47,7 +47,16 @@ public class GameManager : MonoBehaviour
     public UnityEvent OnSale;
 
     public List<Transform> trinketSpawnPoints;
-    public List<Trinket> trinkets;
+
+    public List<Trinket> day1Trinkets;
+    public List<Trinket> day2Trinkets;
+    public List<Trinket> day3Trinkets;
+    public List<Trinket> day4Trinkets;
+    public List<Trinket> day5Trinkets;
+
+    private int currentDay = 0;
+
+    public List<Trinket> currentTrinkets;
 
     public List<Transform> documentSpawnPoints;
 
@@ -63,6 +72,45 @@ public class GameManager : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
+
+        StartNewDay();
+    }
+
+    private void SpawnNewTrinkets(List<Trinket> trinketList)
+    {
+        currentTrinkets.Clear();
+        for (int i = 0; i < trinketSpawnPoints.Count; i++)
+        {
+            Trinket trinket = Instantiate(trinketList[i], trinketSpawnPoints[i].position, Quaternion.identity);
+            currentTrinkets.Add(trinket);
+        }
+    }
+
+    private void StartNewDay()
+    {
+        switch (currentDay)
+        {
+            case 0:
+                SpawnNewTrinkets(day1Trinkets);
+                break;
+            case 1:
+                SpawnNewTrinkets(day2Trinkets);
+                break;
+            case 2:
+                SpawnNewTrinkets(day3Trinkets);
+                break;
+            case 3:
+                SpawnNewTrinkets(day4Trinkets);
+                break;
+            case 4:
+                SpawnNewTrinkets(day5Trinkets);
+                break;
+            default:
+                Debug.LogError("Invalid day number");
+                break;
+        }
+
+        currentDay++;
     }
 
     [Flags]
@@ -202,22 +250,7 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("AudioResource is not assigned to " + name);
         }
     }
-
-    public void SpawnTrinkets()
-    {
-        if (trinketSpawnPoints.Count > 0 && trinkets.Count > 0)
-        {
-            foreach (Transform spawnPoint in trinketSpawnPoints)
-            {
-                Trinket trinket = Instantiate(trinkets[UnityEngine.Random.Range(0, trinkets.Count)], spawnPoint.position, Quaternion.identity);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("TrinketSpawnPoints is empty");
-        }
-    }
-
+    
     public void TogglePauseMenu(bool on)
     {
         if (on)

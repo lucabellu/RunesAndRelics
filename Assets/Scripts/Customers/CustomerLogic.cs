@@ -16,7 +16,6 @@ public class CustomerLogic : MonoBehaviour
     public bool hasDocuments;
 
     public string customerName;
-    public string customerDialogue;
     public int customerAge;
 
     public Race customerRace;

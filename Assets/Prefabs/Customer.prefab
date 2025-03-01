@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4759133807255343635}
   - component: {fileID: 6644897124546832347}
   - component: {fileID: 1837545177901407731}
-  - component: {fileID: 7905669096062456207}
+  - component: {fileID: 1271961438520568078}
   m_Layer: 0
   m_Name: Customer
   m_TagString: Customer
@@ -166,7 +166,6 @@ MonoBehaviour:
   - {fileID: 3094992345798132577, guid: d6e4abdf37cb7804eba4d710f1f2af99, type: 3}
   hasDocuments: 1
   customerName: Test Name
-  customerDialogue: This is some test dialogue
   customerAge: 26
   customerRace: 3
   customerKingdom: 0
@@ -174,7 +173,7 @@ MonoBehaviour:
   customerGuild: 0
   customerGuildRank: 1
   customerPortrait: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
---- !u!114 &7905669096062456207
+--- !u!114 &1271961438520568078
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,6 +188,8 @@ MonoBehaviour:
   canvas: {fileID: 3794917019528090462}
   dialogueText: {fileID: 2768931455196993588}
   textSpeed: 0.04
+  dialogue: This is some new test dialogue
+  isCustomer: 1
 --- !u!1 &752879516037912519
 GameObject:
   m_ObjectHideFlags: 0

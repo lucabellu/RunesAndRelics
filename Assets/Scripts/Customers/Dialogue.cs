@@ -8,28 +8,35 @@ public class CustomerDialogue : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private float textSpeed;
+    [SerializeField] private string dialogue;
 
     private CustomerMovement customerMovement;
-    private CustomerLogic customerLogic;
 
     private bool isTalking = false;
     private Coroutine talkingCoroutine;
 
+    [SerializeField] private bool isCustomer;
+
     private void Start()
     {
-        customerMovement = GetComponent<CustomerMovement>();
-        customerLogic = GetComponent<CustomerLogic>();
+        if (isCustomer)
+        {
+            customerMovement = GetComponent<CustomerMovement>();
+        }
 
         canvas.gameObject.SetActive(false);
-        dialogueText.text = customerLogic.customerDialogue;
+        dialogueText.text = dialogue;
     }
 
     private void Update()
     {
-        if (customerMovement.showDialogue)
+        if (isCustomer)
         {
-            StartOrResetDialogue(customerLogic.customerDialogue);
-            customerMovement.showDialogue = false;
+            if (customerMovement.showDialogue)
+            {
+                StartOrResetDialogue(dialogue);
+                customerMovement.showDialogue = false;
+            }
         }
     }
 
@@ -76,9 +83,17 @@ public class CustomerDialogue : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !customerMovement.firstDialogue)
+        if (isCustomer)
         {
-            StartOrResetDialogue(customerLogic.customerDialogue);
+            if (other.CompareTag("Player") && !customerMovement.firstDialogue)
+            {
+                StartOrResetDialogue(dialogue);
+            }
+        }
+
+        if (other.CompareTag("Player"))
+        {
+            StartOrResetDialogue(dialogue);
         }
     }
 

@@ -29,7 +29,7 @@ public class Manifest : MonoBehaviour, IHighlightable, IInteractable
 
     private void Start()
     {
-        trinkets = GameManager.Instance.trinkets;
+        trinkets = GameManager.Instance.currentTrinkets;
 
         if (trinkets != null && trinkets.Count >= 2)
         {
