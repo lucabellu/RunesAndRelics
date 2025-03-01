@@ -105,6 +105,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public IEnumerator SpawnNextCustomer(float delay, List<CustomerLogic> customerList)
+    {
+        if (!AllCustomersServed(currentCustomers))
+        {
+            yield return new WaitForSeconds(delay);
+            CustomerLogic customer = Instantiate(customerList[customerIndex], customerSpawn.position, Quaternion.identity);
+            currentCustomer = customer;
+            customerIndex++;
+            print("Customer spawned");
+        }
+        else
+        {
+            canTalkWithBoss = true;
+        }
+    }
+
     private void IncrementDay()
     {
         switch (currentDay)
@@ -144,20 +160,15 @@ public class GameManager : MonoBehaviour
         //cool trnasition screen
         IncrementDay();
 
+        if (currentCustomers.Count > 0)
+        {
+            StartCoroutine(SpawnNextCustomer(0f, currentCustomers));
+        }
     }
 
     private bool AllCustomersServed(List<CustomerLogic> customerList)
     {
-        if (customerIndex >= customerList.Count)
-        {
-            print("All customers served");
-            return true;
-        }
-        else
-        {
-            print("Customers remaining");
-            return false;
-        }
+        return customerIndex >= customerList.Count;
     }
 
     [Flags]
@@ -229,22 +240,6 @@ public class GameManager : MonoBehaviour
 
         // All active requirements are met
         return true;
-    }
-
-    public IEnumerator SpawnNextCustomer(float delay, List<CustomerLogic> customerList)
-    {
-        if (!AllCustomersServed(currentCustomers))
-        {
-            yield return new WaitForSeconds(delay);
-            CustomerLogic customer = Instantiate(customerList[customerIndex], customerSpawn.position, Quaternion.identity);
-            currentCustomer = customer;
-            customerIndex++;
-            print("Customer spawned");
-        }
-        else
-        {
-            canTalkWithBoss = true;
-        }
     }
 
     public void SetPlayerDocumentState(bool isInDocument)
