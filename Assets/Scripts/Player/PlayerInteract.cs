@@ -212,6 +212,11 @@ public class PlayerInteract : MonoBehaviour
                 {
                     GameManager.Instance.TogglePopup(false, true);
                 }
+
+                if (hitObject.CompareTag("Door") && GameManager.Instance.hasTalkedWithBoss)
+                {
+                    GameManager.Instance.TogglePopup(true, true);
+                }
             }
             else
             {
@@ -225,8 +230,16 @@ public class PlayerInteract : MonoBehaviour
     {
         if (highlightedObject != null)
         {
-            highlightedObject.GetComponent<IHighlightable>().OnHighlight(false);
-            highlightedObject = null;
+            if (highlightedObject.CompareTag("Door"))
+            {
+                GameManager.Instance.TogglePopup(true, false);
+                highlightedObject = null;
+            }
+            else
+            {
+                highlightedObject.GetComponent<IHighlightable>().OnHighlight(false);
+                highlightedObject = null;
+            }
         }
     }
 
@@ -235,6 +248,11 @@ public class PlayerInteract : MonoBehaviour
         if (hitObject.TryGetComponent<IHighlightable>(out IHighlightable highlightable))
         {
             highlightable.OnHighlight(true);
+            highlightedObject = hitObject;
+        }
+
+        if (hitObject.CompareTag("Door"))
+        {
             highlightedObject = hitObject;
         }
     }

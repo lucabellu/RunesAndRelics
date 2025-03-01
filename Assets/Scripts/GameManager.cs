@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         customerIndex = 0;
+        IncrementDay();
 
         if (day1Customers.Count > 0)
         {
@@ -84,8 +85,6 @@ public class GameManager : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
-
-        IncrementDay();
     }
 
     private void Update()
@@ -110,23 +109,23 @@ public class GameManager : MonoBehaviour
     {
         switch (currentDay)
         {
-            case 1:
+            case 0:
                 SpawnNewTrinkets(day1Trinkets);
                 currentCustomers = day1Customers;
                 break;
-            case 2:
+            case 1:
                 SpawnNewTrinkets(day2Trinkets);
                 currentCustomers = day2Customers;
                 break;
-            case 3:
+            case 2:
                 SpawnNewTrinkets(day3Trinkets);
                 currentCustomers = day3Customers;
                 break;
-            case 4:
+            case 3:
                 SpawnNewTrinkets(day4Trinkets);
                 currentCustomers = day4Customers;
                 break;
-            case 5:
+            case 4:
                 SpawnNewTrinkets(day5Trinkets);
                 currentCustomers = day5Customers;
                 break;
