@@ -104,6 +104,7 @@ public class GameManager : MonoBehaviour
         if (hasTalkedWithBoss)
         {
             shopDoor.HighlightDoor();
+            canTalkWithBoss = false;
         }
     }
 
