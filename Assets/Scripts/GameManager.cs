@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public List<CustomerLogic> customers;
     public CustomerLogic currentCustomer { get; private set; }
     public Transform customerSpawn;
     public Transform target;
@@ -54,26 +53,47 @@ public class GameManager : MonoBehaviour
     public List<Trinket> day4Trinkets;
     public List<Trinket> day5Trinkets;
 
+    public List<CustomerLogic> day1Customers;
+    public List<CustomerLogic> day2Customers;
+    public List<CustomerLogic> day3Customers;
+    public List<CustomerLogic> day4Customers;
+    public List<CustomerLogic> day5Customers;
+
     private int currentDay = 0;
 
     public List<Trinket> currentTrinkets;
+    public List<CustomerLogic> currentCustomers;
+
 
     public List<Transform> documentSpawnPoints;
 
     [SerializeField] private GameObject pauseMenu;
 
+    public bool canTalkWithBoss { get; private set; } = false;
+    public bool hasTalkedWithBoss = false;
+
+    [SerializeField] private ShopDoor shopDoor;
+
     private void Start()
     {
         customerIndex = 0;
 
-        if (customers.Count > 0)
+        if (day1Customers.Count > 0)
         {
-            StartCoroutine(SpawnNextCustomer(customerIndex, 0));
+            StartCoroutine(SpawnNextCustomer(0f, currentCustomers));
         }
 
         audioSource = GetComponent<AudioSource>();
 
-        StartNewDay();
+        IncrementDay();
+    }
+
+    private void Update()
+    {
+        if (hasTalkedWithBoss)
+        {
+            shopDoor.HighlightDoor();
+        }
     }
 
     private void SpawnNewTrinkets(List<Trinket> trinketList)
@@ -86,24 +106,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void StartNewDay()
+    private void IncrementDay()
     {
         switch (currentDay)
         {
-            case 0:
-                SpawnNewTrinkets(day1Trinkets);
-                break;
             case 1:
-                SpawnNewTrinkets(day2Trinkets);
+                SpawnNewTrinkets(day1Trinkets);
+                currentCustomers = day1Customers;
                 break;
             case 2:
-                SpawnNewTrinkets(day3Trinkets);
+                SpawnNewTrinkets(day2Trinkets);
+                currentCustomers = day2Customers;
                 break;
             case 3:
-                SpawnNewTrinkets(day4Trinkets);
+                SpawnNewTrinkets(day3Trinkets);
+                currentCustomers = day3Customers;
                 break;
             case 4:
+                SpawnNewTrinkets(day4Trinkets);
+                currentCustomers = day4Customers;
+                break;
+            case 5:
                 SpawnNewTrinkets(day5Trinkets);
+                currentCustomers = day5Customers;
                 break;
             default:
                 Debug.LogError("Invalid day number");
@@ -111,6 +136,29 @@ public class GameManager : MonoBehaviour
         }
 
         currentDay++;
+    }
+
+    public void EndDay()
+    {
+        shopDoor.UnhighlightDoor();
+        customerIndex = 0;
+        //cool trnasition screen
+        IncrementDay();
+
+    }
+
+    private bool AllCustomersServed(List<CustomerLogic> customerList)
+    {
+        if (customerIndex >= customerList.Count)
+        {
+            print("All customers served");
+            return true;
+        }
+        else
+        {
+            print("Customers remaining");
+            return false;
+        }
     }
 
     [Flags]
@@ -184,13 +232,20 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    public IEnumerator SpawnNextCustomer(int index, float delay)
+    public IEnumerator SpawnNextCustomer(float delay, List<CustomerLogic> customerList)
     {
-        yield return new WaitForSeconds(delay);
-        CustomerLogic customer = Instantiate(customers[index], customerSpawn.position, Quaternion.identity);
-        currentCustomer = customer;
-        customerIndex++;
-        print("Customer spawned");
+        if (!AllCustomersServed(currentCustomers))
+        {
+            yield return new WaitForSeconds(delay);
+            CustomerLogic customer = Instantiate(customerList[customerIndex], customerSpawn.position, Quaternion.identity);
+            currentCustomer = customer;
+            customerIndex++;
+            print("Customer spawned");
+        }
+        else
+        {
+            canTalkWithBoss = true;
+        }
     }
 
     public void SetPlayerDocumentState(bool isInDocument)

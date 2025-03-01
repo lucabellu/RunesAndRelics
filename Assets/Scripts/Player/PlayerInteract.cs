@@ -32,11 +32,6 @@ public class PlayerInteract : MonoBehaviour
     private Document currentDocument;
     private bool isInteractingWithDocument = false;
 
-    private void Start()
-    {
-        InitializeLineRenderer();
-    }
-
     private void Update()
     {
         HandleObjectInteraction();
@@ -68,14 +63,6 @@ public class PlayerInteract : MonoBehaviour
         {
             MoveObjectToHoldPos();
         }
-    }
-
-    private void InitializeLineRenderer()
-    {
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
-        lineRenderer.startColor = Color.green;
     }
 
     private void HandleObjectInteraction()
@@ -114,34 +101,6 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
-    private void HighlightObject()
-    {
-        if (!isHoldingObject)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
-            {
-                GameObject hitObject = hit.transform.gameObject;
-
-                if (hitObject != highlightedObject)
-                {
-                    UnhighlightCurrentObject();
-                    HighlightNewObject(hitObject);
-                }
-
-                if (hitObject.TryGetComponent<IInteractable>(out IInteractable interactable))
-                {
-                    GameManager.Instance.TogglePopup(false, true);
-                }
-            }
-            else
-            {
-                GameManager.Instance.TogglePopup(false, false);
-                UnhighlightCurrentObject();
-            }
-        }
-    }
-
     private void TryPickUpObject()
     {
         if (!isInteractingWithDocument)
@@ -149,13 +108,21 @@ public class PlayerInteract : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
             {
-                isHoldingObject = true;
-                pickUpObject = hit.transform.gameObject;
-                pickUpRb = pickUpObject.GetComponent<Rigidbody>();
-                pickUpRb.useGravity = false;
-                pickUpRb.freezeRotation = true;
-                pickUpObject.transform.SetParent(objectHoldPos);
-                pickUpObject.transform.localPosition = Vector3.zero;
+                if (hit.transform.CompareTag("Door"))
+                {
+                    GameManager.Instance.EndDay();
+                }
+                else
+                {
+                    isHoldingObject = true;
+                    pickUpObject = hit.transform.gameObject;
+                    pickUpRb = pickUpObject.GetComponent<Rigidbody>();
+                    pickUpRb.useGravity = false;
+                    pickUpRb.freezeRotation = true;
+                    pickUpObject.transform.SetParent(objectHoldPos);
+                    pickUpObject.transform.localPosition = Vector3.zero;
+                }
+                
             }
         }
     }
@@ -207,7 +174,7 @@ public class PlayerInteract : MonoBehaviour
         isHoldingObject = false;
 
         GameManager.Instance.OnSale.Invoke();
-        StartCoroutine(GameManager.Instance.SpawnNextCustomer(GameManager.Instance.customerIndex, 7f));
+        StartCoroutine(GameManager.Instance.SpawnNextCustomer(7f, GameManager.Instance.currentCustomers));
     }
 
     private void TryInteractWithDocument()
@@ -222,6 +189,34 @@ public class PlayerInteract : MonoBehaviour
                 interactable.OnInteract(true);
                 GameManager.Instance.SetPlayerDocumentState(true);
                 isInteractingWithDocument = true;
+            }
+        }
+    }
+
+    private void HighlightObject()
+    {
+        if (!isHoldingObject)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
+            {
+                GameObject hitObject = hit.transform.gameObject;
+
+                if (hitObject != highlightedObject)
+                {
+                    UnhighlightCurrentObject();
+                    HighlightNewObject(hitObject);
+                }
+
+                if (hitObject.TryGetComponent<IInteractable>(out IInteractable interactable))
+                {
+                    GameManager.Instance.TogglePopup(false, true);
+                }
+            }
+            else
+            {
+                GameManager.Instance.TogglePopup(false, false);
+                UnhighlightCurrentObject();
             }
         }
     }

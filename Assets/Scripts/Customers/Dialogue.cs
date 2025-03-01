@@ -57,6 +57,11 @@ public class CustomerDialogue : MonoBehaviour
 
         // Start the new coroutine
         talkingCoroutine = StartCoroutine(TypeLine(newText));
+
+        if (!isCustomer)
+        {
+            GameManager.Instance.hasTalkedWithBoss = true;
+        }
     }
 
     private IEnumerator TypeLine(string line)
@@ -91,7 +96,7 @@ public class CustomerDialogue : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && GameManager.Instance.canTalkWithBoss)
         {
             StartOrResetDialogue(dialogue);
         }
@@ -99,7 +104,7 @@ public class CustomerDialogue : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && GameManager.Instance.canTalkWithBoss)
         {
             StartCoroutine(HideDialogue(0f));
         }
