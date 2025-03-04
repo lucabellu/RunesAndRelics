@@ -10,8 +10,6 @@ public class GuildID : Document
     [SerializeField] private TextMeshProUGUI guildRankText;
     [SerializeField] private TextMeshProUGUI kingdomText;
 
-    [SerializeField] private Sprite seal;
-
     [SerializeField] private Image customerImageDisplay;
     [SerializeField] private Image sealDisplay;
 
@@ -34,7 +32,7 @@ public class GuildID : Document
             kingdomText.text = customerLogic.customerKingdom.ToString();
 
             customerImageDisplay.sprite = customerLogic.customerPortrait;
-            sealDisplay.sprite = seal;
+            sealDisplay.sprite = customerLogic.letterSeal;
         }
         else
         {

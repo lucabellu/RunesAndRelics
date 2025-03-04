@@ -25,6 +25,13 @@ public class CustomerLogic : MonoBehaviour
     public GuildRank customerGuildRank;
     public Sprite customerPortrait;
 
+    [Header("Letter")]
+    public string letterSender;
+    public string letterRecipient;
+    public string letterContent;
+    public string letterTitle;
+    public Sprite letterSeal;
+
 
 
 
@@ -41,30 +48,6 @@ public class CustomerLogic : MonoBehaviour
             }
         }
     }
-
-    /*
-    public RequirementFlags customerFields
-    {
-        get
-        {
-            RequirementFlags flags = RequirementFlags.None;
-
-            if (customerRace != Race.NONE) // Assuming Race.None is a default/unset value
-                flags |= RequirementFlags.Race;
-
-            if (customerKingdom != Kingdom.NONE) // Assuming Kingdom.None is a default/unset value
-                flags |= RequirementFlags.Kingdom;
-
-            if (customerOccupation != Occupation.NONE) // Assuming Occupation.None is a default/unset value
-                flags |= RequirementFlags.Occupation;
-
-            if (customerAge > 0) // Assuming 0 means no age requirement
-                flags |= RequirementFlags.Age;
-
-            return flags;
-        }
-    }
-    */
 }
 
 public enum Race

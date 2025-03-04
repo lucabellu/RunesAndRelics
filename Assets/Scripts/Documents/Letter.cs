@@ -18,12 +18,33 @@ public class Letter : Document
 
     [SerializeField] private Image sealDisplay;
 
+    [SerializeField] private bool isCustomSet = false;
+
+    [Header("Custom Data")]
+    [SerializeField] private string customSender;
+    [SerializeField] private string customRecipient;
+    [SerializeField] private string customContent;
+    [SerializeField] private string customTitle;
+    [SerializeField] private Sprite customSeal;
+
     private void Start()
     {
-        senderText.text = letterSender;
-        recipientText.text = letterRecipient;
-        contentText.text = letterContent;
-        titleText.text = letterTitle;
-        sealDisplay.sprite = seal;
+        if (!isCustomSet)
+        {
+            senderText.text = customerLogic.letterSender;
+            recipientText.text = customerLogic.letterRecipient;
+            contentText.text = customerLogic.letterContent;
+            titleText.text = customerLogic.letterTitle;
+
+            sealDisplay.sprite = customerLogic.letterSeal;
+        }
+        else
+        {
+            senderText.text = customSender;
+            recipientText.text = customRecipient;
+            contentText.text = customContent;
+            titleText.text = customTitle;
+            sealDisplay.sprite = customSeal;
+        }
     }
 }
