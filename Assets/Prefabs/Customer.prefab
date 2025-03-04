@@ -164,6 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   documents:
   - {fileID: 3094992345798132577, guid: d6e4abdf37cb7804eba4d710f1f2af99, type: 3}
+  - {fileID: 1190667824142468095, guid: 99e692bd69ff4944790fe59bb4919424, type: 3}
   hasDocuments: 1
   customerName: Test Name
   customerAge: 26
@@ -173,6 +174,13 @@ MonoBehaviour:
   customerGuild: 0
   customerGuildRank: 1
   customerPortrait: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  letterSender: TEST SENDER
+  letterRecipient: TEST RECIPIENT
+  letterContent: 'TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT
+    TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT
+    TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT '
+  letterTitle: TEST TITLE
+  letterSeal: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &1271961438520568078
 MonoBehaviour:
   m_ObjectHideFlags: 0

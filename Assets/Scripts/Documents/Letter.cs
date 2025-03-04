@@ -4,13 +4,6 @@ using UnityEngine.UI;
 
 public class Letter : Document
 {
-    [SerializeField] private string letterSender;
-    [SerializeField] private string letterRecipient;
-    [SerializeField] private string letterContent;
-    [SerializeField] private string letterTitle;
-
-    [SerializeField] private Sprite seal;
-
     [SerializeField] private TextMeshProUGUI senderText;
     [SerializeField] private TextMeshProUGUI recipientText;
     [SerializeField] private TextMeshProUGUI contentText;
