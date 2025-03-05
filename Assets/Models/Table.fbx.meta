@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e49017a2a754d847b2a33d6d4a1296d
+guid: 3161b67514a061b43a629457cf71e44d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,17 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Dark_wood
-    second: {fileID: 2100000, guid: e83a19debd249bd429cee545e1d93420, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Stone
-    second: {fileID: 2100000, guid: 36883da82ae41b144baad8f8eb41e540, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wall
+      name: Pillar
     second: {fileID: 2100000, guid: ec25a9d5f7efdea48b206a86924b1a6a, type: 2}
   materials:
     materialImportMode: 2

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e49017a2a754d847b2a33d6d4a1296d
+guid: 81d6947c66501064f8a798a7dca17fad
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,18 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Dark_wood
-    second: {fileID: 2100000, guid: e83a19debd249bd429cee545e1d93420, type: 2}
+      name: Maya_Lambert1
+    second: {fileID: 2100000, guid: 6d9c885211e01b54087dc951a5464def, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Stone
-    second: {fileID: 2100000, guid: 36883da82ae41b144baad8f8eb41e540, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wall
-    second: {fileID: 2100000, guid: ec25a9d5f7efdea48b206a86924b1a6a, type: 2}
+      name: Maya_Lambert2
+    second: {fileID: 2100000, guid: df99f80ff5b24a147b3476114599c72e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -45,7 +40,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

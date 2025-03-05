@@ -985,7 +985,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.33, y: 1.365, z: 2.31}
-  m_LocalScale: {x: 0.82777, y: 0.19599274, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1322622277353729557}
@@ -998,7 +998,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7947699700128370559}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 1264134713097657112, guid: 81d6947c66501064f8a798a7dca17fad, type: 3}
 --- !u!23 &1136356718168191450
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1022,7 +1022,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70563c54872182449b3611fc11a5b25e, type: 2}
+  - {fileID: 2100000, guid: df99f80ff5b24a147b3476114599c72e, type: 2}
+  - {fileID: 2100000, guid: 6d9c885211e01b54087dc951a5464def, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1063,7 +1064,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.26, y: 0.26, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8411785190556057788
 Rigidbody:
@@ -1149,13 +1150,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   documentCanvas: {fileID: 7913530503241039052}
-  customerData: {fileID: 0}
+  customerLogic: {fileID: 0}
   nameText: {fileID: 711417704366509755}
   guildText: {fileID: 779639563939747009}
   guildRankText: {fileID: 1063468065066994824}
   kingdomText: {fileID: 2005990096236179972}
-  customerImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  seal: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   customerImageDisplay: {fileID: 1696411555419247011}
   sealDisplay: {fileID: 3083725325849905488}
   isCustomSet: 0
