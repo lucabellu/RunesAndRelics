@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e49017a2a754d847b2a33d6d4a1296d
+guid: 8f144e2667184cd48a12f634de452002
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -12,23 +12,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Pillar
-    second: {fileID: 2100000, guid: a3668bd91cac824479b036a4f8df8731, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Stone
-    second: {fileID: 2100000, guid: 36883da82ae41b144baad8f8eb41e540, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wall
-    second: {fileID: 2100000, guid: ec25a9d5f7efdea48b206a86924b1a6a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: standardSurface1
-    second: {fileID: 2100000, guid: 36883da82ae41b144baad8f8eb41e540, type: 2}
+      name: Parchment
+    second: {fileID: 2100000, guid: df99f80ff5b24a147b3476114599c72e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
