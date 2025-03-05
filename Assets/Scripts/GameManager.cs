@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
         {
             shopDoor.HighlightDoor();
             canTalkWithBoss = false;
+            shopDoor.canInteract = true;
         }
     }
 
@@ -169,6 +170,7 @@ public class GameManager : MonoBehaviour
     public void EndDay()
     {
         shopDoor.UnhighlightDoor();
+        shopDoor.canInteract = false;
         customerIndex = 0;
         //cool trnasition screen
         IncrementDay();

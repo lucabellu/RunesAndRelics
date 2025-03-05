@@ -110,7 +110,11 @@ public class PlayerInteract : MonoBehaviour
             {
                 if (hit.transform.CompareTag("Door"))
                 {
-                    GameManager.Instance.EndDay();
+                    if (hit.transform.GetComponent<ShopDoor>().canInteract)
+                    {
+                        GameManager.Instance.EndDay();
+                    }
+                   
                 }
                 else
                 {
