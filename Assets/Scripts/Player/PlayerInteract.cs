@@ -21,8 +21,9 @@ public class PlayerInteract : MonoBehaviour
     [Header("Held object")]
     [SerializeField] private Transform objectHoldPos;
     [SerializeField] private float objectMoveSpeed;
+    [SerializeField] private float maxObjectMoveSpeed;
     [SerializeField] private float linearDampingValue;
-    [SerializeField] private float smoothTime = 0.1f;
+    [SerializeField] private float smoothTime;
 
     private bool isHoldingObject = false;
     private Vector3 velocitySmoothDamp;
@@ -122,9 +123,10 @@ public class PlayerInteract : MonoBehaviour
                     pickUpObject = hit.transform.gameObject;
                     pickUpRb = pickUpObject.GetComponent<Rigidbody>();
                     pickUpRb.useGravity = false;
-                    //pickUpRb.freezeRotation = true;
+                    pickUpRb.freezeRotation = true;
+                    pickUpRb.isKinematic = true;
                     pickUpObject.transform.SetParent(objectHoldPos);
-                    pickUpObject.transform.localPosition = Vector3.zero;
+                    //pickUpObject.transform.localPosition = Vector3.zero;
                 }
                 
             }
@@ -263,12 +265,29 @@ public class PlayerInteract : MonoBehaviour
 
     private void MoveObjectToHoldPos()
     {
-        Vector3 direction = (objectHoldPos.position - pickUpObject.transform.position);
-        Vector3 targetVelocity = direction * objectMoveSpeed;
+        /*
+        Vector3 direction = (objectHoldPos.position - pickUpObject.transform.position).normalized;
+        Vector3 targetVelocity = Vector3.ClampMagnitude(direction * objectMoveSpeed, maxObjectMoveSpeed);
 
-        pickUpRb.linearVelocity = Vector3.SmoothDamp(pickUpRb.linearVelocity, targetVelocity, ref velocitySmoothDamp, smoothTime);
+        if (Vector3.Distance(pickUpObject.transform.position, objectHoldPos.position) > 0.1f)
+        {
+            pickUpRb.linearVelocity = Vector3.SmoothDamp(pickUpRb.linearVelocity, targetVelocity, ref velocitySmoothDamp, smoothTime);
 
-        pickUpRb.angularVelocity = Vector3.Lerp(pickUpRb.angularVelocity, Vector3.zero, objectMoveSpeed * 0.5f * Time.fixedDeltaTime);
+        }
+        else
+        {
+            pickUpRb.linearVelocity = Vector3.zero;
+        }
+        */
+        
+
+        pickUpObject.transform.position = objectHoldPos.position;
+
+        /*
+        Vector3 targetPosition = pickUpObject.transform.position;
+        Vector3 moveDirection = (targetPosition - pickUpObject.transform.position);
+        pickUpRb.linearVelocity = moveDirection * objectMoveSpeed;
+        */
     }
 
     private void DropObject()
@@ -277,7 +296,8 @@ public class PlayerInteract : MonoBehaviour
         {
             isHoldingObject = false;
             pickUpRb.useGravity = true;
-            //pickUpRb.freezeRotation = false;
+            pickUpRb.freezeRotation = false;
+            pickUpRb.isKinematic = false;
             pickUpObject.transform.SetParent(null);
             pickUpObject = null;
             pickUpRb = null;

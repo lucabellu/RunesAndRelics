@@ -45,8 +45,10 @@ public class CustomerMovement : MonoBehaviour
             // Move the object smoothly towards the target on the XZ plane
             transform.position = Vector3.Lerp(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
 
-            if (Vector3.Distance(currentPosition, targetPosition) < 0.01f)
+            if (Vector3.Distance(currentPosition, targetPosition) < 1f)
             {
+                currentPosition = targetPosition;
+
                 if (firstDialogue)
                 {
                     showDialogue = true;
@@ -69,7 +71,7 @@ public class CustomerMovement : MonoBehaviour
             Vector3 targetPosition = new Vector3(spawnPos.x, currentPosition.y, spawnPos.z);
 
             // Move the object smoothly towards the target on the XZ plane
-            transform.position = Vector3.Lerp(currentPosition, targetPosition, moveSpeed * 0.25f * Time.deltaTime);
+            transform.position = Vector3.Lerp(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
 
             if (isRotating)
             {
@@ -83,6 +85,7 @@ public class CustomerMovement : MonoBehaviour
                     isRotating = false;
                 }
             }
+
             Destroy(gameObject, 5f);
         }
     }

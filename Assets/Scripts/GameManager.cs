@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
         if (!AllCustomersServed(currentCustomers))
         {
             yield return new WaitForSeconds(delay);
-            CustomerLogic customer = Instantiate(customerList[customerIndex], customerSpawn.position, Quaternion.identity);
+            CustomerLogic customer = Instantiate(customerList[customerIndex], customerSpawn.position, customerSpawn.rotation);
             currentCustomer = customer;
             customerIndex++;
             print("Customer spawned");
