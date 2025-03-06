@@ -122,7 +122,7 @@ public class PlayerInteract : MonoBehaviour
                     pickUpObject = hit.transform.gameObject;
                     pickUpRb = pickUpObject.GetComponent<Rigidbody>();
                     pickUpRb.useGravity = false;
-                    pickUpRb.freezeRotation = true;
+                    //pickUpRb.freezeRotation = true;
                     pickUpObject.transform.SetParent(objectHoldPos);
                     pickUpObject.transform.localPosition = Vector3.zero;
                 }
@@ -267,6 +267,8 @@ public class PlayerInteract : MonoBehaviour
         Vector3 targetVelocity = direction * objectMoveSpeed;
 
         pickUpRb.linearVelocity = Vector3.SmoothDamp(pickUpRb.linearVelocity, targetVelocity, ref velocitySmoothDamp, smoothTime);
+
+        pickUpRb.angularVelocity = Vector3.Lerp(pickUpRb.angularVelocity, Vector3.zero, objectMoveSpeed * 0.5f * Time.fixedDeltaTime);
     }
 
     private void DropObject()
@@ -275,7 +277,7 @@ public class PlayerInteract : MonoBehaviour
         {
             isHoldingObject = false;
             pickUpRb.useGravity = true;
-            pickUpRb.freezeRotation = false;
+            //pickUpRb.freezeRotation = false;
             pickUpObject.transform.SetParent(null);
             pickUpObject = null;
             pickUpRb = null;

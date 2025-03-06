@@ -78,16 +78,16 @@ Material:
     - _DitherMode: 3
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0
     - _GlossyReflections: 1
-    - _InputExposure: 1
+    - _InputExposure: 0.5
     - _InputOffset: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Scale: 6
-    - _SizeVariability: 1
+    - _Scale: 3
+    - _SizeVariability: 0
     - _SmoothnessTextureChannel: 0
     - _Softness: 1
     - _SpecularHighlights: 1
