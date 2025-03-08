@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -11,17 +12,18 @@ public class CustomerMovement : MonoBehaviour
     private Transform target;
     private Vector3 spawnPos;
     [SerializeField] private float moveSpeed;
+    private Vector3 movementDirection;
 
     private CustomerDialogue customerDialogue;
     private CustomerLogic customerLogic;
 
     public bool showDialogue = false;
+    private bool isAtCounter = false;
     public bool firstDialogue { get; private set; } = true;
 
     private bool hasMadeSale = false;
 
-    private Quaternion targetRotation;
-    private bool isRotating = true;
+    [SerializeField] private Animator animator;
 
     private void Start()
     {
@@ -31,23 +33,36 @@ public class CustomerMovement : MonoBehaviour
         spawnPos = GameManager.Instance.customerSpawn.position;
         target = GameManager.Instance.target;
 
-        targetRotation = transform.rotation * Quaternion.Euler(0, 180, 0);
     }
 
     private void Update()
     {
+        HandleCustomerAnimation();
+
+        // Determine target position based on sale state
+        Vector3 targetPosition;
 
         if (!hasMadeSale)
         {
-            Vector3 currentPosition = transform.position;
-            Vector3 targetPosition = new Vector3(target.position.x, currentPosition.y, target.position.z);
+            targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
+        }
+        else
+        {
+            targetPosition = new Vector3(spawnPos.x, transform.position.y, spawnPos.z);
+        }
 
-            // Move the object smoothly towards the target on the XZ plane
-            transform.position = Vector3.Lerp(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
+        // Update movement direction
+        movementDirection = (targetPosition - transform.position).normalized;
 
-            if (Vector3.Distance(currentPosition, targetPosition) < 1f)
+        // Move the NPC toward the target position
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+        // Handle logic when the NPC reaches the counter
+        if (!hasMadeSale)
+        {
+            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
-                currentPosition = targetPosition;
+                isAtCounter = true;
 
                 if (firstDialogue)
                 {
@@ -67,28 +82,22 @@ public class CustomerMovement : MonoBehaviour
         {
             StartCoroutine(customerDialogue.HideDialogue(0f));
 
-            Vector3 currentPosition = transform.position;
-            Vector3 targetPosition = new Vector3(spawnPos.x, currentPosition.y, spawnPos.z);
+            isAtCounter = false;
 
-            // Move the object smoothly towards the target on the XZ plane
-            transform.position = Vector3.Lerp(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
+            Destroy(gameObject, 5f); // Delayed destroy
+        }
 
-            if (isRotating)
-            {
-                // Smoothly interpolate towards the target rotation
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 2f);
-
-                // Stop rotating when close to the target
-                if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
-                {
-                    transform.rotation = targetRotation; // Snap to the target rotation
-                    isRotating = false;
-                }
-            }
-
-            Destroy(gameObject, 5f);
+        // Rotate toward movement direction
+        if (!isAtCounter)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), 0.1f);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
+
 
     private void OnEnable()
     {
@@ -100,6 +109,18 @@ public class CustomerMovement : MonoBehaviour
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnSale.RemoveListener(CustomerExit);
+        }
+    }
+
+    private void HandleCustomerAnimation()
+    {
+        if (isAtCounter)
+        {
+            animator.SetBool("isIdle", false);
+        }
+        else
+        {
+            animator.SetBool("isIdle", true);
         }
     }
 
