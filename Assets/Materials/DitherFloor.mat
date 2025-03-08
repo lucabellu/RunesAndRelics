@@ -72,7 +72,7 @@ Material:
     - _A: 0.35
     - _B: 0.46
     - _BumpScale: 1
-    - _Contrast: 1
+    - _Contrast: 0.5
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DitherMode: 3
@@ -80,7 +80,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _InputExposure: 0.5
+    - _InputExposure: 0.01
     - _InputOffset: 0
     - _Metallic: 0
     - _Mode: 0
