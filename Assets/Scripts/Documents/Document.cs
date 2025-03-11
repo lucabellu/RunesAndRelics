@@ -1,14 +1,18 @@
 using UnityEngine;
-// I want to create a c# script that stores the data for different documents and create varients as a child class
+using System.Collections;
 
 public class Document : MonoBehaviour, IInteractable, IHighlightable
 {
     [SerializeField] private GameObject documentCanvas;
     public CustomerLogic customerLogic;
 
+    private float duration = 1f;
+    private bool hasDurationPassed = false;
+
     private void Start()
     {
         documentCanvas.gameObject.SetActive(false);
+        StartCoroutine(WaitForDuration());
     }
 
     public void OnInteract(bool isInteracting)
@@ -35,5 +39,19 @@ public class Document : MonoBehaviour, IInteractable, IHighlightable
             GetComponent<Outline>().enabled = false;
             GameManager.Instance.TogglePopup(true, false);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (hasDurationPassed)
+        {
+            GameManager.Instance.PlayDrop();
+        }
+    }
+
+    private IEnumerator WaitForDuration()
+    {
+        yield return new WaitForSeconds(duration); // Wait for the specified duration
+        hasDurationPassed = true; // Set the bool to true after the duration has passed
     }
 }

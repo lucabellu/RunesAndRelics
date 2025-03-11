@@ -36,6 +36,9 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private AudioSource playFlipThrough;
     [SerializeField] private AudioClip flip;
 
+    [SerializeField] private AudioSource playPickUp;
+    [SerializeField] private AudioClip pickUp;
+
     private void Update()
     {
         HandleObjectInteraction();
@@ -129,7 +132,7 @@ public class PlayerInteract : MonoBehaviour
                     pickUpRb.freezeRotation = true;
                     pickUpRb.isKinematic = true;
                     pickUpObject.transform.SetParent(objectHoldPos);
-                    //pickUpObject.transform.localPosition = Vector3.zero;
+                    playPickUp.PlayOneShot(pickUp);
                 }
                 
             }

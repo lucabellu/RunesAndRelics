@@ -159,6 +159,7 @@ MonoBehaviour:
   requiredAge: 20
   requiredGuild: 0
   requiredGuildRank: 0
+  duration: 1
 --- !u!114 &3452669511734531719
 MonoBehaviour:
   m_ObjectHideFlags: 0

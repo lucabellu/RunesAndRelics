@@ -304,17 +304,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PlayAudio(AudioResource audioResource, float volume)
+    public void PlayDrop()
     {
-        if (audioResource != null)
-        {
-            audioSource.volume = volume;
-            audioSource.Play();
-        }
-        else
-        {
-            Debug.LogWarning("AudioResource is not assigned to " + name);
-        }
+        audioSource.Play();
     }
     
     public void TogglePauseMenu(bool on)

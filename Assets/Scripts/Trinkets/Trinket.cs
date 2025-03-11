@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using static GameManager;
+using System.Collections;
 
 public class Trinket : MonoBehaviour, IHighlightable
 {
@@ -21,6 +22,20 @@ public class Trinket : MonoBehaviour, IHighlightable
     public GuildRank requiredGuildRank;
 
     public bool inCustomerRange { get; private set; } = false;
+
+    [SerializeField] private float duration = 5f;
+    private bool hasDurationPassed = false;
+
+    private void Start()
+    {
+        StartCoroutine(WaitForDuration());
+    }
+
+    private IEnumerator WaitForDuration()
+    {
+        yield return new WaitForSeconds(duration); // Wait for the specified duration
+        hasDurationPassed = true; // Set the bool to true after the duration has passed
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -77,6 +92,14 @@ public class Trinket : MonoBehaviour, IHighlightable
                 flags |= RequirementFlags.GuildRank;
 
             return flags;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (hasDurationPassed)
+        {
+            GameManager.Instance.PlayDrop();
         }
     }
 }
