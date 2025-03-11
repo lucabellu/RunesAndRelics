@@ -1,5 +1,7 @@
 
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +16,14 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
 
+    [SerializeField] private AudioClip footstepSound;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private float footstepDelay;
+    private bool isMoving = false;
+    [SerializeField] private float movementThreshold;
+    private Coroutine footstepCoroutine;
+    private bool isPlayingFootstep = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,6 +35,24 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
 
         rb.linearDamping = groundDrag;
+
+        Vector2 flatVel = new Vector2(rb.linearVelocity.x, rb.linearVelocity.z);
+
+        if (flatVel.magnitude > movementThreshold && !isMoving && !isPlayingFootstep)
+        {
+            isMoving = true;
+            footstepCoroutine = StartCoroutine(PlayFootstepSoundRandomPitch());
+            isPlayingFootstep = true;
+        }
+        else if (flatVel.magnitude <= movementThreshold && isMoving)
+        {
+            isMoving = false;
+            if (footstepCoroutine != null)
+            {
+                StopCoroutine(footstepCoroutine);
+                isPlayingFootstep = false;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -54,6 +82,16 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
+        }
+    }
+
+    private IEnumerator PlayFootstepSoundRandomPitch()
+    {
+        while (true)
+        {
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.PlayOneShot(footstepSound);
+            yield return new WaitForSeconds(footstepDelay);
         }
     }
 }

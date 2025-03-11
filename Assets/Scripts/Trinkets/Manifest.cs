@@ -4,15 +4,13 @@ using TMPro;
 using System.Collections.Generic;
 using static GameManager;
 
-public class Manifest : MonoBehaviour, IHighlightable, IInteractable
+public class Manifest : Document
 {
     //objectives
     //
     //get list of all trinkets in scene from game manager
     //display trinket information in UI
     //display 2 trinkets at a time
-
-    [SerializeField] private GameObject manifestCanvas;
 
     [SerializeField] private TextMeshProUGUI trinketNameLeft;
     [SerializeField] private TextMeshProUGUI trinketDescriptionLeft;
@@ -50,32 +48,6 @@ public class Manifest : MonoBehaviour, IHighlightable, IInteractable
             Debug.LogError("Trinkets list is null or empty");
         }
 
-    }
-
-    public void OnInteract(bool isInteracting)
-    {
-        if (isInteracting)
-        {
-            manifestCanvas.gameObject.SetActive(true);
-        }
-        else
-        {
-            manifestCanvas.gameObject.SetActive(false);
-        }
-    }
-
-    public void OnHighlight(bool isHovering)
-    {
-        if (isHovering)
-        {
-            GetComponent<Outline>().enabled = true;
-            GameManager.Instance.TogglePopup(true, true);
-        }
-        else
-        {
-            GetComponent<Outline>().enabled = false;
-            GameManager.Instance.TogglePopup(true, false);
-        }
     }
 
     public void FlipRight()

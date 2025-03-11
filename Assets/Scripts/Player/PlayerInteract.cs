@@ -33,6 +33,9 @@ public class PlayerInteract : MonoBehaviour
     private Document currentDocument;
     private bool isInteractingWithDocument = false;
 
+    [SerializeField] private AudioSource playFlipThrough;
+    [SerializeField] private AudioClip flip;
+
     private void Update()
     {
         HandleObjectInteraction();
@@ -195,6 +198,11 @@ public class PlayerInteract : MonoBehaviour
                 interactable.OnInteract(true);
                 GameManager.Instance.SetPlayerDocumentState(true);
                 isInteractingWithDocument = true;
+
+                if (hit.transform.CompareTag("Manifest"))
+                {
+                    playFlipThrough.PlayOneShot(flip);
+                }   
             }
         }
     }
