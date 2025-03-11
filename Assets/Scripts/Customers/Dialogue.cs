@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -14,8 +15,26 @@ public class CustomerDialogue : MonoBehaviour
 
     private bool isTalking = false;
     private Coroutine talkingCoroutine;
+    private Coroutine audioCoroutine;
 
     [SerializeField] private bool isCustomer;
+
+    [SerializeField] private List<AudioClip> sfxList; // List of SFX clips
+    [SerializeField] private float playDuration; // Total duration to play SFX
+    [SerializeField] private float minDelayBetweenSFX; // Minimum delay between SFX
+    [SerializeField] private float maxDelayBetweenSFX; // Maximum delay between SFX
+
+    private AudioSource audioSource;
+    private bool isPlaying = false;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
 
     private void Start()
     {
@@ -47,10 +66,20 @@ public class CustomerDialogue : MonoBehaviour
         {
             if (talkingCoroutine != null)
             {
-                StopCoroutine(talkingCoroutine);
+                StopCoroutine(talkingCoroutine); 
             }
 
             isTalking = false;
+        }
+
+        if (isPlaying)
+        {
+            if (audioCoroutine != null)
+            {
+                StopCoroutine(audioCoroutine);
+            }
+
+            isPlaying = false;
         }
 
         // Clear the existing text
@@ -61,6 +90,11 @@ public class CustomerDialogue : MonoBehaviour
 
         // Start the new coroutine
         talkingCoroutine = StartCoroutine(TypeLine(newText));
+
+        if (!isPlaying)
+        {
+            audioCoroutine = StartCoroutine(PlayAudioForDuration());
+        }
 
         if (!isCustomer)
         {
@@ -90,9 +124,33 @@ public class CustomerDialogue : MonoBehaviour
         if (talkingCoroutine != null)
         {
             StopCoroutine(talkingCoroutine);
+            StopCoroutine(audioCoroutine);
         }
 
         canvas.gameObject.SetActive(false);
+    }
+
+    private IEnumerator PlayAudioForDuration()
+    {
+        isPlaying = true;
+        float startTime = Time.time;
+
+        while (Time.time - startTime < playDuration)
+        {
+            // Play a random SFX
+            AudioClip randomClip = sfxList[Random.Range(0, sfxList.Count)];
+            audioSource.PlayOneShot(randomClip);
+
+            // Wait for the clip to finish playing
+            yield return new WaitForSeconds(randomClip.length);
+
+            // Wait for a random delay before playing the next SFX
+            float delay = Random.Range(minDelayBetweenSFX, maxDelayBetweenSFX);
+            yield return new WaitForSeconds(delay);
+        }
+
+        isPlaying = false;
+        Debug.Log("Finished playing SFX for the specified duration.");
     }
 
     private void OnTriggerEnter(Collider other)

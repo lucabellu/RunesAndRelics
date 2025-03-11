@@ -9921,7 +9921,7 @@ MonoBehaviour:
   maxObjectMoveSpeed: 6
   linearDampingValue: 1
   smoothTime: 1
-  audioSource: {fileID: 1027130953}
+  playFlipThrough: {fileID: 1027130953}
   flip: {fileID: 8300000, guid: d42f41d5bc3456046a733df5d8605192, type: 3}
 --- !u!120 &1027130950
 LineRenderer:
@@ -10898,7 +10898,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.654902, b: 0.5882353, a: 1}
-  m_Intensity: 1000
+  m_Intensity: 100
   m_Range: 3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -10940,7 +10940,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -10986,7 +10986,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49986d0bc12aa2b4c818882b0c3116c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manifestCanvas: {fileID: 521511371}
+  documentCanvas: {fileID: 521511371}
+  customerLogic: {fileID: 0}
   trinketNameLeft: {fileID: 254032681}
   trinketDescriptionLeft: {fileID: 1755305215}
   trinketImageLeft: {fileID: 462913475}

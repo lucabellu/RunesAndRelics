@@ -145,6 +145,17 @@ MonoBehaviour:
   textSpeed: 0.04
   dialogue: This is some new test dialogue
   isCustomer: 1
+  sfxList:
+  - {fileID: 8300000, guid: ebb52a16dc0b1784495adc80b653ec7c, type: 3}
+  - {fileID: 8300000, guid: 655fb771df7dc3341bab1a901ec9eae7, type: 3}
+  - {fileID: 8300000, guid: 7fe6c9bd3df3b0a4786c2801fbc1eb9f, type: 3}
+  - {fileID: 8300000, guid: c6334d915d534674a91ce61d3354ab62, type: 3}
+  - {fileID: 8300000, guid: 03620079528a6f04fba78b757801fa30, type: 3}
+  - {fileID: 8300000, guid: 3706e316c4fc7344c87bdd26936df7a9, type: 3}
+  - {fileID: 8300000, guid: b82cae114f10c84478ccb17d087f9bb7, type: 3}
+  playDuration: 1.5
+  minDelayBetweenSFX: 0.1
+  maxDelayBetweenSFX: 0.1
 --- !u!1 &752879516037912519
 GameObject:
   m_ObjectHideFlags: 0
