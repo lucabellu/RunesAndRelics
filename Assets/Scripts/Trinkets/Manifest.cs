@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using static GameManager;
+using System.Collections;
 
 public class Manifest : Document
 {
@@ -24,6 +25,13 @@ public class Manifest : Document
 
     private List<Trinket> trinkets;
     private int currentIndex = 0;
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip pageTurn;
+
+
+    private float duration = 1f;
+    private bool hasDurationPassed = false;
 
     private void Start()
     {
@@ -48,6 +56,7 @@ public class Manifest : Document
             Debug.LogError("Trinkets list is null or empty");
         }
 
+        StartCoroutine(WaitForDuration());
     }
 
     public void FlipRight()
@@ -59,6 +68,7 @@ public class Manifest : Document
             SetUIFromTrinket(trinkets[currentIndex + 2], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
             currentIndex += 2;
             Debug.Log("Current index: " + currentIndex);
+            audioSource.PlayOneShot(pageTurn);
         }
         else if (trinkets.Count > currentIndex + 1)
         {
@@ -69,6 +79,7 @@ public class Manifest : Document
             trinketRequirementsRight.text = "";
             currentIndex += 2;
             Debug.Log("Current index: " + currentIndex);
+            audioSource.PlayOneShot(pageTurn);
         }
         else
         {
@@ -85,6 +96,7 @@ public class Manifest : Document
             SetUIFromTrinket(trinkets[currentIndex - 1], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
             currentIndex -= 2;
             Debug.Log("Current index: " + currentIndex);
+            audioSource.PlayOneShot(pageTurn);
         }
 
         else if (currentIndex - 1 >= 0)
@@ -93,6 +105,7 @@ public class Manifest : Document
             SetUIFromTrinket(trinkets[currentIndex - 1], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
             currentIndex -= 2;
             Debug.Log("Current index: " + currentIndex);
+            audioSource.PlayOneShot(pageTurn);
         }
         else
         {
@@ -135,5 +148,19 @@ public class Manifest : Document
         }
 
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (hasDurationPassed)
+        {
+            GameManager.Instance.PlayDrop();
+        }
+    }
+
+    private IEnumerator WaitForDuration()
+    {
+        yield return new WaitForSeconds(duration); // Wait for the specified duration
+        hasDurationPassed = true; // Set the bool to true after the duration has passed
     }
 }

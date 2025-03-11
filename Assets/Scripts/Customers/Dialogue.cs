@@ -124,6 +124,10 @@ public class CustomerDialogue : MonoBehaviour
         if (talkingCoroutine != null)
         {
             StopCoroutine(talkingCoroutine);
+        }
+
+        if (audioCoroutine != null)
+        {
             StopCoroutine(audioCoroutine);
         }
 
