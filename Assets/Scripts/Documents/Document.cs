@@ -9,7 +9,7 @@ public class Document : MonoBehaviour, IInteractable, IHighlightable
     private float duration = 1f;
     private bool hasDurationPassed = false;
 
-    private void Start()
+    protected virtual void Start()
     {
         documentCanvas.gameObject.SetActive(false);
         StartCoroutine(WaitForDuration());
@@ -51,7 +51,7 @@ public class Document : MonoBehaviour, IInteractable, IHighlightable
 
     private IEnumerator WaitForDuration()
     {
-        yield return new WaitForSeconds(duration); // Wait for the specified duration
-        hasDurationPassed = true; // Set the bool to true after the duration has passed
+        yield return new WaitForSeconds(duration);
+        hasDurationPassed = true;
     }
 }

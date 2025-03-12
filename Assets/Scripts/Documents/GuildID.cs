@@ -22,8 +22,10 @@ public class GuildID : Document
     [SerializeField] private Sprite customPortrait;
     [SerializeField] private Sprite customSeal;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         if (!isCustomSet)
         {
             nameText.text = customerLogic.customerName;

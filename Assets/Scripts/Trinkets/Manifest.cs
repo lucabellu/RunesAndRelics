@@ -7,12 +7,6 @@ using System.Collections;
 
 public class Manifest : Document
 {
-    //objectives
-    //
-    //get list of all trinkets in scene from game manager
-    //display trinket information in UI
-    //display 2 trinkets at a time
-
     [SerializeField] private TextMeshProUGUI trinketNameLeft;
     [SerializeField] private TextMeshProUGUI trinketDescriptionLeft;
     [SerializeField] private Image trinketImageLeft;
@@ -29,8 +23,10 @@ public class Manifest : Document
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip pageTurn;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         trinkets = GameManager.Instance.currentTrinkets;
 
         if (trinkets != null && trinkets.Count >= 2)
@@ -142,19 +138,5 @@ public class Manifest : Document
         }
 
 
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (hasDurationPassed)
-        {
-            GameManager.Instance.PlayDrop();
-        }
-    }
-
-    private IEnumerator WaitForDuration()
-    {
-        yield return new WaitForSeconds(duration); // Wait for the specified duration
-        hasDurationPassed = true; // Set the bool to true after the duration has passed
     }
 }

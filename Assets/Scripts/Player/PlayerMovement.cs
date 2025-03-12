@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 StopCoroutine(footstepCoroutine);
                 isPlayingFootstep = false;
+                audioSource.Stop();
             }
         }
     }
