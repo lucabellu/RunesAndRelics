@@ -24,9 +24,12 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine footstepCoroutine;
     private bool isPlayingFootstep = false;
 
+    private ConstantForce constantDownForce;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        constantDownForce = GetComponent<ConstantForce>();
     }
 
     private void Update()
@@ -53,6 +56,15 @@ public class PlayerMovement : MonoBehaviour
                 isPlayingFootstep = false;
                 audioSource.Stop();
             }
+        }
+
+        if (rb.linearVelocity.y < 0)
+        {
+            constantDownForce.force = new Vector3(0f, -35f, 0f);
+        }
+        else
+        {
+            constantDownForce.force = Vector3.zero;
         }
     }
 
