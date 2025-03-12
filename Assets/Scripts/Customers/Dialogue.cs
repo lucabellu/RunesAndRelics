@@ -109,7 +109,11 @@ public class CustomerDialogue : MonoBehaviour
         if (isTalking && talkingCoroutine != null)
         {
             StopCoroutine(talkingCoroutine);
-            isTalking = false;
+        }
+
+        if (audioCoroutine != null)
+        {
+            StopCoroutine(audioCoroutine);
         }
 
         if (isPlayingAudio && audioCoroutine != null)

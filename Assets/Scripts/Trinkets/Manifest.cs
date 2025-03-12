@@ -143,4 +143,18 @@ public class Manifest : Document
 
 
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (hasDurationPassed)
+        {
+            GameManager.Instance.PlayDrop();
+        }
+    }
+
+    private IEnumerator WaitForDuration()
+    {
+        yield return new WaitForSeconds(duration); // Wait for the specified duration
+        hasDurationPassed = true; // Set the bool to true after the duration has passed
+    }
 }
