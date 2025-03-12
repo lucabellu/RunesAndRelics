@@ -153,7 +153,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 03620079528a6f04fba78b757801fa30, type: 3}
   - {fileID: 8300000, guid: 3706e316c4fc7344c87bdd26936df7a9, type: 3}
   - {fileID: 8300000, guid: b82cae114f10c84478ccb17d087f9bb7, type: 3}
-  playDuration: 1.5
+  playDuration: 2
   minDelayBetweenSFX: 0.1
   maxDelayBetweenSFX: 0.1
 --- !u!1 &752879516037912519

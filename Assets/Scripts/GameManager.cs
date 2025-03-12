@@ -41,7 +41,8 @@ public class GameManager : MonoBehaviour
     public GameObject leftPopup;
     public GameObject rightPopup;
 
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource playDropSound;
+    [SerializeField] private AudioSource playEnterSound;
 
     public UnityEvent OnSale;
 
@@ -85,8 +86,6 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(SpawnNextCustomer(0f, currentCustomers));
         }
-
-        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -128,6 +127,7 @@ public class GameManager : MonoBehaviour
             currentCustomer = customer;
             customerIndex++;
             print("Customer spawned");
+            PlayEnterAudio();
         }
         else
         {
@@ -306,7 +306,12 @@ public class GameManager : MonoBehaviour
 
     public void PlayDrop()
     {
-        audioSource.Play();
+        playDropSound.Play();
+    }
+
+    private void PlayEnterAudio()
+    {
+        playEnterSound.Play();
     }
     
     public void TogglePauseMenu(bool on)

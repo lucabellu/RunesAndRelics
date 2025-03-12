@@ -4,6 +4,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class CustomerDialogue : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
@@ -19,21 +20,17 @@ public class CustomerDialogue : MonoBehaviour
 
     [SerializeField] private bool isCustomer;
 
-    [SerializeField] private List<AudioClip> sfxList; // List of SFX clips
-    [SerializeField] private float playDuration; // Total duration to play SFX
-    [SerializeField] private float minDelayBetweenSFX; // Minimum delay between SFX
-    [SerializeField] private float maxDelayBetweenSFX; // Maximum delay between SFX
+    [SerializeField] private List<AudioClip> sfxList;
+    [SerializeField] private float playDuration;
+    [SerializeField] private float minDelayBetweenSFX;
+    [SerializeField] private float maxDelayBetweenSFX;
 
     private AudioSource audioSource;
-    private bool isPlaying = false;
+    private bool isPlayingAudio = false;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     private void Start()
@@ -59,42 +56,30 @@ public class CustomerDialogue : MonoBehaviour
         }
     }
 
-    public void StartOrResetDialogue(string newText)
+    private void ResetDialogueState()
     {
-        // If a coroutine is already running, stop it
-        if (isTalking)
+        if (isTalking && talkingCoroutine != null)
         {
-            if (talkingCoroutine != null)
-            {
-                StopCoroutine(talkingCoroutine); 
-            }
-
+            StopCoroutine(talkingCoroutine);
             isTalking = false;
         }
 
-        if (isPlaying)
+        if (isPlayingAudio && audioCoroutine != null)
         {
-            if (audioCoroutine != null)
-            {
-                StopCoroutine(audioCoroutine);
-            }
-
-            isPlaying = false;
+            StopCoroutine(audioCoroutine);
+            audioSource.Stop();
+            isPlayingAudio = false;
         }
+    }
 
-        // Clear the existing text
+    public void StartOrResetDialogue(string newText)
+    {
+        ResetDialogueState();
+
         dialogueText.text = "";
-
-        // Set the canvas to active
         canvas.gameObject.SetActive(true);
-
-        // Start the new coroutine
         talkingCoroutine = StartCoroutine(TypeLine(newText));
-
-        if (!isPlaying)
-        {
-            audioCoroutine = StartCoroutine(PlayAudioForDuration());
-        }
+        audioCoroutine = StartCoroutine(PlayAudioForDuration());
 
         if (!isCustomer)
         {
@@ -106,11 +91,10 @@ public class CustomerDialogue : MonoBehaviour
     {
         isTalking = true;
         dialogueText.text = "";
-        StringBuilder sb = new StringBuilder();
+        dialogueText.text = "";
         foreach (char c in line)
         {
-            sb.Append(c);
-            dialogueText.text = sb.ToString();
+            dialogueText.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
         isTalking = false;
@@ -120,47 +104,51 @@ public class CustomerDialogue : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToHide);
         dialogueText.text = "";
+        canvas.gameObject.SetActive(false);
 
-        if (talkingCoroutine != null)
+        if (isTalking && talkingCoroutine != null)
         {
             StopCoroutine(talkingCoroutine);
-            StopCoroutine(audioCoroutine);
+            isTalking = false;
         }
 
-        canvas.gameObject.SetActive(false);
+        if (isPlayingAudio && audioCoroutine != null)
+        {
+            StopCoroutine(audioCoroutine);
+            audioSource.Stop();
+            isPlayingAudio = false;
+        }
     }
 
     private IEnumerator PlayAudioForDuration()
     {
-        isPlaying = true;
+        isPlayingAudio = true;
         float startTime = Time.time;
 
-        while (Time.time - startTime < playDuration)
+        try
         {
-            // Play a random SFX
-            AudioClip randomClip = sfxList[Random.Range(0, sfxList.Count)];
-            audioSource.PlayOneShot(randomClip);
+            while (Time.time - startTime < playDuration)
+            {
+                AudioClip randomClip = sfxList[Random.Range(0, sfxList.Count)];
+                audioSource.PlayOneShot(randomClip);
+                yield return new WaitForSeconds(randomClip.length);
 
-            // Wait for the clip to finish playing
-            yield return new WaitForSeconds(randomClip.length);
-
-            // Wait for a random delay before playing the next SFX
-            float delay = Random.Range(minDelayBetweenSFX, maxDelayBetweenSFX);
-            yield return new WaitForSeconds(delay);
+                float delay = Random.Range(minDelayBetweenSFX, maxDelayBetweenSFX);
+                yield return new WaitForSeconds(delay);
+            }
         }
-
-        isPlaying = false;
-        Debug.Log("Finished playing SFX for the specified duration.");
+        finally
+        {
+            isPlayingAudio = false;
+            Debug.Log("Finished playing SFX for the specified duration.");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isCustomer)
+        if (isCustomer && !customerMovement.firstDialogue && other.CompareTag("Player"))
         {
-            if (other.CompareTag("Player") && !customerMovement.firstDialogue)
-            {
-                StartOrResetDialogue(dialogue);
-            }
+            StartOrResetDialogue(dialogue);
         }
 
         if (other.CompareTag("Player") && GameManager.Instance.canTalkWithBoss)
@@ -173,14 +161,14 @@ public class CustomerDialogue : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(HideDialogue(0f));
+            StartCoroutine(HideDialogue(1f));
         }
 
         if (!isCustomer)
         {
             if (other.CompareTag("Player") && GameManager.Instance.canTalkWithBoss)
             {
-                StartCoroutine(HideDialogue(0f));
+                StartCoroutine(HideDialogue(1f));
             }
         }
     }
