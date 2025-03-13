@@ -62,6 +62,11 @@ public class PlayerInteract : MonoBehaviour
                 GameManager.Instance.TogglePauseMenu(false);
             }
         }
+
+        if (pickUpObject != null && pickUpObject.TryGetComponent<Trinket>(out Trinket trinket) && trinket.inCustomerRange && isPlayerInCustomerRange)
+        {
+            GameManager.Instance.currentCustomer.OnHighlight(true);
+        }
     }
 
     private void FixedUpdate()
@@ -151,7 +156,6 @@ public class PlayerInteract : MonoBehaviour
         {
             if (trinket.inCustomerRange && isPlayerInCustomerRange)
             {
-                print ("conditions met");
                 HandleCustomerInteraction(trinket);
             }
             else
