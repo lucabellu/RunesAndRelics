@@ -199,7 +199,9 @@ public class GameManager : MonoBehaviour
         Occupation = 1 << 2,   // 4
         Age = 1 << 3,         // 8
         Guild = 1 << 4,       // 16
-        GuildRank = 1 << 5    // 32
+        GuildRank = 1 << 5,    // 32
+        PurchaseItem = 1 << 6  // 64
+
     }
 
     public class ItemRequirements

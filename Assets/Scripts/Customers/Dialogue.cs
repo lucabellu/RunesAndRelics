@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -38,7 +37,7 @@ public class CustomerDialogue : MonoBehaviour
     {
         if (isCustomer)
         {
-            customerMovement = GetComponent<CustomerMovement>();
+            customerMovement = GetComponentInParent<CustomerMovement>();
         }
 
         canvas.gameObject.SetActive(false);

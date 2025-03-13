@@ -123,6 +123,10 @@ public class PlayerInteract : MonoBehaviour
                     }
                    
                 }
+                else if (hit.transform.CompareTag("Customer"))
+                {
+                    HandleCustomerInteraction(Instance.currentCustomer.purchaseTrinket);
+                }
                 else
                 {
                     isHoldingObject = true;
@@ -168,7 +172,9 @@ public class PlayerInteract : MonoBehaviour
             RequiredRace = trinket.requiredRace,
             RequiredKingdom = trinket.requiredKingdom,
             RequiredOccupation = trinket.requiredOccupation,
-            RequiredAge = trinket.requiredAge
+            RequiredAge = trinket.requiredAge,
+            RequiredGuild = trinket.requiredGuild,
+            RequiredGuildRank = trinket.requiredGuildRank
         };
 
         bool meetsRequirements = GameManager.Instance.CheckRequirements
@@ -181,9 +187,22 @@ public class PlayerInteract : MonoBehaviour
             currentCustomer.customerGuildRank);
 
         Debug.Log(meetsRequirements ? "Customer meets the trinket's requirements!" : "Customer does not meet the trinket's requirements.");
-        Destroy(pickUpObject);
-        pickUpObject = null;
-        isHoldingObject = false;
+
+        if (isHoldingObject && meetsRequirements || !isHoldingObject && !meetsRequirements)
+        {
+            //HandleSuccessfulTransaction();
+        }
+        else
+        {
+            //HandleFailedTransaction();
+        }
+
+        if (pickUpObject != null)
+        {
+            Destroy(pickUpObject);
+            pickUpObject = null;
+            isHoldingObject = false;
+        }
 
         GameManager.Instance.OnSale.Invoke();
         StartCoroutine(GameManager.Instance.SpawnNextCustomer(7f, GameManager.Instance.currentCustomers));
@@ -272,6 +291,11 @@ public class PlayerInteract : MonoBehaviour
         {
             highlightable.OnHighlight(true);
             highlightedObject = hitObject;
+        }
+
+        if (!hitObject.TryGetComponent<IInteractable>(out IInteractable interactable))
+        {
+            GameManager.Instance.TogglePopup(false, false);
         }
 
         if (hitObject.CompareTag("Door"))

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using static GameManager;
 
-public class CustomerLogic : MonoBehaviour
+public class CustomerLogic : MonoBehaviour, IHighlightable
 {
     //objectives
     //
@@ -25,16 +25,14 @@ public class CustomerLogic : MonoBehaviour
     public GuildRank customerGuildRank;
     public Sprite customerPortrait;
 
+    public Trinket purchaseTrinket;
+
     [Header("Letter")]
     public string letterSender;
     public string letterRecipient;
     public string letterContent;
     public string letterTitle;
     public Sprite letterSeal;
-
-
-
-
 
     public void SpawnDocuments()
     {
@@ -46,6 +44,20 @@ public class CustomerLogic : MonoBehaviour
                 Document document = spawnedDocument.GetComponent<Document>();
                 document.customerLogic = this;
             }
+        }
+    }
+
+    public void OnHighlight(bool isHovering)
+    {
+        if (isHovering)
+        {
+            GetComponent<Outline>().enabled = true;
+            GameManager.Instance.TogglePopup(true, true);
+        }
+        else
+        {
+            GetComponent<Outline>().enabled = false;
+            GameManager.Instance.TogglePopup(true, false);
         }
     }
 }
