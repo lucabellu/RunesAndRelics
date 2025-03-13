@@ -179,7 +179,7 @@ public class Dialogue : MonoBehaviour
         {
             isInPlayerRange = false;
 
-            StartCoroutine(HideDialogue(1f));
+            StartCoroutine(HideDialogue(0f));
         }
 
         if (!isCustomer)

@@ -1,14 +1,9 @@
-using TMPro;
+using System.Collections;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+
 
 public class CustomerMovement : MonoBehaviour
 {
-    //objectives
-    //
-    //on spawn in from manager, move to counter
-    // on sale finish, move to exit
-
     private Transform target;
     private Vector3 spawnPos;
     [SerializeField] private float moveSpeed;
@@ -25,6 +20,11 @@ public class CustomerMovement : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
+    [SerializeField] private AudioClip footstepSound;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private float footstepDelay;
+    private Coroutine footstepCoroutine;
+
     private void Start()
     {
         customerDialogue = GetComponentInChildren<Dialogue>();
@@ -38,6 +38,7 @@ public class CustomerMovement : MonoBehaviour
     private void Update()
     {
         HandleCustomerAnimation();
+        HandleFootsteps();
 
         Vector3 targetPosition;
 
@@ -93,6 +94,35 @@ public class CustomerMovement : MonoBehaviour
         else
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+    }
+
+    private IEnumerator PlayFootstepSoundRandomPitch()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(footstepDelay);
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.PlayOneShot(footstepSound);
+        }
+    }
+
+    private void HandleFootsteps()
+    {
+        if (Vector3.Distance(transform.position, target.position) > 1f)
+        {
+            if (footstepCoroutine == null)
+            {
+                footstepCoroutine = StartCoroutine(PlayFootstepSoundRandomPitch());
+            }
+        }
+        else
+        {
+            if (footstepCoroutine != null)
+            {
+                StopCoroutine(footstepCoroutine);
+                footstepCoroutine = null;
+            }
         }
     }
 

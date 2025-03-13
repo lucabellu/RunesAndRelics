@@ -219,6 +219,14 @@ public class PlayerInteract : MonoBehaviour
             isHoldingObject = false;
         }
 
+        if (GameManager.Instance.currentCustomer.hasDocuments)
+        {
+            foreach (Document doc in GameManager.Instance.currentCustomer.documents)
+            {
+                Destroy(doc.gameObject);
+            }
+        }
+
         GameManager.Instance.OnSale.Invoke();
         StartCoroutine(GameManager.Instance.SpawnNextCustomer(7f, GameManager.Instance.currentCustomers));
     }

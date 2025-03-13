@@ -10,7 +10,7 @@ public class CustomerLogic : MonoBehaviour, IHighlightable
     //show dialogue if player enters collision
     //
 
-    [SerializeField] private List<Document> documents;
+    public List<Document> documents;
     public bool hasDocuments;
 
     public string customerName;

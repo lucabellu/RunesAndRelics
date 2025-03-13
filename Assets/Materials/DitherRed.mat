@@ -80,7 +80,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _InputExposure: 0.1
+    - _InputExposure: 0.01
     - _InputOffset: 0
     - _Metallic: 0
     - _Mode: 0
