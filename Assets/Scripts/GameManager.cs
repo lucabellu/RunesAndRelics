@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ShopDoor shopDoor;
     [SerializeField] private ShopDoor bossDoor;
 
+    [SerializeField] private Texture2D cursorTexture;
+
 
     private void Start()
     {
@@ -276,6 +278,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = cursorLockMode;
         Cursor.visible = visible;
         Time.timeScale = timeScale;
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
     public void TogglePopup(bool isLeft, bool on)
@@ -316,6 +319,9 @@ public class GameManager : MonoBehaviour
     
     public void TogglePauseMenu(bool on)
     {
+        TogglePopup(true, false);
+        TogglePopup(false, false);
+
         if (on)
         {
             Time.timeScale = 0;
