@@ -68,7 +68,7 @@ public class PlayerInteract : MonoBehaviour
         {
             GameManager.Instance.currentCustomer.GetComponent<Outline>().enabled = true;
         }
-        else if (pickUpObject != null && !isPlayerInCustomerRange)
+        else if (pickUpObject != null && !isPlayerInCustomerRange && GameManager.Instance.currentCustomer != null)
         {
             GameManager.Instance.currentCustomer.GetComponent<Outline>().enabled = false;
         }

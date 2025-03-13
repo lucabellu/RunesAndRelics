@@ -491,8 +491,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.25
-  m_fontSizeBase: 0.25
+  m_fontSize: 0.2
+  m_fontSizeBase: 0.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -572,7 +572,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.54}
+  m_AnchoredPosition: {x: 0, y: 0.86}
   m_SizeDelta: {x: 3, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3794917019528090462
@@ -1107,7 +1107,7 @@ MonoBehaviour:
   canvas: {fileID: 3794917019528090462}
   dialogueText: {fileID: 2768931455196993588}
   textSpeed: 0.04
-  dialogue: This is some new test dialogue
+  dialogue: I am here in search of a mystical tome with a red gem implanted on top
   isCustomer: 1
   sfxList:
   - {fileID: 8300000, guid: ebb52a16dc0b1784495adc80b653ec7c, type: 3}
@@ -1117,7 +1117,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 03620079528a6f04fba78b757801fa30, type: 3}
   - {fileID: 8300000, guid: 3706e316c4fc7344c87bdd26936df7a9, type: 3}
   - {fileID: 8300000, guid: b82cae114f10c84478ccb17d087f9bb7, type: 3}
-  playDuration: 2
+  playDuration: 5
   minDelayBetweenSFX: 0.1
   maxDelayBetweenSFX: 0.1
 --- !u!95 &6106567945432631258 stripped
