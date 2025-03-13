@@ -18,7 +18,7 @@ public class CustomerMovement : MonoBehaviour
     private CustomerLogic customerLogic;
 
     public bool showDialogue = false;
-    private bool isAtCounter = false;
+    public bool isAtCounter { get; private set; } = false;
     public bool firstDialogue { get; private set; } = true;
 
     private bool hasMadeSale = false;

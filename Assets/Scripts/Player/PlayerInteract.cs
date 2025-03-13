@@ -123,12 +123,14 @@ public class PlayerInteract : MonoBehaviour
                     }
                    
                 }
-                else if (hit.transform.CompareTag("Customer"))
+                else if (hit.transform.CompareTag("Customer") && GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
                 {
                     HandleCustomerInteraction(Instance.currentCustomer.purchaseTrinket);
                 }
                 else
                 {
+                    if (hit.transform.CompareTag("Customer")) return;
+
                     isHoldingObject = true;
                     pickUpObject = hit.transform.gameObject;
                     pickUpRb = pickUpObject.GetComponent<Rigidbody>();
@@ -149,6 +151,7 @@ public class PlayerInteract : MonoBehaviour
         {
             if (trinket.inCustomerRange && isPlayerInCustomerRange)
             {
+                print ("conditions met");
                 HandleCustomerInteraction(trinket);
             }
             else
@@ -239,6 +242,12 @@ public class PlayerInteract : MonoBehaviour
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
             {
                 GameObject hitObject = hit.transform.gameObject;
+
+                if (hitObject.CompareTag("Customer") && !GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
+                {
+                    UnhighlightCurrentObject();
+                    return;
+                }
 
                 if (hitObject != highlightedObject)
                 {
