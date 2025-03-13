@@ -186,15 +186,17 @@ public class PlayerInteract : MonoBehaviour
             currentCustomer.customerGuild,
             currentCustomer.customerGuildRank);
 
-        Debug.Log(meetsRequirements ? "Customer meets the trinket's requirements!" : "Customer does not meet the trinket's requirements.");
+        //Debug.Log(meetsRequirements ? "Customer meets the trinket's requirements!" : "Customer does not meet the trinket's requirements.");
 
         if (isHoldingObject && meetsRequirements || !isHoldingObject && !meetsRequirements)
         {
             //HandleSuccessfulTransaction();
+            print("handled successfully");
         }
         else
         {
             //HandleFailedTransaction();
+            print("handled unsuccessfully");
         }
 
         if (pickUpObject != null)
@@ -261,8 +263,6 @@ public class PlayerInteract : MonoBehaviour
             }
             else
             {
-                GameManager.Instance.TogglePopup(false, false);
-                GameManager.Instance.TogglePopup(true, false);
                 UnhighlightCurrentObject();
             }
         }

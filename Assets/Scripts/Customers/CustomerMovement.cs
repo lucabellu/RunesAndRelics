@@ -27,7 +27,7 @@ public class CustomerMovement : MonoBehaviour
 
     private void Start()
     {
-        customerDialogue = GetComponent<CustomerDialogue>();
+        customerDialogue = GetComponentInChildren<CustomerDialogue>();
         customerLogic = GetComponent<CustomerLogic>();
 
         spawnPos = GameManager.Instance.customerSpawn.position;

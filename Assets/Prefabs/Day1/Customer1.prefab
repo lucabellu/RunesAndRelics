@@ -93,7 +93,7 @@ MonoBehaviour:
   - {fileID: 1190667824142468095, guid: 99e692bd69ff4944790fe59bb4919424, type: 3}
   hasDocuments: 1
   customerName: Test Name
-  customerAge: 26
+  customerAge: 20
   customerRace: 0
   customerKingdom: 0
   customerOccupation: 0

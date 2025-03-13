@@ -23,7 +23,7 @@ public class Trinket : MonoBehaviour, IHighlightable
 
     public bool inCustomerRange { get; private set; } = false;
 
-    [SerializeField] private float duration = 5f;
+    [SerializeField] private float duration;
     private bool hasDurationPassed = false;
 
     private void Start()
