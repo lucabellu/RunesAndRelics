@@ -230,6 +230,11 @@ public class PlayerInteract : MonoBehaviour
                     GameManager.Instance.TogglePopup(false, true);
                 }
 
+                if (hitObject.TryGetComponent<IHighlightable>(out IHighlightable highlightable))
+                {
+                    GameManager.Instance.TogglePopup(true, true);
+                }
+
                 if (hitObject.CompareTag("Door") && GameManager.Instance.hasTalkedWithBoss)
                 {
                     GameManager.Instance.TogglePopup(true, true);
@@ -238,6 +243,7 @@ public class PlayerInteract : MonoBehaviour
             else
             {
                 GameManager.Instance.TogglePopup(false, false);
+                GameManager.Instance.TogglePopup(true, false);
                 UnhighlightCurrentObject();
             }
         }

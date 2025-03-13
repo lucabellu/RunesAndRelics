@@ -27,6 +27,7 @@ public class CustomerDialogue : MonoBehaviour
 
     private AudioSource audioSource;
     private bool isPlayingAudio = false;
+    private bool isInPlayerRange = false;
 
     private void Awake()
     {
@@ -74,6 +75,8 @@ public class CustomerDialogue : MonoBehaviour
 
     public void StartOrResetDialogue(string newText)
     {
+        if (isPlayingAudio || isTalking) return;
+
         ResetDialogueState();
 
         dialogueText.text = "";
@@ -85,6 +88,13 @@ public class CustomerDialogue : MonoBehaviour
         {
             GameManager.Instance.hasTalkedWithBoss = true;
         }
+
+        if (!isInPlayerRange)
+        {
+            StartCoroutine(HideDialogue(playDuration + 1f));
+        }
+
+        StartCoroutine(StopAudio());
     }
 
     private IEnumerator TypeLine(string line)
@@ -100,20 +110,21 @@ public class CustomerDialogue : MonoBehaviour
         isTalking = false;
     }
 
+    private IEnumerator StopAudio()
+    {
+        yield return new WaitForSeconds(playDuration);
+        audioSource.Stop();
+    }
+
     public IEnumerator HideDialogue(float timeToHide)
     {
         yield return new WaitForSeconds(timeToHide);
-        dialogueText.text = "";
         canvas.gameObject.SetActive(false);
 
         if (isTalking && talkingCoroutine != null)
         {
             StopCoroutine(talkingCoroutine);
-        }
-
-        if (audioCoroutine != null)
-        {
-            StopCoroutine(audioCoroutine);
+            isTalking = false;
         }
 
         if (isPlayingAudio && audioCoroutine != null)
@@ -129,42 +140,45 @@ public class CustomerDialogue : MonoBehaviour
         isPlayingAudio = true;
         float startTime = Time.time;
 
-        try
+        while (Time.time - startTime < playDuration)
         {
-            while (Time.time - startTime < playDuration)
-            {
-                AudioClip randomClip = sfxList[Random.Range(0, sfxList.Count)];
-                audioSource.PlayOneShot(randomClip);
-                yield return new WaitForSeconds(randomClip.length);
+            AudioClip randomClip = sfxList[Random.Range(0, sfxList.Count)];
+            audioSource.PlayOneShot(randomClip);
+            yield return new WaitForSeconds(randomClip.length);
 
-                float delay = Random.Range(minDelayBetweenSFX, maxDelayBetweenSFX);
-                yield return new WaitForSeconds(delay);
-            }
+            float delay = Random.Range(minDelayBetweenSFX, maxDelayBetweenSFX);
+            yield return new WaitForSeconds(delay);
         }
-        finally
-        {
-            isPlayingAudio = false;
-            Debug.Log("Finished playing SFX for the specified duration.");
-        }
+
+        isPlayingAudio = false;
+        Debug.Log("Finished playing SFX for the specified duration.");
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isCustomer && !customerMovement.firstDialogue && other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            StartOrResetDialogue(dialogue);
-        }
+            isInPlayerRange = true;
 
-        if (other.CompareTag("Player") && GameManager.Instance.canTalkWithBoss)
-        {
-            StartOrResetDialogue(dialogue);
+            if (isCustomer && !customerMovement.firstDialogue)
+            {
+                StartOrResetDialogue(dialogue);
+            }
+
+            else if (GameManager.Instance.canTalkWithBoss)
+            {
+                StartOrResetDialogue(dialogue);
+            }
         }
     }
 
+    
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            isInPlayerRange = false;
+
             StartCoroutine(HideDialogue(1f));
         }
 
