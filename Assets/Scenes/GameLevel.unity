@@ -22101,6 +22101,7 @@ MonoBehaviour:
   shopDoor: {fileID: 1419182623}
   bossDoor: {fileID: 191281864}
   cursorTexture: {fileID: 2800000, guid: 8dd87fdc4e5489a4bbe1bd20cac7a799, type: 3}
+  crosshair: {fileID: 156116898}
 --- !u!4 &859325192
 Transform:
   m_ObjectHideFlags: 0

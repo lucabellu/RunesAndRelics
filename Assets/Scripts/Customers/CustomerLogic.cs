@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using static GameManager;
+using UnityEngine.UI;
 
 public class CustomerLogic : MonoBehaviour, IHighlightable
 {
@@ -53,11 +51,17 @@ public class CustomerLogic : MonoBehaviour, IHighlightable
         {
             GetComponent<Outline>().enabled = true;
             GameManager.Instance.TogglePopup(true, true);
+
+            GameManager.Instance.crosshair.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 45);
+            GameManager.Instance.crosshair.GetComponent<Image>().color = Color.red;
         }
         else
         {
             GetComponent<Outline>().enabled = false;
             GameManager.Instance.TogglePopup(true, false);
+
+            GameManager.Instance.crosshair.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
+            GameManager.Instance.crosshair.GetComponent<Image>().color = Color.white;
         }
     }
 }

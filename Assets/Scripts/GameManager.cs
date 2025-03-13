@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ShopDoor bossDoor;
 
     [SerializeField] private Texture2D cursorTexture;
+    public GameObject crosshair;
 
 
     private void Start()
