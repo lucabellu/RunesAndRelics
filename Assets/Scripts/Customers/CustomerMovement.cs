@@ -14,7 +14,7 @@ public class CustomerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
     private Vector3 movementDirection;
 
-    private CustomerDialogue customerDialogue;
+    private Dialogue customerDialogue;
     private CustomerLogic customerLogic;
 
     public bool showDialogue = false;
@@ -27,7 +27,7 @@ public class CustomerMovement : MonoBehaviour
 
     private void Start()
     {
-        customerDialogue = GetComponentInChildren<CustomerDialogue>();
+        customerDialogue = GetComponentInChildren<Dialogue>();
         customerLogic = GetComponent<CustomerLogic>();
 
         spawnPos = GameManager.Instance.customerSpawn.position;
@@ -39,7 +39,6 @@ public class CustomerMovement : MonoBehaviour
     {
         HandleCustomerAnimation();
 
-        // Determine target position based on sale state
         Vector3 targetPosition;
 
         if (!hasMadeSale)
@@ -68,7 +67,6 @@ public class CustomerMovement : MonoBehaviour
                 {
                     showDialogue = true;
                     firstDialogue = false;
-                    customerDialogue.StartCoroutine(customerDialogue.HideDialogue(4f));
                 }
 
                 if (customerLogic.hasDocuments)
@@ -80,7 +78,7 @@ public class CustomerMovement : MonoBehaviour
         }
         else
         {
-            StartCoroutine(customerDialogue.HideDialogue(0f));
+            customerDialogue.HideDialogue(0f);
 
             isAtCounter = false;
 

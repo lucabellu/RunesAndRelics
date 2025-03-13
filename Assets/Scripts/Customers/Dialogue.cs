@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class CustomerDialogue : MonoBehaviour
+public class Dialogue : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private TextMeshProUGUI dialogueText;
@@ -157,6 +157,7 @@ public class CustomerDialogue : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+
             isInPlayerRange = true;
 
             if (isCustomer && !customerMovement.firstDialogue)
@@ -171,7 +172,7 @@ public class CustomerDialogue : MonoBehaviour
         }
     }
 
-    
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
