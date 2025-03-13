@@ -63,10 +63,16 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
+        
         if (pickUpObject != null && pickUpObject.TryGetComponent<Trinket>(out Trinket trinket) && trinket.inCustomerRange && isPlayerInCustomerRange)
         {
-            GameManager.Instance.currentCustomer.OnHighlight(true);
+            GameManager.Instance.currentCustomer.GetComponent<Outline>().enabled = true;
         }
+        else if (pickUpObject != null && !isPlayerInCustomerRange)
+        {
+            GameManager.Instance.currentCustomer.GetComponent<Outline>().enabled = false;
+        }
+
     }
 
     private void FixedUpdate()
@@ -292,6 +298,8 @@ public class PlayerInteract : MonoBehaviour
             }
             else
             {
+                GameManager.Instance.TogglePopup(true, false);
+                GameManager.Instance.TogglePopup(false, false);
                 highlightedObject.GetComponent<IHighlightable>().OnHighlight(false);
                 highlightedObject = null;
             }
