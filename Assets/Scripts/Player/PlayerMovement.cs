@@ -102,9 +102,9 @@ public class PlayerMovement : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(footstepDelay);
             audioSource.pitch = Random.Range(0.9f, 1.1f);
             audioSource.PlayOneShot(footstepSound);
-            yield return new WaitForSeconds(footstepDelay);
         }
     }
 }

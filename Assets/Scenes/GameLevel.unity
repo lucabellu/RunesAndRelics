@@ -23430,7 +23430,7 @@ MonoBehaviour:
   footstepSound: {fileID: 8300000, guid: ae778a41ab33def479ef05930253ad24, type: 3}
   audioSource: {fileID: 1027130952}
   footstepDelay: 0.4
-  movementThreshold: 0.1
+  movementThreshold: 0.01
 --- !u!114 &1027130949
 MonoBehaviour:
   m_ObjectHideFlags: 0
