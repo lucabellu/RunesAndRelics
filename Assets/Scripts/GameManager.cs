@@ -355,4 +355,9 @@ public class GameManager : MonoBehaviour
             pauseMenu.gameObject.SetActive(false);
         }
     }
+
+    public void ExitApplication()
+    {
+        Application.Quit();
+    }
 }
