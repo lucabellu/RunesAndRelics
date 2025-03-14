@@ -96,22 +96,26 @@ MonoBehaviour:
   - {fileID: 1190667824142468095, guid: 99e692bd69ff4944790fe59bb4919424, type: 3}
   - {fileID: 3094992345798132577, guid: d6e4abdf37cb7804eba4d710f1f2af99, type: 3}
   hasDocuments: 1
-  customerName: Test Name
+  customerName: Svelg
   customerAge: 20
   customerRace: 0
   customerKingdom: 0
-  customerOccupation: 0
-  customerGuild: 0
-  customerGuildRank: 0
-  customerPortrait: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  customerOccupation: 5
+  customerGuild: 3
+  customerGuildRank: 2
+  customerPortrait: {fileID: 21300000, guid: 10a688aeb89ab1f4d8d7c67eff5e6c5c, type: 3}
   purchaseTrinket: {fileID: 4992815286747852652, guid: ec857432b0472704883b20207d651774, type: 3}
-  letterSender: TEST SENDER
-  letterRecipient: TEST RECIPIENT
-  letterContent: 'TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT
-    TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT
-    TEST CONTENT TEST CONTENT TEST CONTENT TEST CONTENT '
-  letterTitle: TEST TITLE
-  letterSeal: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  letterSender: Kelthar
+  letterRecipient: Zeph
+  letterContent: "it\u2019s been a while. I hope this letter finds you well. I send
+    my regards on behalf of my esteemed assistant as I am unfortunately tied up with
+    matters of my own at this time.  I heard you came across a particularly rare
+    item that I had my spies searching for. That Red Tome turned out to be elusive,
+    but it seems you have your ways of procurement that rival my own. Hopefully we
+    can meet again in the near future to discuss further ventures and collaboration.
+    I will arrange appropriate payment at a later date, "
+  letterTitle: An Old Friend
+  letterSeal: {fileID: 21300000, guid: e2d6c031d182ef947947fd4b1da4e22b, type: 3}
 --- !u!82 &1621111671600910237
 AudioSource:
   m_ObjectHideFlags: 0

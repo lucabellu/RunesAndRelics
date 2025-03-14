@@ -79,16 +79,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Texture2D cursorTexture;
     public GameObject crosshair;
 
+    public bool hasReadTutorialDocument = false;
+    private bool doOnce = true;
+    [SerializeField] private GameObject tutorialDocument;
+
 
     private void Start()
     {
         customerIndex = 0;
         IncrementDay();
-
-        if (day1Customers.Count > 0)
-        {
-            StartCoroutine(SpawnNextCustomer(0f, currentCustomers));
-        }
+        tutorialDocument.GetComponent<Outline>().enabled = true;
     }
 
     private void Update()
@@ -108,6 +108,17 @@ public class GameManager : MonoBehaviour
             shopDoor.HighlightDoor();
             canTalkWithBoss = false;
             shopDoor.canInteract = true;
+        }
+
+        if (hasReadTutorialDocument && doOnce)
+        {
+            if (day1Customers.Count > 0)
+            {
+                StartCoroutine(SpawnNextCustomer(0f, currentCustomers));
+            }
+
+            doOnce = false;
+            tutorialDocument.GetComponent<Outline>().enabled = false;
         }
     }
 

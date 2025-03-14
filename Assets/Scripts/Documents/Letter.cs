@@ -20,8 +20,10 @@ public class Letter : Document
     [SerializeField] private string customTitle;
     [SerializeField] private Sprite customSeal;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         if (!isCustomSet)
         {
             senderText.text = customerLogic.letterSender;

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DitherGem
+  m_Name: DitherBlue
   m_Shader: {fileID: 4800000, guid: 0b406c17af5df4375b715b8770f556fe, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 7d93ec18be30d0340b3270211bba118f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5f0d63cb1f7202c4db3e8e47008aca06, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ed75473234df47c4cb1b631ffd55f38f, type: 3}
+        m_Texture: {fileID: 2800000, guid: abf415518e7643c46b244dcbd4d280a9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -78,9 +78,9 @@ Material:
     - _DitherMode: 3
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _InputExposure: 0.1
+    - _InputExposure: 0.01
     - _InputOffset: 0
     - _Metallic: 0
     - _Mode: 0
@@ -97,7 +97,7 @@ Material:
     - _ZResolution: 64
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0, b: 0, a: 1}
-    - _EmissionColor: {r: 1, g: 0, b: 0, a: 1}
+    - _Color: {r: 0, g: 0.9804163, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0.9803922, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

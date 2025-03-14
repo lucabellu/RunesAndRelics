@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6208066943775785640}
   - component: {fileID: 8544261862958900686}
   m_Layer: 6
-  m_Name: TestTrinket
+  m_Name: RedTome
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,15 +97,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ecdde57e782f44c9d9540ba23482de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trinketName: Test trinket
-  trinketDescription: This is a description for the test trinket
-  trinketImage: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  trinketName: Red Tome
+  trinketDescription: An ancient magical tome that contains long since forgotten
+    spells of fire and brimstone
+  trinketImage: {fileID: 21300000, guid: d34d8f2b09cb42b4c92e830deb4872e7, type: 3}
   requiredRace: 0
   requiredKingdom: 0
-  requiredOccupation: 0
+  requiredOccupation: 5
   requiredAge: 20
-  requiredGuild: 0
-  requiredGuildRank: 0
+  requiredGuild: 3
+  requiredGuildRank: 2
   duration: 1
 --- !u!114 &3452669511734531719
 MonoBehaviour:

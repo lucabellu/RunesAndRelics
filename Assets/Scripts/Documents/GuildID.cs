@@ -17,6 +17,7 @@ public class GuildID : Document
 
     [Header("Custom Data")]
     [SerializeField] private string customName;
+    [SerializeField] private Guild customGuild;
     [SerializeField] private GuildRank customGuildRank;
     [SerializeField] private Kingdom customKingdom;
     [SerializeField] private Sprite customPortrait;
@@ -28,19 +29,20 @@ public class GuildID : Document
 
         if (!isCustomSet)
         {
-            nameText.text = customerLogic.customerName;
-            guildText.text = customerLogic.customerGuild.ToString();
-            guildRankText.text = customerLogic.customerGuildRank.ToString();
-            kingdomText.text = customerLogic.customerKingdom.ToString();
+            nameText.text = "Name: " + customerLogic.customerName;
+            guildText.text = "Guild: " + customerLogic.customerGuild.ToString();
+            guildRankText.text = "Rank: " + customerLogic.customerGuildRank.ToString();
+            kingdomText.text = "Kingdom: " + customerLogic.customerKingdom.ToString();
 
             customerImageDisplay.sprite = customerLogic.customerPortrait;
             sealDisplay.sprite = customerLogic.letterSeal;
         }
         else
         {
-            nameText.text = customName;
-            guildRankText.text = customGuildRank.ToString();
-            kingdomText.text = customKingdom.ToString();
+            nameText.text = "Name: " + customName;
+            guildText.text = "Guild: " + customGuild.ToString();
+            guildRankText.text = "Rank: " + customGuildRank.ToString();
+            kingdomText.text = "Kingdom: " + customKingdom.ToString();
             customerImageDisplay.sprite = customPortrait;
             sealDisplay.sprite = customSeal;
         }

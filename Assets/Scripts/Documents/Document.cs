@@ -8,6 +8,7 @@ public class Document : MonoBehaviour, IInteractable, IHighlightable
 
     private float duration = 1f;
     private bool hasDurationPassed = false;
+    [SerializeField] private bool isTutorialDocument = false;
 
     protected virtual void Start()
     {
@@ -20,6 +21,10 @@ public class Document : MonoBehaviour, IInteractable, IHighlightable
         if (isInteracting)
         {
             documentCanvas.gameObject.SetActive(true);
+            if (isTutorialDocument)
+            {
+                GameManager.Instance.hasReadTutorialDocument = true;
+            }
         }
         else
         {
