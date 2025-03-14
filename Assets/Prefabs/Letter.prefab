@@ -1040,7 +1040,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 15
+  outlineWidth: 10
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
@@ -1084,6 +1084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   documentCanvas: {fileID: 2847899047956867395}
   customerLogic: {fileID: 0}
+  isTutorialDocument: 0
   senderText: {fileID: 2593620039080769671}
   recipientText: {fileID: 3048393730359519227}
   contentText: {fileID: 6403626333091071918}

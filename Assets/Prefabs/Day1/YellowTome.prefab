@@ -101,11 +101,11 @@ MonoBehaviour:
   trinketDescription: An ancient magical tome that contains promises of riches and
     gold for those powerful enough to cast the magic required
   trinketImage: {fileID: 21300000, guid: f65303167ecc914419ab1fa0cd070253, type: 3}
-  requiredRace: 5
-  requiredKingdom: 2
-  requiredOccupation: 5
-  requiredAge: 20
-  requiredGuild: 3
+  requiredRace: 3
+  requiredKingdom: 4
+  requiredOccupation: 0
+  requiredAge: 50
+  requiredGuild: 2
   requiredGuildRank: 4
   duration: 1
 --- !u!114 &3452669511734531719
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 15
+  outlineWidth: 10
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}

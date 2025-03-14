@@ -2168,9 +2168,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 493966143}
   dialogueText: {fileID: 346446005}
-  textSpeed: 0.04
+  textSpeed: 0.05
   dialogue: Ah, it seems as if you managed to serve my customers today, lets hope
-    you don't end up like my last helper...
+    you don't end up like my last helper... Lets just say he got a bit too... ambitious
   isCustomer: 0
   sfxList:
   - {fileID: 8300000, guid: ebb52a16dc0b1784495adc80b653ec7c, type: 3}
@@ -2211,7 +2211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 15
+  outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -22561,8 +22561,9 @@ MonoBehaviour:
   day5Trinkets: []
   day1Customers:
   - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
-  - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
-  - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
+  - {fileID: 1837545177901407731, guid: 44f101d2d0307fd4eb80d1d5e8f86832, type: 3}
+  - {fileID: 1837545177901407731, guid: 45a02f080b459574290bba050bb3dc35, type: 3}
+  - {fileID: 1837545177901407731, guid: a95af862dd5248b45a51128385c10bbe, type: 3}
   day2Customers:
   - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
   - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
@@ -25544,7 +25545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 15
+  outlineWidth: 10
   precomputeOutline: 1
   bakeKeys:
   - {fileID: -4670371673946364318, guid: 8f144e2667184cd48a12f634de452002, type: 3}
@@ -29273,7 +29274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 15
+  outlineWidth: 10
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
@@ -31401,7 +31402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 15
+  outlineWidth: 10
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}

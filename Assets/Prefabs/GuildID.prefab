@@ -1183,7 +1183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 15
+  outlineWidth: 10
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
@@ -1236,6 +1236,7 @@ MonoBehaviour:
   sealDisplay: {fileID: 3083725325849905488}
   isCustomSet: 0
   customName: Custom Test
+  customGuild: 0
   customGuildRank: 0
   customKingdom: 0
   customPortrait: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

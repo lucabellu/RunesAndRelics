@@ -102,10 +102,10 @@ MonoBehaviour:
     healing spells
   trinketImage: {fileID: 21300000, guid: d82d0a8cfd136e64f8752f7c3b94d7cb, type: 3}
   requiredRace: 5
-  requiredKingdom: 1
-  requiredOccupation: 5
-  requiredAge: 20
-  requiredGuild: 3
+  requiredKingdom: 4
+  requiredOccupation: 2
+  requiredAge: 199
+  requiredGuild: 4
   requiredGuildRank: 3
   duration: 1
 --- !u!114 &3452669511734531719
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 15
+  outlineWidth: 10
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}

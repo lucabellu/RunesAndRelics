@@ -102,11 +102,11 @@ MonoBehaviour:
     spells of fire and brimstone
   trinketImage: {fileID: 21300000, guid: 8dfac4b5d65b6534da19e2f2ab0c68ef, type: 3}
   requiredRace: 0
-  requiredKingdom: 3
-  requiredOccupation: 5
+  requiredKingdom: 2
+  requiredOccupation: 1
   requiredAge: 20
-  requiredGuild: 3
-  requiredGuildRank: 2
+  requiredGuild: 1
+  requiredGuildRank: 5
   duration: 1
 --- !u!114 &3452669511734531719
 MonoBehaviour:
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 15
+  outlineWidth: 10
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
