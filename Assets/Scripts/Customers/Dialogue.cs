@@ -24,14 +24,9 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private float minDelayBetweenSFX;
     [SerializeField] private float maxDelayBetweenSFX;
 
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
     private bool isPlayingAudio = false;
     private bool isInPlayerRange = false;
-
-    private void Awake()
-    {
-        audioSource = gameObject.AddComponent<AudioSource>();
-    }
 
     private void Start()
     {

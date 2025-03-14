@@ -83,9 +83,13 @@ public class GameManager : MonoBehaviour
     private bool doOnce = true;
     [SerializeField] private GameObject tutorialDocument;
 
+    public bool hasGotSpawnPositions { get; private set; } = false;
+
 
     private void Start()
     {
+        GetTrinketSpawnpoints();
+
         customerIndex = 0;
         IncrementDay();
         tutorialDocument.GetComponent<Outline>().enabled = true;
@@ -122,10 +126,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void GetTrinketSpawnpoints()
+    {
+        foreach (GameObject spawnpoint in GameObject.FindGameObjectsWithTag("Spawnpoint"))
+        {
+            trinketSpawnPoints.Add(spawnpoint.transform);
+        }
+
+        hasGotSpawnPositions = true;
+    }
+
     private void SpawnNewTrinkets(List<Trinket> trinketList)
     {
         currentTrinkets.Clear();
-        for (int i = 0; i < trinketSpawnPoints.Count; i++)
+        for (int i = 0; i < trinketList.Count; i++)
         {
             Trinket trinket = Instantiate(trinketList[i], trinketSpawnPoints[i].position, Quaternion.identity);
             currentTrinkets.Add(trinket);

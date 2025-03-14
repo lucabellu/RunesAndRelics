@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BookInner
-    second: {fileID: 2100000, guid: 896c6930b70cb3b40ad44c1f4b9da2d0, type: 2}
+    second: {fileID: 2100000, guid: 276b16462c3dc634e96653915107b86b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

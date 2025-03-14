@@ -23,50 +23,58 @@ public class Manifest : Document
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip pageTurn;
 
+    private bool doOnce = true;
+
     protected override void Start()
     {
         base.Start();
+    }
 
-        trinkets = GameManager.Instance.currentTrinkets;
+    private void Update()
+    {
+        if (GameManager.Instance.hasGotSpawnPositions && doOnce)
+        {
+            trinkets = GameManager.Instance.currentTrinkets;
 
-        if (trinkets != null && trinkets.Count >= 2)
-        {
-            SetUIFromTrinket(trinkets[0], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
-            SetUIFromTrinket(trinkets[1], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
-            currentIndex = 0;
-        }
-        else if (trinkets != null && trinkets.Count == 1)
-        {
-            SetUIFromTrinket(trinkets[0], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
-            trinketNameRight.text = "";
-            trinketDescriptionRight.text = "";
-            trinketImageRight.sprite = null;
-            trinketRequirementsRight.text = "";
-        }
-        else
-        {
-            Debug.LogError("Trinkets list is null or empty");
+            if (trinkets != null && trinkets.Count >= 2)
+            {
+                // Display the first two trinkets
+                SetUIFromTrinket(trinkets[0], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
+                SetUIFromTrinket(trinkets[1], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
+                currentIndex = 0;
+            }
+            else if (trinkets != null && trinkets.Count == 1)
+            {
+                // Only one trinket, display it on the left page
+                SetUIFromTrinket(trinkets[0], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
+                ClearRightPage();
+            }
+            else
+            {
+                Debug.LogError("Trinkets list is null or empty");
+            }
+
+            doOnce = false; // Reset the flag
         }
     }
 
     public void FlipRight()
     {
-        //display next 2 trinkets
-        if (trinkets.Count > currentIndex + 2)
+        // Check if there are at least 2 more trinkets to display
+        if (currentIndex + 2 < trinkets.Count)
         {
-            SetUIFromTrinket(trinkets[currentIndex + 1], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
-            SetUIFromTrinket(trinkets[currentIndex + 2], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
-            currentIndex += 2;
-            Debug.Log("Current index: " + currentIndex);
-            audioSource.PlayOneShot(pageTurn);
-        }
-        else if (trinkets.Count > currentIndex + 1)
-        {
-            SetUIFromTrinket(trinkets[currentIndex + 1], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
-            trinketNameRight.text = "";
-            trinketDescriptionRight.text = "";
-            trinketImageRight.sprite = null;
-            trinketRequirementsRight.text = "";
+            SetUIFromTrinket(trinkets[currentIndex + 2], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
+
+            // Check if there is a trinket for the right page
+            if (currentIndex + 3 < trinkets.Count)
+            {
+                SetUIFromTrinket(trinkets[currentIndex + 3], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
+            }
+            else
+            {
+                ClearRightPage();
+            }
+
             currentIndex += 2;
             Debug.Log("Current index: " + currentIndex);
             audioSource.PlayOneShot(pageTurn);
@@ -79,17 +87,8 @@ public class Manifest : Document
 
     public void FlipLeft()
     {
-        //display previous 2 trinkets
+        // Check if there are at least 2 previous trinkets to display
         if (currentIndex - 2 >= 0)
-        {
-            SetUIFromTrinket(trinkets[currentIndex - 2], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
-            SetUIFromTrinket(trinkets[currentIndex - 1], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
-            currentIndex -= 2;
-            Debug.Log("Current index: " + currentIndex);
-            audioSource.PlayOneShot(pageTurn);
-        }
-
-        else if (currentIndex - 1 >= 0)
         {
             SetUIFromTrinket(trinkets[currentIndex - 2], trinketNameLeft, trinketDescriptionLeft, trinketImageLeft, trinketRequirementsLeft);
             SetUIFromTrinket(trinkets[currentIndex - 1], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
@@ -105,7 +104,7 @@ public class Manifest : Document
 
     private void SetUIFromTrinket(Trinket trinket, TextMeshProUGUI name, TextMeshProUGUI desc, Image image, TextMeshProUGUI requirements)
     {
-        //display trinket information in UI
+        // Display trinket information in UI
         name.text = trinket.trinketName;
         desc.text = trinket.trinketDescription;
         image.sprite = trinket.trinketImage;
@@ -136,7 +135,14 @@ public class Manifest : Document
         {
             requirements.text += trinket.requiredGuildRank.ToString() + "\n";
         }
+    }
 
-
+    private void ClearRightPage()
+    {
+        // Clear the right page UI
+        trinketNameRight.text = "";
+        trinketDescriptionRight.text = "";
+        trinketImageRight.sprite = null;
+        trinketRequirementsRight.text = "";
     }
 }
