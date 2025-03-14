@@ -199,8 +199,6 @@ public class PlayerInteract : MonoBehaviour
             currentCustomer.customerGuild,
             currentCustomer.customerGuildRank);
 
-        //Debug.Log(meetsRequirements ? "Customer meets the trinket's requirements!" : "Customer does not meet the trinket's requirements.");
-
         if (isHoldingObject && meetsRequirements || !isHoldingObject && !meetsRequirements)
         {
             //HandleSuccessfulTransaction();
@@ -219,11 +217,12 @@ public class PlayerInteract : MonoBehaviour
             isHoldingObject = false;
         }
 
-        if (GameManager.Instance.currentCustomer.hasDocuments)
+        if (currentCustomer.hasDocuments)
         {
-            foreach (Document doc in GameManager.Instance.currentCustomer.documents)
+            print("Has documents");
+            foreach (GameObject document in currentCustomer.activeDocuments)
             {
-                Destroy(doc.gameObject);
+                Destroy(document);
             }
         }
 

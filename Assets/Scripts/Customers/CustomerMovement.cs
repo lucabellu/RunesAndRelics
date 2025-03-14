@@ -25,6 +25,8 @@ public class CustomerMovement : MonoBehaviour
     [SerializeField] private float footstepDelay;
     private Coroutine footstepCoroutine;
 
+    private bool doOnce = true;
+
     private void Start()
     {
         customerDialogue = GetComponentInChildren<Dialogue>();
@@ -70,10 +72,10 @@ public class CustomerMovement : MonoBehaviour
                     firstDialogue = false;
                 }
 
-                if (customerLogic.hasDocuments)
+                if (customerLogic.hasDocuments && doOnce)
                 {
                     customerLogic.SpawnDocuments();
-                    customerLogic.hasDocuments = false;
+                    doOnce = false;
                 }
             }
         }

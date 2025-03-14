@@ -11,6 +11,7 @@ public class CustomerLogic : MonoBehaviour, IHighlightable
     //
 
     public List<Document> documents;
+    public List<GameObject> activeDocuments;
     public bool hasDocuments;
 
     public string customerName;
@@ -41,6 +42,7 @@ public class CustomerLogic : MonoBehaviour, IHighlightable
                 GameObject spawnedDocument = Instantiate(doc.gameObject, GameManager.Instance.documentSpawnPoints[documents.IndexOf(doc)].position, Quaternion.identity);
                 Document document = spawnedDocument.GetComponent<Document>();
                 document.customerLogic = this;
+                activeDocuments.Add(document.gameObject);
             }
         }
     }
