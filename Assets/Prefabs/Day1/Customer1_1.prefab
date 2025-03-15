@@ -1112,7 +1112,7 @@ MonoBehaviour:
   canvas: {fileID: 3794917019528090462}
   dialogueText: {fileID: 2768931455196993588}
   textSpeed: 0.04
-  dialogue: I am here in search of a mystical tome with a red gem implanted on top
+  dialogue: I am here in search of a mystical tome to bring hell upon my enemies
   isCustomer: 1
   sfxList:
   - {fileID: 8300000, guid: ebb52a16dc0b1784495adc80b653ec7c, type: 3}

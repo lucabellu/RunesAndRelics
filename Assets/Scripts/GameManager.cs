@@ -85,6 +85,9 @@ public class GameManager : MonoBehaviour
 
     public bool hasGotSpawnPositions { get; private set; } = false;
 
+    [SerializeField] private FadeTransition fadeTransition;
+    public bool transitionInProgress = false;
+
 
     private void Start()
     {
@@ -123,6 +126,15 @@ public class GameManager : MonoBehaviour
 
             doOnce = false;
             tutorialDocument.GetComponent<Outline>().enabled = false;
+        }
+
+        if (transitionInProgress)
+        {
+            crosshair.SetActive(false);
+        }
+        else
+        {
+            crosshair.SetActive(true);
         }
     }
 
@@ -165,6 +177,8 @@ public class GameManager : MonoBehaviour
 
     private void IncrementDay()
     {
+        StartCoroutine(fadeTransition.FadeInOut());
+
         switch (currentDay)
         {
             case 0:
