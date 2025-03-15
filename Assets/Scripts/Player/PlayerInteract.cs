@@ -254,7 +254,7 @@ public class PlayerInteract : MonoBehaviour
 
     private void HighlightObject()
     {
-        if (!isHoldingObject)
+        if (!isHoldingObject && Time.timeScale != 0)
         {
             RaycastHit hit;
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))

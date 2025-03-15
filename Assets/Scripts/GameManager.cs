@@ -197,6 +197,11 @@ public class GameManager : MonoBehaviour
 
     public void EndDay()
     {
+        foreach (Trinket trinket in currentTrinkets)
+        {
+            Destroy(trinket.gameObject);
+        }
+
         shopDoor.UnhighlightDoor();
         shopDoor.canInteract = false;
         customerIndex = 0;
@@ -294,6 +299,8 @@ public class GameManager : MonoBehaviour
         if (isInDocument)
         {
             SetDocumentState(CursorLockMode.None, true, 0);
+            TogglePopup(true, false);
+            TogglePopup(false, false);
         }
         else
         {
@@ -347,9 +354,6 @@ public class GameManager : MonoBehaviour
     
     public void TogglePauseMenu(bool on)
     {
-        TogglePopup(true, false);
-        TogglePopup(false, false);
-
         if (on)
         {
             Time.timeScale = 0;
@@ -358,6 +362,9 @@ public class GameManager : MonoBehaviour
             Cursor.visible = true;
 
             pauseMenu.gameObject.SetActive(true);
+
+            TogglePopup(true, false);
+            TogglePopup(false, false);
         }
         else
         {
@@ -368,10 +375,5 @@ public class GameManager : MonoBehaviour
 
             pauseMenu.gameObject.SetActive(false);
         }
-    }
-
-    public void ExitApplication()
-    {
-        Application.Quit();
     }
 }

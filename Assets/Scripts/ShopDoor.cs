@@ -13,5 +13,6 @@ public class ShopDoor : MonoBehaviour
     public void UnhighlightDoor()
     {
         GetComponent<Outline>().enabled = false;
+        GameManager.Instance.TogglePopup(true, false);
     }
 }
