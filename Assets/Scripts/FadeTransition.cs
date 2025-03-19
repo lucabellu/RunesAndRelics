@@ -29,6 +29,8 @@ public class FadeTransition : MonoBehaviour
         Color color = fadeImage.color;
         Color textColor = text.color;
 
+        text.text = "DAY " + GameManager.Instance.currentDay.ToString();
+
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;

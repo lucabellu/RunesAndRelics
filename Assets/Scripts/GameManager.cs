@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     public List<CustomerLogic> day4Customers;
     public List<CustomerLogic> day5Customers;
 
-    private int currentDay = 0;
+    public int currentDay { get; private set; } = 0;
 
     public List<Trinket> currentTrinkets;
     public List<CustomerLogic> currentCustomers;
@@ -177,8 +177,6 @@ public class GameManager : MonoBehaviour
 
     private void IncrementDay()
     {
-        StartCoroutine(fadeTransition.FadeInOut());
-
         switch (currentDay)
         {
             case 0:
@@ -207,6 +205,7 @@ public class GameManager : MonoBehaviour
         }
 
         currentDay++;
+        StartCoroutine(fadeTransition.FadeInOut());
     }
 
     public void EndDay()
