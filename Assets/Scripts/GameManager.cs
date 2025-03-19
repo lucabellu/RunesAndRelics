@@ -260,7 +260,14 @@ public class GameManager : MonoBehaviour
         public GuildRank RequiredGuildRank { get; set; }
     }
 
-    public bool CheckRequirements(ItemRequirements itemRequirements, Race customerRace, Kingdom customerKingdom, Occupation customerOccupation, int customerAge, Guild customerGuild, GuildRank customerGuildRank)
+    public bool CheckRequirements
+        (ItemRequirements itemRequirements, 
+        Race customerRace, 
+        Kingdom customerKingdom, 
+        Occupation customerOccupation, 
+        int customerAge, 
+        Guild customerGuild, 
+        GuildRank customerGuildRank)
     {
         // Check Race requirement
         if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Race) &&
