@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persist across scenes
+            //DontDestroyOnLoad(gameObject); // Persist across scenes
+            Time.timeScale = 1;
         }
         else
         {
@@ -88,6 +90,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private FadeTransition fadeTransition;
     public bool transitionInProgress = false;
 
+    public bool isInPauseMenu { get; private set; } = false;
+    public bool hasLost { get; private set; } = false;
+
+    public int mistakesMade = 0;
+    [SerializeField] private GameObject resumeButtom;
+    [SerializeField] private GameObject restartButtom;
+    [SerializeField] private GameObject loseText;
+
+    private bool highlightDoorOnce = true;
 
     private void Start()
     {
@@ -100,18 +111,16 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (canTalkWithBoss)
+        if (canTalkWithBoss && highlightDoorOnce)
         {
             bossDoor.HighlightDoor();
-        }
-        else
-        {
-            bossDoor.UnhighlightDoor();
+            highlightDoorOnce = false;
         }
 
 
         if (hasTalkedWithBoss)
         {
+            bossDoor.UnhighlightDoor();
             shopDoor.HighlightDoor();
             canTalkWithBoss = false;
             shopDoor.canInteract = true;
@@ -135,6 +144,34 @@ public class GameManager : MonoBehaviour
         else
         {
             crosshair.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !hasLost)
+        {
+            if (!isInPauseMenu)
+            {
+                TogglePauseMenu(true);
+            }
+            else
+            {
+                TogglePauseMenu(false);
+            }
+        }
+
+        if (mistakesMade >= 3)
+        {
+            hasLost = true;
+            TogglePauseMenu(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            mistakesMade = 3;
         }
     }
 
@@ -376,6 +413,8 @@ public class GameManager : MonoBehaviour
     {
         if (on)
         {
+            isInPauseMenu = true;
+
             Time.timeScale = 0;
 
             Cursor.lockState = CursorLockMode.None;
@@ -385,15 +424,28 @@ public class GameManager : MonoBehaviour
 
             TogglePopup(true, false);
             TogglePopup(false, false);
+
+            if (hasLost)
+            {
+                resumeButtom.SetActive(false);
+                restartButtom.SetActive(true);
+                loseText.SetActive(true);
+            }
+
+            crosshair.SetActive(false);
         }
         else
         {
+            isInPauseMenu = false;
+
             Time.timeScale = 1;
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
             pauseMenu.gameObject.SetActive(false);
+
+            crosshair.SetActive(true);
         }
     }
 }

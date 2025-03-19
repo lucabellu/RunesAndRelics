@@ -55,19 +55,6 @@ public class PlayerInteract : MonoBehaviour
             GameManager.Instance.TogglePopup(false, false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (Time.timeScale == 1)
-            {
-                GameManager.Instance.TogglePauseMenu(true);
-            }
-            else
-            {
-                GameManager.Instance.TogglePauseMenu(false);
-            }
-        }
-
-        
         if (pickUpObject != null && pickUpObject.TryGetComponent<Trinket>(out Trinket trinket) && trinket.inCustomerRange && isPlayerInCustomerRange)
         {
             GameManager.Instance.currentCustomer.GetComponent<Outline>().enabled = true;
@@ -210,9 +197,7 @@ public class PlayerInteract : MonoBehaviour
         }
         else
         {
-            //HandleFailedTransaction();
-            print("handled unsuccessfully");
-            cameraShake.InduceStress(shakeIntensity);
+            HandleFailedTransaction();
         }
 
         if (pickUpObject != null)
@@ -376,6 +361,14 @@ public class PlayerInteract : MonoBehaviour
             pickUpObject = null;
             pickUpRb = null;
         }
+    }
+
+    private void HandleFailedTransaction()
+    {
+        print("handled unsuccessfully");
+
+        cameraShake.InduceStress(shakeIntensity);
+        GameManager.Instance.mistakesMade ++;
     }
 
     private void OnTriggerEnter(Collider other)
