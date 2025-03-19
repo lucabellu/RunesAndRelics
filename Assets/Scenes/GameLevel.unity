@@ -11864,7 +11864,7 @@ MonoBehaviour:
   flip: {fileID: 8300000, guid: d42f41d5bc3456046a733df5d8605192, type: 3}
   playPickUp: {fileID: 1027130954}
   pickUp: {fileID: 8300000, guid: e1115ba6cebac2c498cac9f7db31d718, type: 3}
-  cameraShake: {fileID: 0}
+  cameraShake: {fileID: 330585551}
   shakeIntensity: 0.5
 --- !u!120 &1027130950
 LineRenderer:
