@@ -40,6 +40,9 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private AudioSource playPickUp;
     [SerializeField] private AudioClip pickUp;
 
+    [SerializeField] private CameraShake cameraShake;
+    [SerializeField] private float shakeIntensity;
+
     private void Update()
     {
         HandleObjectInteraction();
@@ -209,6 +212,7 @@ public class PlayerInteract : MonoBehaviour
         {
             //HandleFailedTransaction();
             print("handled unsuccessfully");
+            cameraShake.InduceStress(shakeIntensity);
         }
 
         if (pickUpObject != null)
