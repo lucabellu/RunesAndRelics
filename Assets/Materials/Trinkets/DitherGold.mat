@@ -80,7 +80,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _InputExposure: 0.01
+    - _InputExposure: 0.1
     - _InputOffset: 0
     - _Metallic: 0
     - _Mode: 0
@@ -98,6 +98,6 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 0.7748438, b: 0, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 1, g: 0.77647066, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
