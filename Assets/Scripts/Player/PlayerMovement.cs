@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (rb.linearVelocity.y < 0)
+        if (rb.linearVelocity.y < -0.1)
         {
             constantDownForce.force = new Vector3(0f, -35f, 0f);
         }

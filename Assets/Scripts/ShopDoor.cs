@@ -5,6 +5,8 @@ public class ShopDoor : MonoBehaviour
 {
     public bool canInteract = false;
 
+    [SerializeField] private AudioSource audioSource;
+
     public void HighlightDoor()
     {
         GetComponent<Outline>().enabled = true;
@@ -14,5 +16,10 @@ public class ShopDoor : MonoBehaviour
     {
         GetComponent<Outline>().enabled = false;
         GameManager.Instance.TogglePopup(true, false);
+    }
+
+    public void PlayFailSound()
+    {
+        audioSource.Play();
     }
 }

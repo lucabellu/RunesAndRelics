@@ -43,6 +43,8 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private CameraShake cameraShake;
     [SerializeField] private float shakeIntensity;
 
+    [SerializeField] private ShopDoor shopDoor;
+
     private void Update()
     {
         HandleObjectInteraction();
@@ -367,6 +369,7 @@ public class PlayerInteract : MonoBehaviour
     {
         print("handled unsuccessfully");
 
+        shopDoor.PlayFailSound();
         cameraShake.InduceStress(shakeIntensity);
         GameManager.Instance.mistakesMade ++;
     }
