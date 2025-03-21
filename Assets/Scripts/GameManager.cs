@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
@@ -370,7 +369,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = cursorLockMode;
         Cursor.visible = visible;
         Time.timeScale = timeScale;
-        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     public void TogglePopup(bool isLeft, bool on)
