@@ -439,7 +439,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.9, y: 0.9}
+  m_SizeDelta: {x: 2.8, y: 0.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9113303757736324582
 CanvasRenderer:
@@ -471,8 +471,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: I would like to purchase the red book
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 467960e1c95e0444e9465f93c8a4b680, type: 2}
-  m_sharedMaterial: {fileID: 433454705716369963, guid: 467960e1c95e0444e9465f93c8a4b680, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3d6051ba71c108647a142f996465d951, type: 2}
+  m_sharedMaterial: {fileID: -4053863430130009705, guid: 3d6051ba71c108647a142f996465d951, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
