@@ -103,9 +103,9 @@ public enum Occupation
 public enum Guild
 {
     HOLY,
-    ASSASSIN,
-    MERCHANT,
-    MAGE,
+    ASSASSINS,
+    MERCHANTS,
+    MAGES,
     NATURE,
     NONE
 }

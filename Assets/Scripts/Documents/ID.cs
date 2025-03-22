@@ -2,13 +2,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GuildID : Document
+public class ID : Document
 {
 
     [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI guildText;
-    [SerializeField] private TextMeshProUGUI guildRankText;
-    [SerializeField] private TextMeshProUGUI kingdomText;
+    [SerializeField] private TextMeshProUGUI ageText;
+    [SerializeField] private TextMeshProUGUI occupationText;
 
     [SerializeField] private Image customerImageDisplay;
     [SerializeField] private Image sealDisplay;
@@ -17,9 +16,8 @@ public class GuildID : Document
 
     [Header("Custom Data")]
     [SerializeField] private string customName;
-    [SerializeField] private Guild customGuild;
-    [SerializeField] private GuildRank customGuildRank;
-    [SerializeField] private Kingdom customKingdom;
+    [SerializeField] private int customAge;
+    [SerializeField] private Occupation customOccupation;
     [SerializeField] private Sprite customPortrait;
     [SerializeField] private Sprite customSeal;
 
@@ -30,9 +28,8 @@ public class GuildID : Document
         if (!isCustomSet)
         {
             nameText.text = "Name: " + customerLogic.customerName;
-            guildText.text = customerLogic.customerGuild.ToString() + " Guild";
-            guildRankText.text = "Rank: " + customerLogic.customerGuildRank.ToString();
-            kingdomText.text = "Kingdom: " + customerLogic.customerKingdom.ToString();
+            ageText.text = "Age: " + customerLogic.customerAge.ToString();
+            occupationText.text = "Occupation: " + customerLogic.customerOccupation.ToString();
 
             customerImageDisplay.sprite = customerLogic.customerPortrait;
             sealDisplay.sprite = customerLogic.letterSeal;
@@ -40,9 +37,9 @@ public class GuildID : Document
         else
         {
             nameText.text = "Name: " + customName;
-            guildText.text = "Guild: " + customGuild.ToString();
-            guildRankText.text = "Rank: " + customGuildRank.ToString();
-            kingdomText.text = "Kingdom: " + customKingdom.ToString();
+            ageText.text = "Guild: " + customAge.ToString();
+            occupationText.text = "Occupation: " + customOccupation.ToString();
+
             customerImageDisplay.sprite = customPortrait;
             sealDisplay.sprite = customSeal;
         }
