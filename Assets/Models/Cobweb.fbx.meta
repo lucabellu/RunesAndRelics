@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: eedfbdfa3dd902347ad87a1af38ac7dd
+guid: 3bd3a035c6adfff49a416cfc170c7c2b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cobweb
+    second: {fileID: 2100000, guid: 9fba301d739a2c64ca746a8438dbd4fa, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
