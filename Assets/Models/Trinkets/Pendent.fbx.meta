@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 97bb931df003f434190f8e5b142e8402
+guid: 4f26d4a4a52b4864e8b0be27cf286e61
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,28 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Blade
-    second: {fileID: 2100000, guid: a3668bd91cac824479b036a4f8df8731, type: 2}
+      name: Gem
+    second: {fileID: 2100000, guid: 8fdc3b008556e83489d9bbcd3db5bd5c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Grip
-    second: {fileID: 2100000, guid: 6d9c885211e01b54087dc951a5464def, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Guard
+      name: Paper
     second: {fileID: 2100000, guid: f3fff729b56d18c47ae5fa2da6996d1e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Pommel
-    second: {fileID: 2100000, guid: a3668bd91cac824479b036a4f8df8731, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ricasso
-    second: {fileID: 2100000, guid: eae6dbc3e3b8ac64f9e7d58c461f4c3a, type: 2}
+      name: standardSurface1
+    second: {fileID: 2100000, guid: 8fdc3b008556e83489d9bbcd3db5bd5c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
