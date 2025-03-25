@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4f26d4a4a52b4864e8b0be27cf286e61
+guid: 9c0ac96ef06b32a4f82411842ee2180b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,18 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Gem
-    second: {fileID: 2100000, guid: 8fdc3b008556e83489d9bbcd3db5bd5c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Paper
-    second: {fileID: 2100000, guid: f3fff729b56d18c47ae5fa2da6996d1e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
       name: standardSurface1
-    second: {fileID: 2100000, guid: 8fdc3b008556e83489d9bbcd3db5bd5c, type: 2}
+    second: {fileID: 2100000, guid: 7debd299e31be594aada693beeb50f3b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -45,7 +35,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
