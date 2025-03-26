@@ -109,7 +109,7 @@ public class Manifest : Document
         desc.text = trinket.trinketDescription;
         image.sprite = trinket.trinketImage;
 
-        requirements.text = "Requirements:\n\n";
+        requirements.text = "REQUIREMENTS\n\n";
 
         if (trinket.requiredRace != Race.NONE)
         {
@@ -121,7 +121,7 @@ public class Manifest : Document
         }
         if (trinket.requiredOccupation != Occupation.NONE)
         {
-            requirements.text += trinket.requiredOccupation.ToString() + "\n";
+            requirements.text += "OCCUPATION: " + trinket.requiredOccupation.ToString() + "\n";
         }
         if (trinket.requiredAge != 0)
         {
@@ -129,7 +129,7 @@ public class Manifest : Document
         }
         if (trinket.requiredGuild != Guild.NONE)
         {
-            requirements.text += trinket.requiredGuild.ToString() + " GUILD" + "\n";
+            requirements.text += "GUILD: " + trinket.requiredGuild.ToString() + "\n";
         }
         if (trinket.requiredGuildRank != GuildRank.NONE)
         {

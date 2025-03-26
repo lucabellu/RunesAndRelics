@@ -101,7 +101,7 @@ MonoBehaviour:
   trinketDescription: An amulet that provides the user with enhanced aquatic abilities,
     including faster swim speed, water breathing, and pressure immunity. User may
     grow fins and gills permanently
-  trinketImage: {fileID: 21300000, guid: 1c7de55ea0d72ff4880313a314e85b17, type: 3}
+  trinketImage: {fileID: 21300000, guid: e97dc6d84b8ecb5419e6429204d079f6, type: 3}
   requiredRace: 7
   requiredKingdom: 3
   requiredOccupation: 6

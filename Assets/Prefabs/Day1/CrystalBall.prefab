@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trinketName: Crystal Ball
   trinketDescription: A ball that allows the user to peer into the distant future.
-    Visions may or may not be 100% accurate
+    Visions may not be 100% accurate
   trinketImage: {fileID: 21300000, guid: 150ab6c7345b73a45a3028f6621a4f5f, type: 3}
   requiredRace: 7
   requiredKingdom: 4

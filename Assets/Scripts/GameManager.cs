@@ -186,7 +186,12 @@ public class GameManager : MonoBehaviour
 
     private void SpawnNewTrinkets(List<Trinket> trinketList)
     {
-        currentTrinkets.Clear();
+        if (currentDay > 1)
+        {
+            currentTrinkets.Clear();
+        }
+
+
         for (int i = 0; i < trinketList.Count; i++)
         {
             Trinket trinket = Instantiate(trinketList[i], trinketSpawnPoints[i].position, Quaternion.identity);
