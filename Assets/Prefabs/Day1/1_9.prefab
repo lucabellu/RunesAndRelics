@@ -110,7 +110,7 @@ MonoBehaviour:
   letterRecipient: 
   letterContent: 
   letterTitle: 
-  letterSeal: {fileID: 0}
+  letterSeal: {fileID: 21300000, guid: e2d6c031d182ef947947fd4b1da4e22b, type: 3}
 --- !u!82 &1621111671600910237
 AudioSource:
   m_ObjectHideFlags: 0

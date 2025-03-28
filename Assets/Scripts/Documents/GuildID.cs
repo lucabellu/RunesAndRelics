@@ -30,7 +30,7 @@ public class GuildID : Document
         if (!isCustomSet)
         {
             nameText.text = "Name: " + customerLogic.customerName;
-            guildText.text = customerLogic.customerGuild.ToString() + " Guild";
+            guildText.text = customerLogic.customerGuild.ToString() + " GUILD";
             guildRankText.text = "Rank: " + customerLogic.customerGuildRank.ToString();
             kingdomText.text = "Kingdom: " + customerLogic.customerKingdom.ToString();
 
