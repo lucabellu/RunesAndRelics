@@ -105,7 +105,7 @@ MonoBehaviour:
   requiredKingdom: 2
   requiredOccupation: 1
   requiredAge: 20
-  requiredGuild: 1
+  requiredGuild: 5
   requiredGuildRank: 5
   duration: 1
 --- !u!114 &3452669511734531719

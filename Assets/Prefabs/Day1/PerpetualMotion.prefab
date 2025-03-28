@@ -106,7 +106,7 @@ MonoBehaviour:
   requiredOccupation: 6
   requiredAge: 0
   requiredGuild: 0
-  requiredGuildRank: 3
+  requiredGuildRank: 4
   duration: 1
 --- !u!114 &3452669511734531719
 MonoBehaviour:

@@ -104,7 +104,7 @@ MonoBehaviour:
   requiredRace: 1
   requiredKingdom: 0
   requiredOccupation: 5
-  requiredAge: 500
+  requiredAge: 800
   requiredGuild: 5
   requiredGuildRank: 5
   duration: 1
