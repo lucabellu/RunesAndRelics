@@ -23833,7 +23833,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1867392330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23853,8 +23853,8 @@ MonoBehaviour:
   debugFractal: 0
   setOnEnable: 1
   saveInMaterials: 0
-  inputExposure: 0.01
-  inputExposureOverride: 0
+  inputExposure: 0.05
+  inputExposureOverride: 1
   inputOffset: 0
   inputOffsetOverride: 0
   dotScale: 6
