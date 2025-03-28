@@ -7,6 +7,7 @@ public class ID : Document
 
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI ageText;
+    [SerializeField] private TextMeshProUGUI raceText;
     [SerializeField] private TextMeshProUGUI occupationText;
 
     [SerializeField] private Image customerImageDisplay;
@@ -17,6 +18,7 @@ public class ID : Document
     [Header("Custom Data")]
     [SerializeField] private string customName;
     [SerializeField] private int customAge;
+    [SerializeField] private string customRaceText;
     [SerializeField] private Occupation customOccupation;
     [SerializeField] private Sprite customPortrait;
     [SerializeField] private Sprite customSeal;
@@ -29,6 +31,7 @@ public class ID : Document
         {
             nameText.text = "Name: " + customerLogic.customerName;
             ageText.text = "Age: " + customerLogic.customerAge.ToString();
+            raceText.text = "Race: " + customerLogic.customerRace.ToString();
             occupationText.text = "Occupation: " + customerLogic.customerOccupation.ToString();
 
             customerImageDisplay.sprite = customerLogic.customerPortrait;
@@ -38,6 +41,7 @@ public class ID : Document
         {
             nameText.text = "Name: " + customName;
             ageText.text = "Guild: " + customAge.ToString();
+            raceText.text = "Race: " + customRaceText;
             occupationText.text = "Occupation: " + customOccupation.ToString();
 
             customerImageDisplay.sprite = customPortrait;
