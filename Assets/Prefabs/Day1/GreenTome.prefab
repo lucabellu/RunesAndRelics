@@ -100,7 +100,7 @@ MonoBehaviour:
   trinketName: Green Tome
   trinketDescription: An ancient magical tome that contains fast acting growth and
     healing spells
-  trinketImage: {fileID: 21300000, guid: d82d0a8cfd136e64f8752f7c3b94d7cb, type: 3}
+  trinketImage: {fileID: 21300000, guid: b97e822c45a3a354683a23a546a99691, type: 3}
   requiredRace: 5
   requiredKingdom: 4
   requiredOccupation: 2

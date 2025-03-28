@@ -69,6 +69,7 @@ public class Manifest : Document
             if (currentIndex + 3 < trinkets.Count)
             {
                 SetUIFromTrinket(trinkets[currentIndex + 3], trinketNameRight, trinketDescriptionRight, trinketImageRight, trinketRequirementsRight);
+                trinketImageRight.gameObject.SetActive(true);
             }
             else
             {
@@ -87,6 +88,8 @@ public class Manifest : Document
 
     public void FlipLeft()
     {
+        trinketImageRight.gameObject.SetActive(true);
+
         // Check if there are at least 2 previous trinkets to display
         if (currentIndex - 2 >= 0)
         {
@@ -142,7 +145,7 @@ public class Manifest : Document
         // Clear the right page UI
         trinketNameRight.text = "";
         trinketDescriptionRight.text = "";
-        trinketImageRight.sprite = null;
+        trinketImageRight.gameObject.SetActive(false);
         trinketRequirementsRight.text = "";
     }
 }

@@ -100,7 +100,7 @@ MonoBehaviour:
   trinketName: Blue Tome
   trinketDescription: An ancient magical tome that contains chilling spelss and icy
     curses
-  trinketImage: {fileID: 21300000, guid: 4d121acd4eaa37145ac53a8d0dee3fe9, type: 3}
+  trinketImage: {fileID: 21300000, guid: ba26f9b97e3d7644980e3ada89e15e71, type: 3}
   requiredRace: 1
   requiredKingdom: 0
   requiredOccupation: 5

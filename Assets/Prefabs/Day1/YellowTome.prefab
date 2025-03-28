@@ -100,7 +100,7 @@ MonoBehaviour:
   trinketName: Yellow Tome
   trinketDescription: An ancient magical tome that contains promises of riches and
     gold for those powerful enough to cast the magic required
-  trinketImage: {fileID: 21300000, guid: f65303167ecc914419ab1fa0cd070253, type: 3}
+  trinketImage: {fileID: 21300000, guid: 3858e7e071c2a8649b4c0b55ee412ab2, type: 3}
   requiredRace: 3
   requiredKingdom: 4
   requiredOccupation: 0
