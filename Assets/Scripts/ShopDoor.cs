@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class ShopDoor : MonoBehaviour
 {
@@ -10,6 +9,7 @@ public class ShopDoor : MonoBehaviour
     public void HighlightDoor()
     {
         GetComponent<Outline>().enabled = true;
+        canInteract = true;
     }
 
     public void UnhighlightDoor()

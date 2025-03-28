@@ -122,7 +122,6 @@ public class GameManager : MonoBehaviour
             bossDoor.UnhighlightDoor();
             shopDoor.HighlightDoor();
             canTalkWithBoss = false;
-            shopDoor.canInteract = true;
         }
 
         if (hasReadTutorialDocument && doOnce)
@@ -259,7 +258,6 @@ public class GameManager : MonoBehaviour
         shopDoor.UnhighlightDoor();
         shopDoor.canInteract = false;
         customerIndex = 0;
-        //cool trnasition screen
         IncrementDay();
         canTalkWithBoss = false;
         hasTalkedWithBoss = false;
