@@ -119,6 +119,8 @@ public class PlayerInteract : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
             {
+                if (hit.transform.CompareTag("Scroll")) return;
+
                 if (hit.transform.CompareTag("Door"))
                 {
                     if (hit.transform.GetComponent<ShopDoor>().canInteract)
@@ -134,7 +136,6 @@ public class PlayerInteract : MonoBehaviour
                 else
                 {
                     if (hit.transform.CompareTag("Customer")) return;
-
                     isHoldingObject = true;
                     pickUpObject = hit.transform.gameObject;
                     pickUpRb = pickUpObject.GetComponent<Rigidbody>();
@@ -269,7 +270,7 @@ public class PlayerInteract : MonoBehaviour
                     GameManager.Instance.TogglePopup(false, true);
                 }
 
-                if (hitObject.TryGetComponent<IHighlightable>(out IHighlightable highlightable))
+                if (hitObject.TryGetComponent<IHighlightable>(out IHighlightable highlightable) && !hitObject.CompareTag("Scroll"))
                 {
                     GameManager.Instance.TogglePopup(true, true);
                 }
