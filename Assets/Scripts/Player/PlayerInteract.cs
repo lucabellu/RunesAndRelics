@@ -132,12 +132,17 @@ public class PlayerInteract : MonoBehaviour
                 }
                 else if (hit.transform.CompareTag("Cobweb") && GameManager.Instance.canCleanCobwebs)
                 {
+                    print("Cleaning cobweb");
+
                     if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
                     {
                         interactable.OnInteract(true);
                     }
-                    print("Cleaning cobweb");
-                    return;
+                    else
+                    {
+                        print("No interactable component found on cobweb.");
+                    }
+                        return;
                 }
                 else if (hit.transform.CompareTag("Customer") && GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
                 {

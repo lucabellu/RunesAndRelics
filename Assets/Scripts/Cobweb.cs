@@ -8,6 +8,5 @@ public class Cobweb : MonoBehaviour, IInteractable
         GameManager.Instance.cobwebs.Remove(this.gameObject);
         Destroy(this.gameObject);
         //play animation
-        //destroy cobweb
     }
 }
