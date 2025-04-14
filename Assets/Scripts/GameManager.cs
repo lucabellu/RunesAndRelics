@@ -179,6 +179,7 @@ public class GameManager : MonoBehaviour
         {
             currentTasks[currentTaskIndex].CompleteTask();
             canCleanCobwebs = false;
+            StartNextTask();
         }
     }
 
@@ -281,11 +282,6 @@ public class GameManager : MonoBehaviour
         {
             StartNextTask();
         }
-    }
-
-    private bool AllCustomersServed(List<CustomerLogic> customerList)
-    {
-        return customerIndex >= customerList.Count;
     }
 
     [Flags]

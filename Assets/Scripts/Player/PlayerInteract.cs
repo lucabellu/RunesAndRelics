@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Diagnostics;
-using UnityEngine.Events;
 using static GameManager;
 
 public class PlayerInteract : MonoBehaviour
@@ -13,7 +11,6 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private Transform playerCam;
     private GameObject highlightedObject;
-    private LineRenderer lineRenderer;
 
     private GameObject pickUpObject;
     private Rigidbody pickUpRb;
@@ -24,11 +21,8 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private Transform objectHoldPos;
     [SerializeField] private float objectMoveSpeed;
     [SerializeField] private float maxObjectMoveSpeed;
-    [SerializeField] private float linearDampingValue;
-    [SerializeField] private float smoothTime;
 
     private bool isHoldingObject = false;
-    private Vector3 velocitySmoothDamp;
     #endregion
 
     private bool isPlayerInCustomerRange = false;
@@ -48,25 +42,9 @@ public class PlayerInteract : MonoBehaviour
 
     private void Update()
     {
-        HandleObjectInteraction();
-        HandleDocumentInteraction();
+        HandleInteractions();
         HighlightObject();
-
-        if (isHoldingObject)
-        {
-            GameManager.Instance.TogglePopup(true, false);
-            GameManager.Instance.TogglePopup(false, false);
-        }
-
-        if (pickUpObject != null && pickUpObject.TryGetComponent<Trinket>(out Trinket trinket) && trinket.inCustomerRange && isPlayerInCustomerRange)
-        {
-            GameManager.Instance.currentCustomer.GetComponent<Outline>().enabled = true;
-        }
-        else if (pickUpObject != null && !isPlayerInCustomerRange && GameManager.Instance.currentCustomer != null)
-        {
-            GameManager.Instance.currentCustomer.GetComponent<Outline>().enabled = false;
-        }
-
+        UpdateOutline();
     }
 
     private void FixedUpdate()
@@ -77,92 +55,85 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
-    private void HandleObjectInteraction()
+    private void HandleInteractions()
     {
         if (Input.GetMouseButtonDown(0))
         {
             if (pickUpObject == null)
             {
-                TryPickUpObject();
+                TryInteractWithObject();
             }
             else
             {
                 HandlePickUpObject();
             }
         }
-    }
 
-    private void HandleDocumentInteraction()
-    {
         if (Input.GetMouseButtonDown(1))
         {
-            if (!isHoldingObject)
+            HandleDocumentInteraction();
+        }
+    }
+
+    private void TryInteractWithObject()
+    {
+        if (isInteractingWithDocument) return;
+
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out RaycastHit hit, interactDistance, layerMask))
+        {
+            switch (hit.transform.tag)
             {
-                if (currentDocument == null)
-                {
-                    TryInteractWithDocument();
-                }
-                else
-                {
-                    currentDocument.OnInteract(false);
-                    GameManager.Instance.SetPlayerDocumentState(false);
-                    isInteractingWithDocument = false;
-                    currentDocument = null;
-                }
+                case "Scroll":
+                    return;
+
+                case "Door":
+                    HandleDoorInteraction(hit.transform.GetComponent<ShopDoor>());
+                    break;
+
+                case "Cobweb":
+                    HandleCobwebInteraction(hit.transform);
+                    break;
+
+                case "Customer":
+                    if (GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
+                    {
+                        HandleCustomerInteraction(GameManager.Instance.currentCustomer.purchaseTrinket);
+                    }
+                    break;
+
+                default:
+                    PickUpObject(hit.transform);
+                    break;
             }
         }
     }
 
-    private void TryPickUpObject()
+    private void HandleDoorInteraction(ShopDoor door)
     {
-        if (!isInteractingWithDocument)
+        if (door != null && door.canInteract)
         {
-            RaycastHit hit;
-            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
-            {
-                if (hit.transform.CompareTag("Scroll")) return;
-
-                if (hit.transform.CompareTag("Door"))
-                {
-                    if (hit.transform.GetComponent<ShopDoor>().canInteract)
-                    {
-                        GameManager.Instance.EndDay();
-                    }
-                   
-                }
-                else if (hit.transform.CompareTag("Cobweb") && GameManager.Instance.canCleanCobwebs)
-                {
-                    print("Cleaning cobweb");
-
-                    if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
-                    {
-                        interactable.OnInteract(true);
-                    }
-                    else
-                    {
-                        print("No interactable component found on cobweb.");
-                    }
-                        return;
-                }
-                else if (hit.transform.CompareTag("Customer") && GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
-                {
-                    HandleCustomerInteraction(Instance.currentCustomer.purchaseTrinket);
-                }
-                else
-                {
-                    if (hit.transform.CompareTag("Customer") || hit.transform.CompareTag("Cobweb")) return;
-                    isHoldingObject = true;
-                    pickUpObject = hit.transform.gameObject;
-                    pickUpRb = pickUpObject.GetComponent<Rigidbody>();
-                    pickUpRb.useGravity = false;
-                    pickUpRb.freezeRotation = true;
-                    pickUpRb.isKinematic = true;
-                    pickUpObject.transform.SetParent(objectHoldPos);
-                    playPickUp.PlayOneShot(pickUp);
-                }
-                
-            }
+            GameManager.Instance.EndDay();
         }
+    }
+
+    private void HandleCobwebInteraction(Transform cobweb)
+    {
+        if (GameManager.Instance.canCleanCobwebs && cobweb.TryGetComponent<IInteractable>(out IInteractable interactable))
+        {
+            interactable.OnInteract(true);
+        }
+    }
+
+    private void PickUpObject(Transform obj)
+    {
+        isHoldingObject = true;
+        pickUpObject = obj.gameObject;
+        pickUpRb = pickUpObject.GetComponent<Rigidbody>();
+        pickUpRb.useGravity = false;
+        pickUpRb.freezeRotation = true;
+        pickUpRb.isKinematic = true;
+        pickUpObject.transform.SetParent(objectHoldPos);
+        playPickUp.PlayOneShot(pickUp);
     }
 
     private void HandlePickUpObject()
@@ -184,68 +155,28 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
-    private void HandleCustomerInteraction(Trinket trinket)
+    private void HandleDocumentInteraction()
     {
-        CustomerLogic currentCustomer = GameManager.Instance.currentCustomer;
+        if (isHoldingObject) return;
 
-        ItemRequirements itemRequirements = new ItemRequirements
+        if (currentDocument == null)
         {
-            ActiveRequirements = trinket.ActiveRequirements,
-            RequiredRace = trinket.requiredRace,
-            RequiredKingdom = trinket.requiredKingdom,
-            RequiredOccupation = trinket.requiredOccupation,
-            RequiredAge = trinket.requiredAge,
-            RequiredGuild = trinket.requiredGuild,
-            RequiredGuildRank = trinket.requiredGuildRank
-        };
-
-        bool meetsRequirements = GameManager.Instance.CheckRequirements
-            (itemRequirements,
-            currentCustomer.customerRace,
-            currentCustomer.customerKingdom,
-            currentCustomer.customerOccupation,
-            currentCustomer.customerAge,
-            currentCustomer.customerGuild,
-            currentCustomer.customerGuildRank);
-
-        if (isHoldingObject && meetsRequirements || !isHoldingObject && !meetsRequirements)
-        {
-            //HandleSuccessfulTransaction();
-            print("handled successfully");
+            TryInteractWithDocument();
         }
         else
         {
-            HandleFailedTransaction();
+            currentDocument.OnInteract(false);
+            GameManager.Instance.SetPlayerDocumentState(false);
+            isInteractingWithDocument = false;
+            currentDocument = null;
         }
-
-        if (pickUpObject != null)
-        {
-            Destroy(pickUpObject);
-            pickUpObject = null;
-            isHoldingObject = false;
-        }
-
-        if (currentCustomer.hasDocuments)
-        {
-            print("Has documents");
-            foreach (GameObject document in currentCustomer.activeDocuments)
-            {
-                Destroy(document);
-            }
-        }
-
-        GameManager.Instance.OnSale.Invoke();
-        GameManager.Instance.currentTasks[GameManager.Instance.currentTaskIndex].CompleteTask();
-        StartCoroutine(StartNextTaskWithDelay(6f));
     }
 
     private void TryInteractWithDocument()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out RaycastHit hit, interactDistance, layerMask))
         {
-            IInteractable interactable = hit.transform.GetComponent<IInteractable>();
-            if (interactable != null)
+            if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
             {
                 currentDocument = hit.transform.GetComponent<Document>();
                 interactable.OnInteract(true);
@@ -255,51 +186,34 @@ public class PlayerInteract : MonoBehaviour
                 if (hit.transform.CompareTag("Manifest"))
                 {
                     playFlipThrough.PlayOneShot(flip);
-                }   
+                }
             }
         }
     }
 
     private void HighlightObject()
     {
-        if (!isHoldingObject && Time.timeScale != 0)
+        if (isHoldingObject || Time.timeScale == 0) return;
+
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out RaycastHit hit, interactDistance, layerMask))
         {
-            RaycastHit hit;
-            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, interactDistance, layerMask))
-            {
-                GameObject hitObject = hit.transform.gameObject;
+            GameObject hitObject = hit.transform.gameObject;
 
-                if (hitObject.CompareTag("Customer") && !GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
-                {
-                    UnhighlightCurrentObject();
-                    return;
-                }
-
-                if (hitObject != highlightedObject)
-                {
-                    UnhighlightCurrentObject();
-                    HighlightNewObject(hitObject);
-                }
-
-                if (hitObject.TryGetComponent<IInteractable>(out IInteractable interactable))
-                {
-                    GameManager.Instance.TogglePopup(false, true);
-                }
-
-                if (hitObject.TryGetComponent<IHighlightable>(out IHighlightable highlightable) && !hitObject.CompareTag("Scroll"))
-                {
-                    GameManager.Instance.TogglePopup(true, true);
-                }
-
-                if (hitObject.CompareTag("Door") && GameManager.Instance.hasTalkedWithBoss)
-                {
-                    GameManager.Instance.TogglePopup(true, true);
-                }
-            }
-            else
+            if (hitObject.CompareTag("Customer") && !GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
             {
                 UnhighlightCurrentObject();
+                return;
             }
+
+            if (hitObject != highlightedObject)
+            {
+                UnhighlightCurrentObject();
+                HighlightNewObject(hitObject);
+            }
+        }
+        else
+        {
+            UnhighlightCurrentObject();
         }
     }
 
@@ -307,18 +221,11 @@ public class PlayerInteract : MonoBehaviour
     {
         if (highlightedObject != null)
         {
-            if (highlightedObject.CompareTag("Door"))
+            if (highlightedObject.TryGetComponent<IHighlightable>(out IHighlightable highlightable))
             {
-                GameManager.Instance.TogglePopup(true, false);
-                highlightedObject = null;
+                highlightable.OnHighlight(false);
             }
-            else
-            {
-                GameManager.Instance.TogglePopup(true, false);
-                GameManager.Instance.TogglePopup(false, false);
-                highlightedObject.GetComponent<IHighlightable>().OnHighlight(false);
-                highlightedObject = null;
-            }
+            highlightedObject = null;
         }
     }
 
@@ -329,43 +236,23 @@ public class PlayerInteract : MonoBehaviour
             highlightable.OnHighlight(true);
             highlightedObject = hitObject;
         }
+    }
 
-        if (!hitObject.TryGetComponent<IInteractable>(out IInteractable interactable))
+    private void UpdateOutline()
+    {
+        if (pickUpObject != null && pickUpObject.TryGetComponent<Trinket>(out Trinket trinket) && trinket.inCustomerRange && isPlayerInCustomerRange)
         {
-            GameManager.Instance.TogglePopup(false, false);
+            GameManager.Instance.currentCustomer.GetComponent<Outline>().enabled = true;
         }
-
-        if (hitObject.CompareTag("Door"))
+        else if (pickUpObject != null && !isPlayerInCustomerRange && GameManager.Instance.currentCustomer != null)
         {
-            highlightedObject = hitObject;
+            GameManager.Instance.currentCustomer.GetComponent<Outline>().enabled = false;
         }
     }
 
     private void MoveObjectToHoldPos()
     {
-        /*
-        Vector3 direction = (objectHoldPos.position - pickUpObject.transform.position).normalized;
-        Vector3 targetVelocity = Vector3.ClampMagnitude(direction * objectMoveSpeed, maxObjectMoveSpeed);
-
-        if (Vector3.Distance(pickUpObject.transform.position, objectHoldPos.position) > 0.1f)
-        {
-            pickUpRb.linearVelocity = Vector3.SmoothDamp(pickUpRb.linearVelocity, targetVelocity, ref velocitySmoothDamp, smoothTime);
-
-        }
-        else
-        {
-            pickUpRb.linearVelocity = Vector3.zero;
-        }
-        */
-        
-
         pickUpObject.transform.position = objectHoldPos.position;
-
-        /*
-        Vector3 targetPosition = pickUpObject.transform.position;
-        Vector3 moveDirection = (targetPosition - pickUpObject.transform.position);
-        pickUpRb.linearVelocity = moveDirection * objectMoveSpeed;
-        */
     }
 
     private void DropObject()
@@ -382,13 +269,64 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
+    private void HandleCustomerInteraction(Trinket trinket)
+    {
+        CustomerLogic currentCustomer = GameManager.Instance.currentCustomer;
+
+        ItemRequirements itemRequirements = new ItemRequirements
+        {
+            ActiveRequirements = trinket.ActiveRequirements,
+            RequiredRace = trinket.requiredRace,
+            RequiredKingdom = trinket.requiredKingdom,
+            RequiredOccupation = trinket.requiredOccupation,
+            RequiredAge = trinket.requiredAge,
+            RequiredGuild = trinket.requiredGuild,
+            RequiredGuildRank = trinket.requiredGuildRank
+        };
+
+        bool meetsRequirements = GameManager.Instance.CheckRequirements(
+            itemRequirements,
+            currentCustomer.customerRace,
+            currentCustomer.customerKingdom,
+            currentCustomer.customerOccupation,
+            currentCustomer.customerAge,
+            currentCustomer.customerGuild,
+            currentCustomer.customerGuildRank);
+
+        if (meetsRequirements)
+        {
+            Debug.Log("Transaction successful");
+        }
+        else
+        {
+            HandleFailedTransaction();
+        }
+
+        if (pickUpObject != null)
+        {
+            Destroy(pickUpObject);
+            pickUpObject = null;
+            isHoldingObject = false;
+        }
+
+        if (currentCustomer.hasDocuments)
+        {
+            foreach (GameObject document in currentCustomer.activeDocuments)
+            {
+                Destroy(document);
+            }
+        }
+
+        GameManager.Instance.OnSale.Invoke();
+        StartCoroutine(StartNextTaskWithDelay(6f));
+    }
+
     private void HandleFailedTransaction()
     {
-        print("handled unsuccessfully");
-
+        Debug.Log("Transaction failed");
         shopDoor.PlayFailSound();
         cameraShake.InduceStress(shakeIntensity);
-        GameManager.Instance.mistakesMade ++;
+        GameManager.Instance.mistakesMade++;
     }
 
     private void OnTriggerEnter(Collider other)
