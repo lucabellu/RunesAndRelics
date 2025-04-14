@@ -12284,58 +12284,57 @@ MonoBehaviour:
   rightPopup: {fileID: 1184723828}
   playDropSound: {fileID: 859325193}
   playEnterSound: {fileID: 859325194}
-  OnSale:
-    m_PersistentCalls:
-      m_Calls: []
   trinketSpawnPoints: []
-  day1Trinkets:
-  - {fileID: 4992815286747852652, guid: ec857432b0472704883b20207d651774, type: 3}
-  - {fileID: 4992815286747852652, guid: e9070a91c6bd78c43ad96c15ced13032, type: 3}
-  - {fileID: 4992815286747852652, guid: 741643a074d9f594c9f13a720b078daf, type: 3}
-  - {fileID: 4992815286747852652, guid: aeca22249bf7cc24e993d59ee67fcc83, type: 3}
-  - {fileID: 4992815286747852652, guid: deb4785dc243a784e815ea69f62e76de, type: 3}
-  - {fileID: 4992815286747852652, guid: 5371f77fea1fdc54c803f411bf0c4b10, type: 3}
-  - {fileID: 4992815286747852652, guid: 1ec02791e42c52948a37bddaf434be53, type: 3}
-  - {fileID: 4992815286747852652, guid: 44e75b2bf7ccac94f8127fbe24d30514, type: 3}
-  day2Trinkets:
-  - {fileID: 4992815286747852652, guid: ec857432b0472704883b20207d651774, type: 3}
-  - {fileID: 4992815286747852652, guid: e9070a91c6bd78c43ad96c15ced13032, type: 3}
-  - {fileID: 4992815286747852652, guid: 741643a074d9f594c9f13a720b078daf, type: 3}
-  - {fileID: 4992815286747852652, guid: aeca22249bf7cc24e993d59ee67fcc83, type: 3}
-  day3Trinkets: []
-  day4Trinkets: []
-  day5Trinkets: []
-  day1Customers:
-  - {fileID: 1837545177901407731, guid: 0ce17a33a39d89e439a5077e221724a5, type: 3}
-  - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
-  - {fileID: 1837545177901407731, guid: 7afd76f787ea62d40b5e776f60142d70, type: 3}
-  - {fileID: 1837545177901407731, guid: 7de0f771ef5eed849882bec95aedf6c1, type: 3}
-  - {fileID: 1837545177901407731, guid: 44f101d2d0307fd4eb80d1d5e8f86832, type: 3}
-  - {fileID: 1837545177901407731, guid: 45a02f080b459574290bba050bb3dc35, type: 3}
-  - {fileID: 1837545177901407731, guid: 7b4047d553a5d3c44862932398d12260, type: 3}
-  - {fileID: 1837545177901407731, guid: a95af862dd5248b45a51128385c10bbe, type: 3}
-  - {fileID: 1837545177901407731, guid: a09bee6e4ed511e43b97175e871f6dcb, type: 3}
-  day2Customers:
-  - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
-  - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
-  - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
-  - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
-  day3Customers: []
-  day4Customers: []
-  day5Customers: []
-  day1Tasks:
-  - {fileID: 11400000, guid: 275cbb0db9d72e64b89a7a9b8996020c, type: 2}
-  - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
-  - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
-  - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
-  - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+  days:
+  - trinkets:
+    - {fileID: 4992815286747852652, guid: 44e75b2bf7ccac94f8127fbe24d30514, type: 3}
+    - {fileID: 4992815286747852652, guid: deb4785dc243a784e815ea69f62e76de, type: 3}
+    - {fileID: 4992815286747852652, guid: aeca22249bf7cc24e993d59ee67fcc83, type: 3}
+    - {fileID: 4992815286747852652, guid: 5371f77fea1fdc54c803f411bf0c4b10, type: 3}
+    - {fileID: 4992815286747852652, guid: e9070a91c6bd78c43ad96c15ced13032, type: 3}
+    - {fileID: 4992815286747852652, guid: 1ec02791e42c52948a37bddaf434be53, type: 3}
+    - {fileID: 4992815286747852652, guid: ec857432b0472704883b20207d651774, type: 3}
+    - {fileID: 4992815286747852652, guid: 741643a074d9f594c9f13a720b078daf, type: 3}
+    customers:
+    - {fileID: 1837545177901407731, guid: 0ce17a33a39d89e439a5077e221724a5, type: 3}
+    - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
+    - {fileID: 1837545177901407731, guid: 7afd76f787ea62d40b5e776f60142d70, type: 3}
+    - {fileID: 1837545177901407731, guid: 7de0f771ef5eed849882bec95aedf6c1, type: 3}
+    - {fileID: 1837545177901407731, guid: 44f101d2d0307fd4eb80d1d5e8f86832, type: 3}
+    - {fileID: 1837545177901407731, guid: 45a02f080b459574290bba050bb3dc35, type: 3}
+    - {fileID: 1837545177901407731, guid: 7b4047d553a5d3c44862932398d12260, type: 3}
+    - {fileID: 1837545177901407731, guid: a95af862dd5248b45a51128385c10bbe, type: 3}
+    - {fileID: 1837545177901407731, guid: a09bee6e4ed511e43b97175e871f6dcb, type: 3}
+    tasks:
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 275cbb0db9d72e64b89a7a9b8996020c, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+  - trinkets:
+    - {fileID: 4992815286747852652, guid: 44e75b2bf7ccac94f8127fbe24d30514, type: 3}
+    - {fileID: 4992815286747852652, guid: 44e75b2bf7ccac94f8127fbe24d30514, type: 3}
+    - {fileID: 4992815286747852652, guid: 44e75b2bf7ccac94f8127fbe24d30514, type: 3}
+    customers:
+    - {fileID: 1837545177901407731, guid: 0ce17a33a39d89e439a5077e221724a5, type: 3}
+    - {fileID: 1837545177901407731, guid: 5a6c5ca837a54044bac4d187a7816f31, type: 3}
+    - {fileID: 1837545177901407731, guid: 7afd76f787ea62d40b5e776f60142d70, type: 3}
+    tasks:
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
   currentTasks: []
   currentTaskIndex: 0
-  cobwebs: []
-  canCleanCobwebs: 0
   currentTrinkets:
   - {fileID: 1005782632}
   currentCustomers: []
+  cobwebs: []
+  canCleanCobwebs: 0
   documentSpawnPoints:
   - {fileID: 1666222276}
   - {fileID: 1917834806}
@@ -14853,8 +14852,6 @@ MonoBehaviour:
   objectHoldPos: {fileID: 922999972}
   objectMoveSpeed: 6
   maxObjectMoveSpeed: 6
-  linearDampingValue: 1
-  smoothTime: 1
   playFlipThrough: {fileID: 1027130953}
   flip: {fileID: 8300000, guid: d42f41d5bc3456046a733df5d8605192, type: 3}
   playPickUp: {fileID: 1027130954}
