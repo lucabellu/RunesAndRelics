@@ -367,5 +367,6 @@ public class PlayerInteract : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         GameManager.Instance.StartNextTask();
+        print("Next task started");
     }
 }

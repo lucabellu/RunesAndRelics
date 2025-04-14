@@ -18,7 +18,6 @@ public class CameraShake : MonoBehaviour
         /* Only apply this when there is active trauma */
         if (shake > 0)
         {
-            print("is shaking");
             var previousRotation = _lastRotation;
             var previousPosition = _lastPosition;
             /* In order to avoid affecting the transform current position and rotation each frame we substract the previous translation and rotation */

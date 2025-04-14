@@ -89,7 +89,7 @@ public class CustomerMovement : MonoBehaviour
         }
 
         // Rotate toward movement direction
-        if (!isAtCounter)
+        if (!isAtCounter && movementDirection != Vector3.zero)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), 0.1f);
         }
