@@ -11878,8 +11878,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543733cc8e8e3ca4dbfa1d62a4c3f86d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentCustomer: {fileID: 0}
   customerSpawn: {fileID: 1891883287}
   target: {fileID: 1040048154}
+  customerIndex: 0
   leftPopup: {fileID: 1822677495}
   rightPopup: {fileID: 1184723828}
   playDropSound: {fileID: 859325193}
@@ -11923,6 +11925,9 @@ MonoBehaviour:
   day3Customers: []
   day4Customers: []
   day5Customers: []
+  day1Tasks:
+  - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+  currentTasks: []
   currentTrinkets:
   - {fileID: 1005782632}
   currentCustomers: []

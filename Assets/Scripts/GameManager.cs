@@ -34,10 +34,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public CustomerLogic currentCustomer { get; private set; }
+    public CustomerLogic currentCustomer;
     public Transform customerSpawn;
     public Transform target;
-    public int customerIndex { get; private set; }
+    public int customerIndex;
 
     public GameObject leftPopup;
     public GameObject rightPopup;
@@ -60,6 +60,10 @@ public class GameManager : MonoBehaviour
     public List<CustomerLogic> day3Customers;
     public List<CustomerLogic> day4Customers;
     public List<CustomerLogic> day5Customers;
+
+    public List<Task> day1Tasks;
+    public List<Task> currentTasks;
+    private int currentTaskIndex = 0;
 
     public int currentDay { get; private set; } = 0;
 
@@ -128,7 +132,7 @@ public class GameManager : MonoBehaviour
         {
             if (day1Customers.Count > 0)
             {
-                StartCoroutine(SpawnNextCustomer(0f, currentCustomers));
+                StartNextTask();
             }
 
             doOnce = false;
@@ -166,11 +170,6 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            mistakesMade = 3;
-        }
     }
 
     private void GetTrinketSpawnpoints()
@@ -198,20 +197,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public IEnumerator SpawnNextCustomer(float delay, List<CustomerLogic> customerList)
+    public void StartNextTask()
     {
-        if (!AllCustomersServed(currentCustomers))
+        if (currentTaskIndex < day1Tasks.Count)
         {
-            yield return new WaitForSeconds(delay);
-            CustomerLogic customer = Instantiate(customerList[customerIndex], customerSpawn.position, customerSpawn.rotation);
-            currentCustomer = customer;
-            customerIndex++;
-            print("Customer spawned");
-            PlayEnterAudio();
+            currentTasks[currentTaskIndex].StartTask();
         }
         else
         {
             canTalkWithBoss = true;
+            Debug.Log("All tasks completed for today!");
         }
     }
 
@@ -222,6 +217,7 @@ public class GameManager : MonoBehaviour
             case 0:
                 SpawnNewTrinkets(day1Trinkets);
                 currentCustomers = day1Customers;
+                currentTasks = day1Tasks;
                 break;
             case 1:
                 SpawnNewTrinkets(day2Trinkets);
@@ -264,7 +260,7 @@ public class GameManager : MonoBehaviour
 
         if (currentCustomers.Count > 0)
         {
-            StartCoroutine(SpawnNextCustomer(5f, currentCustomers));
+            StartNextTask();
         }
     }
 
@@ -406,7 +402,7 @@ public class GameManager : MonoBehaviour
         playDropSound.Play();
     }
 
-    private void PlayEnterAudio()
+    public void PlayEnterAudio()
     {
         playEnterSound.Play();
     }

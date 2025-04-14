@@ -220,7 +220,7 @@ public class PlayerInteract : MonoBehaviour
         }
 
         GameManager.Instance.OnSale.Invoke();
-        StartCoroutine(GameManager.Instance.SpawnNextCustomer(7f, GameManager.Instance.currentCustomers));
+        GameManager.Instance.StartNextTask();
     }
 
     private void TryInteractWithDocument()
