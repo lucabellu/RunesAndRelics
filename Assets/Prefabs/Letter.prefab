@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6355569001421344588}
   - component: {fileID: 6168732220996834416}
   - component: {fileID: 5715341057204273312}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Signature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 3901304360406752166}
   - component: {fileID: 1657763440217874296}
   - component: {fileID: 6403626333091071918}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 7869836488939131907}
   - component: {fileID: 8869427797801482063}
   - component: {fileID: 6285417847259702035}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: LetterCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 4260772614477192350}
   - component: {fileID: 1271413698078265105}
   - component: {fileID: 2154327153727704815}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Seal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 2471922063582592405}
   - component: {fileID: 3048564971216711893}
   - component: {fileID: 3048393730359519227}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Recipient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 2441576121425159555}
   - component: {fileID: 8578601681085084486}
   - component: {fileID: 4482054119965240641}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 4398508727872078059}
   - component: {fileID: 6459558229361602173}
   - component: {fileID: 3156244655773807680}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 6286597654733228860}
   - component: {fileID: 8412345210624732257}
   - component: {fileID: 2593620039080769671}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Sender
   m_TagString: Untagged
   m_Icon: {fileID: 0}

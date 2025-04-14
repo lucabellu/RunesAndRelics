@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.Events;
@@ -220,7 +221,7 @@ public class PlayerInteract : MonoBehaviour
         }
 
         GameManager.Instance.OnSale.Invoke();
-        GameManager.Instance.StartNextTask();
+        StartCoroutine(StartNextTaskWithDelay(6f));
     }
 
     private void TryInteractWithDocument()
@@ -389,5 +390,11 @@ public class PlayerInteract : MonoBehaviour
         {
             isPlayerInCustomerRange = false;
         }
+    }
+
+    private IEnumerator StartNextTaskWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameManager.Instance.StartNextTask();
     }
 }
