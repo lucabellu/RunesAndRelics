@@ -201,7 +201,7 @@ public class PlayerInteract : MonoBehaviour
 
             if (hitObject.TryGetComponent<IInteractable>(out IInteractable interactable))
             {
-                GameManager.Instance.TogglePopup(false, true);
+                GameManager.Instance.TogglePopup(PopupSide.RIGHT, true);
             }
 
             if (hitObject.CompareTag("Customer") && !GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
@@ -229,8 +229,8 @@ public class PlayerInteract : MonoBehaviour
             if (highlightedObject.TryGetComponent<IHighlightable>(out IHighlightable highlightable))
             {
                 highlightable.OnHighlight(false);
-                GameManager.Instance.TogglePopup(false, false);
-                GameManager.Instance.TogglePopup(true, false);
+                GameManager.Instance.TogglePopup(PopupSide.RIGHT, false);
+                GameManager.Instance.TogglePopup(PopupSide.LEFT, false);
             }
             highlightedObject = null;
         }

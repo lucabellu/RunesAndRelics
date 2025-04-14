@@ -1,4 +1,5 @@
 using UnityEngine;
+using static GameManager;
 
 public class ShopDoor : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class ShopDoor : MonoBehaviour
     public void UnhighlightDoor()
     {
         GetComponent<Outline>().enabled = false;
-        GameManager.Instance.TogglePopup(true, false);
+        GameManager.Instance.TogglePopup(PopupSide.LEFT, false);
     }
 
     public void PlayFailSound()

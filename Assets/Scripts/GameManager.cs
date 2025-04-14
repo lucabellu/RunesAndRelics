@@ -4,30 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using static GameManager;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager Instance { get; private set; }
 
     private void Awake()
     {
-        // Ensure only one instance of GameManager exists
         if (Instance == null)
         {
             Instance = this;
-            //DontDestroyOnLoad(gameObject); // Persist across scenes
             Time.timeScale = 1;
         }
         else
         {
-            Destroy(gameObject); // Destroy duplicate instances
+            Destroy(gameObject);
         }
     }
 
     private void OnDestroy()
     {
-        // Clear the reference to prevent holding onto stale objects
         if (Instance == this)
         {
             Instance = null;
@@ -47,30 +44,25 @@ public class GameManager : MonoBehaviour
 
     public List<Transform> trinketSpawnPoints;
 
-    public List<Trinket> day1Trinkets;
-    public List<Trinket> day2Trinkets;
-    public List<Trinket> day3Trinkets;
-    public List<Trinket> day4Trinkets;
-    public List<Trinket> day5Trinkets;
+    [Serializable]
+    public class DayData
+    {
+        public List<Trinket> trinkets;
+        public List<CustomerLogic> customers;
+        public List<Task> tasks;
+    }
 
-    public List<CustomerLogic> day1Customers;
-    public List<CustomerLogic> day2Customers;
-    public List<CustomerLogic> day3Customers;
-    public List<CustomerLogic> day4Customers;
-    public List<CustomerLogic> day5Customers;
-
-    public List<Task> day1Tasks;
+    public List<DayData> days = new();
     public List<Task> currentTasks;
     public int currentTaskIndex = 0;
+
+    public List<Trinket> currentTrinkets;
+    public List<CustomerLogic> currentCustomers;
 
     public List<GameObject> cobwebs;
     public bool canCleanCobwebs = false;
 
     public int currentDay { get; private set; } = 0;
-
-    public List<Trinket> currentTrinkets;
-    public List<CustomerLogic> currentCustomers;
-
 
     public List<Transform> documentSpawnPoints;
 
@@ -103,6 +95,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject loseText;
 
     private bool highlightDoorOnce = true;
+    private const int MaxMistakesAllowed = 3;
 
     private void Start()
     {
@@ -116,12 +109,20 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        HandleDoorHighlighting();
+        HandleTutorialProgress();
+        HandlePauseToggle();
+        HandleRestartInput();
+        CheckCobwebCompletion();
+    }
+
+    private void HandleDoorHighlighting()
+    {
         if (canTalkWithBoss && highlightDoorOnce)
         {
             bossDoor.HighlightDoor();
             highlightDoorOnce = false;
         }
-
 
         if (hasTalkedWithBoss)
         {
@@ -129,10 +130,13 @@ public class GameManager : MonoBehaviour
             shopDoor.HighlightDoor();
             canTalkWithBoss = false;
         }
+    }
 
+    private void HandleTutorialProgress()
+    {
         if (hasReadTutorialDocument && doOnce)
         {
-            if (day1Customers.Count > 0)
+            if (currentCustomers.Count > 0)
             {
                 StartNextTask();
             }
@@ -140,45 +144,40 @@ public class GameManager : MonoBehaviour
             doOnce = false;
             tutorialDocument.GetComponent<Outline>().enabled = false;
         }
+    }
 
-        if (transitionInProgress)
-        {
-            crosshair.SetActive(false);
-        }
-        else
-        {
-            crosshair.SetActive(true);
-        }
-
+    private void HandlePauseToggle()
+    {
         if (Input.GetKeyDown(KeyCode.Escape) && !hasLost)
         {
-            if (!isInPauseMenu)
-            {
-                TogglePauseMenu(true);
-            }
-            else
-            {
-                TogglePauseMenu(false);
-            }
+            TogglePauseMenu(!isInPauseMenu);
         }
 
-        if (mistakesMade >= 3)
+        if (mistakesMade >= MaxMistakesAllowed)
         {
             hasLost = true;
             TogglePauseMenu(true);
         }
+    }
 
+    private void HandleRestartInput()
+    {
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+    }
 
+    private void CheckCobwebCompletion()
+    {
         if (cobwebs.Count <= 0 && canCleanCobwebs)
         {
             currentTasks[currentTaskIndex].CompleteTask();
             canCleanCobwebs = false;
             StartNextTask();
         }
+
+        crosshair.SetActive(!transitionInProgress);
     }
 
     private void GetTrinketSpawnpoints()
@@ -187,7 +186,6 @@ public class GameManager : MonoBehaviour
         {
             trinketSpawnPoints.Add(spawnpoint.transform);
         }
-
         hasGotSpawnPositions = true;
     }
 
@@ -199,14 +197,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     private void SpawnNewTrinkets(List<Trinket> trinketList)
     {
         if (currentDay > 1)
         {
             currentTrinkets.Clear();
         }
-
 
         for (int i = 0; i < trinketList.Count; i++)
         {
@@ -217,7 +213,7 @@ public class GameManager : MonoBehaviour
 
     public void StartNextTask()
     {
-        if (currentTaskIndex < day1Tasks.Count)
+        if (currentTaskIndex < currentTasks.Count)
         {
             currentTasks[currentTaskIndex].StartTask();
         }
@@ -230,33 +226,17 @@ public class GameManager : MonoBehaviour
 
     private void IncrementDay()
     {
-        switch (currentDay)
+        if (currentDay >= days.Count)
         {
-            case 0:
-                SpawnNewTrinkets(day1Trinkets);
-                currentCustomers = day1Customers;
-                currentTasks = day1Tasks;
-                break;
-            case 1:
-                SpawnNewTrinkets(day2Trinkets);
-                currentCustomers = day2Customers;
-                break;
-            case 2:
-                SpawnNewTrinkets(day3Trinkets);
-                currentCustomers = day3Customers;
-                break;
-            case 3:
-                SpawnNewTrinkets(day4Trinkets);
-                currentCustomers = day4Customers;
-                break;
-            case 4:
-                SpawnNewTrinkets(day5Trinkets);
-                currentCustomers = day5Customers;
-                break;
-            default:
-                Debug.LogError("Invalid day number");
-                break;
+            Debug.LogError("Invalid day number");
+            return;
         }
+
+        DayData data = days[currentDay];
+
+        SpawnNewTrinkets(data.trinkets);
+        currentCustomers = data.customers;
+        currentTasks = data.tasks;
 
         currentDay++;
         StartCoroutine(fadeTransition.FadeInOut());
@@ -282,84 +262,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [Flags]
-    public enum RequirementFlags
+    public enum PopupSide { LEFT, RIGHT }
+
+    public void TogglePopup(PopupSide side, bool on)
     {
-        None = 0,
-        Race = 1 << 0,         // 1
-        Kingdom = 1 << 1,      // 2
-        Occupation = 1 << 2,   // 4
-        Age = 1 << 3,         // 8
-        Guild = 1 << 4,       // 16
-        GuildRank = 1 << 5,    // 32
-        PurchaseItem = 1 << 6  // 64
-
-    }
-
-    public class ItemRequirements
-    {
-        public RequirementFlags ActiveRequirements { get; set; }
-        public Race RequiredRace { get; set; }
-        public Kingdom RequiredKingdom { get; set; }
-        public Occupation RequiredOccupation { get; set; }
-        public int RequiredAge { get; set; }
-        public Guild RequiredGuild { get; set; }
-        public GuildRank RequiredGuildRank { get; set; }
-    }
-
-    public bool CheckRequirements
-        (ItemRequirements itemRequirements, 
-        Race customerRace, 
-        Kingdom customerKingdom, 
-        Occupation customerOccupation, 
-        int customerAge, 
-        Guild customerGuild, 
-        GuildRank customerGuildRank)
-    {
-        // Check Race requirement
-        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Race) &&
-            itemRequirements.RequiredRace != customerRace)
-        {
-            return false;
-        }
-
-        // Check Kingdom requirement
-        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Kingdom) &&
-            itemRequirements.RequiredKingdom != customerKingdom)
-        {
-            return false;
-        }
-
-        // Check Occupation requirement
-        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Occupation) &&
-            itemRequirements.RequiredOccupation != customerOccupation)
-        {
-            return false;
-        }
-
-        // Check Level requirement
-        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Age) &&
-            itemRequirements.RequiredAge > customerAge)
-        {
-            return false;
-        }
-
-        // Check Guild requirement
-        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Guild) &&
-            itemRequirements.RequiredGuild != customerGuild)
-        {
-            return false;
-        }
-
-        // Check GuildRank requirement
-        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.GuildRank) &&
-            itemRequirements.RequiredGuildRank != customerGuildRank)
-        {
-            return false;
-        }
-
-        // All active requirements are met
-        return true;
+        GameObject popup = side == PopupSide.LEFT ? leftPopup : rightPopup;
+        popup.SetActive(on);
     }
 
     public void SetPlayerDocumentState(bool isInDocument)
@@ -367,8 +275,8 @@ public class GameManager : MonoBehaviour
         if (isInDocument)
         {
             SetDocumentState(CursorLockMode.None, true, 0);
-            TogglePopup(true, false);
-            TogglePopup(false, false);
+            TogglePopup(PopupSide.LEFT, false);
+            TogglePopup(PopupSide.RIGHT, false);
         }
         else
         {
@@ -384,57 +292,22 @@ public class GameManager : MonoBehaviour
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
     }
 
-    public void TogglePopup(bool isLeft, bool on)
-    {
-        if (isLeft)
-        {
-            if (on)
-            {
-                leftPopup.SetActive(true);
-            }
-            else
-            {
-                leftPopup.SetActive(false);
-            }
-        }
-        else
-        {
-            if (on)
-            {
-                rightPopup.SetActive(true);
-            }
-            else
-            {
-                rightPopup.SetActive(false);
-            }
-        }
-    }
+    public void PlayDrop() => playDropSound.Play();
+    public void PlayEnterAudio() => playEnterSound.Play();
 
-    public void PlayDrop()
-    {
-        playDropSound.Play();
-    }
-
-    public void PlayEnterAudio()
-    {
-        playEnterSound.Play();
-    }
-    
     public void TogglePauseMenu(bool on)
     {
+        isInPauseMenu = on;
+        Time.timeScale = on ? 0 : 1;
+        Cursor.lockState = on ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = on;
+
+        pauseMenu.SetActive(on);
+
         if (on)
         {
-            isInPauseMenu = true;
-
-            Time.timeScale = 0;
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            pauseMenu.gameObject.SetActive(true);
-
-            TogglePopup(true, false);
-            TogglePopup(false, false);
+            TogglePopup(PopupSide.LEFT, false);
+            TogglePopup(PopupSide.RIGHT, false);
 
             if (hasLost)
             {
@@ -442,21 +315,61 @@ public class GameManager : MonoBehaviour
                 restartButtom.SetActive(true);
                 loseText.SetActive(true);
             }
-
-            crosshair.SetActive(false);
         }
-        else
-        {
-            isInPauseMenu = false;
 
-            Time.timeScale = 1;
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
-            pauseMenu.gameObject.SetActive(false);
-
-            crosshair.SetActive(true);
-        }
+        crosshair.SetActive(!on);
     }
+
+    [Flags]
+    public enum RequirementFlags
+    {
+        None = 0,
+        Race = 1 << 0,
+        Kingdom = 1 << 1,
+        Occupation = 1 << 2,
+        Age = 1 << 3,
+        Guild = 1 << 4,
+        GuildRank = 1 << 5,
+        PurchaseItem = 1 << 6
+    }
+
+    public class ItemRequirements
+    {
+        public RequirementFlags ActiveRequirements { get; set; }
+        public Race RequiredRace { get; set; }
+        public Kingdom RequiredKingdom { get; set; }
+        public Occupation RequiredOccupation { get; set; }
+        public int RequiredAge { get; set; }
+        public Guild RequiredGuild { get; set; }
+        public GuildRank RequiredGuildRank { get; set; }
+    }
+
+    private bool RequirementMismatch<T>(ItemRequirements itemRequirements, RequirementFlags flag, T required, T actual)
+    {
+        return itemRequirements.ActiveRequirements.HasFlag(flag) &&
+               !EqualityComparer<T>.Default.Equals(required, actual);
+    }
+
+
+    public bool CheckRequirements
+    (
+    ItemRequirements itemRequirements,
+    Race customerRace,
+    Kingdom customerKingdom,
+    Occupation customerOccupation,
+    int customerAge,
+    Guild customerGuild,
+    GuildRank customerGuildRank
+    )
+    {
+        if (RequirementMismatch(itemRequirements, RequirementFlags.Race, itemRequirements.RequiredRace, customerRace)) return false;
+        if (RequirementMismatch(itemRequirements, RequirementFlags.Kingdom, itemRequirements.RequiredKingdom, customerKingdom)) return false;
+        if (RequirementMismatch(itemRequirements, RequirementFlags.Occupation, itemRequirements.RequiredOccupation, customerOccupation)) return false;
+        if (RequirementMismatch(itemRequirements, RequirementFlags.Age, itemRequirements.RequiredAge, customerAge)) return false;
+        if (RequirementMismatch(itemRequirements, RequirementFlags.Guild, itemRequirements.RequiredGuild, customerGuild)) return false;
+        if (RequirementMismatch(itemRequirements, RequirementFlags.GuildRank, itemRequirements.RequiredGuildRank, customerGuildRank)) return false;
+
+        return true;
+    }
+
 }

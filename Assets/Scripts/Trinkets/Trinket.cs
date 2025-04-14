@@ -58,12 +58,12 @@ public class Trinket : MonoBehaviour, IHighlightable
         if (isHovering)
         {
             GetComponent<Outline>().enabled = true;
-            GameManager.Instance.TogglePopup(true, true);
+            GameManager.Instance.TogglePopup(PopupSide.LEFT, true);
         }
         else
         {
             GetComponent<Outline>().enabled = false;
-            GameManager.Instance.TogglePopup(true, false);
+            GameManager.Instance.TogglePopup(PopupSide.LEFT, false);
         }
     }
 
