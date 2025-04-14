@@ -199,6 +199,11 @@ public class PlayerInteract : MonoBehaviour
         {
             GameObject hitObject = hit.transform.gameObject;
 
+            if (hitObject.TryGetComponent<IInteractable>(out IInteractable interactable))
+            {
+                GameManager.Instance.TogglePopup(false, true);
+            }
+
             if (hitObject.CompareTag("Customer") && !GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
             {
                 UnhighlightCurrentObject();
@@ -224,6 +229,8 @@ public class PlayerInteract : MonoBehaviour
             if (highlightedObject.TryGetComponent<IHighlightable>(out IHighlightable highlightable))
             {
                 highlightable.OnHighlight(false);
+                GameManager.Instance.TogglePopup(false, false);
+                GameManager.Instance.TogglePopup(true, false);
             }
             highlightedObject = null;
         }
