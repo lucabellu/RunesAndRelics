@@ -324,7 +324,7 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
-        GameManager.Instance.OnSale.Invoke();
+        currentCustomer.transform.GetComponent<CustomerMovement>().CustomerExit();
         StartCoroutine(StartNextTaskWithDelay(6f));
     }
 

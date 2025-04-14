@@ -128,20 +128,6 @@ public class CustomerMovement : MonoBehaviour
         }
     }
 
-
-    private void OnEnable()
-    {
-        GameManager.Instance.OnSale.AddListener(CustomerExit);
-    }
-
-    private void OnDisable()
-    {
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.OnSale.RemoveListener(CustomerExit);
-        }
-    }
-
     private void HandleCustomerAnimation()
     {
         if (isAtCounter)

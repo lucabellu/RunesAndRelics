@@ -45,8 +45,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource playDropSound;
     [SerializeField] private AudioSource playEnterSound;
 
-    public UnityEvent OnSale;
-
     public List<Transform> trinketSpawnPoints;
 
     public List<Trinket> day1Trinkets;
