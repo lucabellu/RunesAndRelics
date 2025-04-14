@@ -88,8 +88,8 @@ MonoBehaviour:
     value: {fileID: 0}
     defaultState: 1
   tonemapper:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 2
   toneCurveToeStrength:
     overrideState: 0
     value: 0
@@ -168,13 +168,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 0.9731789, y: 1, z: 0.96974915, w: -0.10772822}
   gamma:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    overrideState: 1
+    value: {x: 0.9600793, y: 0.99620044, z: 1, w: 0.28103048}
   gain:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    overrideState: 1
+    value: {x: 1, y: 0.7686664, z: 0.62446517, w: 0.6932085}
   masterCurve:
     overrideState: 0
     value:
@@ -1235,11 +1235,47 @@ MonoBehaviour:
       - 0.5
       - 0.5
   lumVsSatCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 6.0884166
+          outSlope: 6.0884166
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.23529412
+          value: 0.5
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.75817
+          value: 0.5
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -5.2918196
+          outSlope: -5.2918196
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
@@ -1247,6 +1283,37 @@ MonoBehaviour:
       m_ZeroValue: 0.5
       m_Range: 1
       cachedData:
+      - 0
+      - 0.046076596
+      - 0.08923821
+      - 0.12957986
+      - 0.16719653
+      - 0.20218322
+      - 0.23463495
+      - 0.2646467
+      - 0.29231358
+      - 0.31773046
+      - 0.34099236
+      - 0.36219436
+      - 0.3814314
+      - 0.39879853
+      - 0.4143907
+      - 0.42830294
+      - 0.44063032
+      - 0.45146778
+      - 0.46091026
+      - 0.46905285
+      - 0.4759906
+      - 0.48181835
+      - 0.48663124
+      - 0.4905243
+      - 0.4935925
+      - 0.4959307
+      - 0.49763402
+      - 0.4987976
+      - 0.4995162
+      - 0.49988505
+      - 0.4999989
       - 0.5
       - 0.5
       - 0.5
@@ -1314,67 +1381,36 @@ MonoBehaviour:
       - 0.5
       - 0.5
       - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
-      - 0.5
+      - 0.49978247
+      - 0.49905163
+      - 0.4977504
+      - 0.49582222
+      - 0.49321046
+      - 0.4898586
+      - 0.48571
+      - 0.48070806
+      - 0.47479627
+      - 0.46791795
+      - 0.46001658
+      - 0.45103556
+      - 0.44091827
+      - 0.42960817
+      - 0.4170486
+      - 0.40318307
+      - 0.38795492
+      - 0.3713076
+      - 0.35318452
+      - 0.33352906
+      - 0.3122847
+      - 0.2893948
+      - 0.26480275
+      - 0.23845202
+      - 0.21028602
+      - 0.18024814
+      - 0.14828178
+      - 0.11433035
+      - 0.07833728
+      - 0.04024607
 --- !u!114 &2043916845450651785
 MonoBehaviour:
   m_ObjectHideFlags: 3
