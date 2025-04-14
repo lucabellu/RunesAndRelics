@@ -118,6 +118,8 @@ public class PlayerInteract : MonoBehaviour
 
     private void HandleCobwebInteraction(Transform cobweb)
     {
+        print("Interacting with cobweb");
+
         if (GameManager.Instance.canCleanCobwebs && cobweb.TryGetComponent<IInteractable>(out IInteractable interactable))
         {
             interactable.OnInteract(true);
@@ -201,12 +203,9 @@ public class PlayerInteract : MonoBehaviour
 
             if (hitObject.TryGetComponent<IInteractable>(out IInteractable interactable))
             {
-                if (hitObject.CompareTag("Cobweb"))
+                if (hitObject.CompareTag("Cobweb") && GameManager.Instance.canCleanCobwebs)
                 {
-                    if (GameManager.Instance.canCleanCobwebs)
-                    {
-                        GameManager.Instance.TogglePopup(PopupSide.RIGHT, true);
-                    }
+                    GameManager.Instance.TogglePopup(PopupSide.LEFT, true);
                 }
                 else
                 {
@@ -243,6 +242,7 @@ public class PlayerInteract : MonoBehaviour
                 GameManager.Instance.TogglePopup(PopupSide.RIGHT, false);
                 GameManager.Instance.TogglePopup(PopupSide.LEFT, false);
             }
+
             highlightedObject = null;
         }
     }
