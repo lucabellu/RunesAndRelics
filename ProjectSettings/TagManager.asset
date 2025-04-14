@@ -9,6 +9,7 @@ TagManager:
   - Manifest
   - Spawnpoint
   - Scroll
+  - Cobweb
   layers:
   - Default
   - TransparentFX

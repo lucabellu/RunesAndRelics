@@ -130,13 +130,22 @@ public class PlayerInteract : MonoBehaviour
                     }
                    
                 }
+                else if (hit.transform.CompareTag("Cobweb") && GameManager.Instance.canCleanCobwebs)
+                {
+                    if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
+                    {
+                        interactable.OnInteract(true);
+                    }
+                    print("Cleaning cobweb");
+                    return;
+                }
                 else if (hit.transform.CompareTag("Customer") && GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
                 {
                     HandleCustomerInteraction(Instance.currentCustomer.purchaseTrinket);
                 }
                 else
                 {
-                    if (hit.transform.CompareTag("Customer")) return;
+                    if (hit.transform.CompareTag("Customer") || hit.transform.CompareTag("Cobweb")) return;
                     isHoldingObject = true;
                     pickUpObject = hit.transform.gameObject;
                     pickUpRb = pickUpObject.GetComponent<Rigidbody>();
@@ -221,6 +230,7 @@ public class PlayerInteract : MonoBehaviour
         }
 
         GameManager.Instance.OnSale.Invoke();
+        GameManager.Instance.currentTasks[GameManager.Instance.currentTaskIndex].CompleteTask();
         StartCoroutine(StartNextTaskWithDelay(6f));
     }
 

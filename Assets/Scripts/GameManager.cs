@@ -63,7 +63,10 @@ public class GameManager : MonoBehaviour
 
     public List<Task> day1Tasks;
     public List<Task> currentTasks;
-    private int currentTaskIndex = 0;
+    public int currentTaskIndex = 0;
+
+    public List<GameObject> cobwebs;
+    public bool canCleanCobwebs = false;
 
     public int currentDay { get; private set; } = 0;
 
@@ -106,6 +109,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         GetTrinketSpawnpoints();
+        GetCobwebs();
 
         customerIndex = 0;
         IncrementDay();
@@ -170,6 +174,12 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        if (cobwebs.Count <= 0 && canCleanCobwebs)
+        {
+            currentTasks[currentTaskIndex].CompleteTask();
+            canCleanCobwebs = false;
+        }
     }
 
     private void GetTrinketSpawnpoints()
@@ -181,6 +191,15 @@ public class GameManager : MonoBehaviour
 
         hasGotSpawnPositions = true;
     }
+
+    private void GetCobwebs()
+    {
+        foreach (GameObject cobweb in GameObject.FindGameObjectsWithTag("Cobweb"))
+        {
+            cobwebs.Add(cobweb);
+        }
+    }
+
 
     private void SpawnNewTrinkets(List<Trinket> trinketList)
     {

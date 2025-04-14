@@ -11,7 +11,7 @@ public class ServeCustomerTask : Task
 
     public override void CompleteTask()
     {
-        Debug.Log("Task completed!");
+        GameManager.Instance.currentTaskIndex++;
     }
 
     public void SpawnNextCustomer()
