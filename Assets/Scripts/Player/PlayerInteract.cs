@@ -174,7 +174,7 @@ public class PlayerInteract : MonoBehaviour
 
     private void TryInteractWithDocument()
     {
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out RaycastHit hit, interactDistance, layerMask))
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out RaycastHit hit, interactDistance, layerMask) && !hit.transform.CompareTag("Cobweb"))
         {
             if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
             {
@@ -201,7 +201,18 @@ public class PlayerInteract : MonoBehaviour
 
             if (hitObject.TryGetComponent<IInteractable>(out IInteractable interactable))
             {
-                GameManager.Instance.TogglePopup(PopupSide.RIGHT, true);
+                if (hitObject.CompareTag("Cobweb"))
+                {
+                    if (GameManager.Instance.canCleanCobwebs)
+                    {
+                        GameManager.Instance.TogglePopup(PopupSide.RIGHT, true);
+                    }
+                }
+                else
+                {
+                    GameManager.Instance.TogglePopup(PopupSide.RIGHT, true);
+                }
+
             }
 
             if (hitObject.CompareTag("Customer") && !GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
@@ -291,18 +302,18 @@ public class PlayerInteract : MonoBehaviour
             RequiredGuildRank = trinket.requiredGuildRank
         };
 
-        bool meetsRequirements = GameManager.Instance.CheckRequirements(
-            itemRequirements,
-            currentCustomer.customerRace,
-            currentCustomer.customerKingdom,
-            currentCustomer.customerOccupation,
-            currentCustomer.customerAge,
-            currentCustomer.customerGuild,
-            currentCustomer.customerGuildRank);
+        bool meetsRequirements = GameManager.Instance.CheckRequirements
+           (itemRequirements,
+           currentCustomer.customerRace,
+           currentCustomer.customerKingdom,
+           currentCustomer.customerOccupation,
+           currentCustomer.customerAge,
+           currentCustomer.customerGuild,
+           currentCustomer.customerGuildRank);
 
-        if (meetsRequirements)
+        if (isHoldingObject && meetsRequirements || !isHoldingObject && !meetsRequirements)
         {
-            Debug.Log("Transaction successful");
+            print("handled successfully");
         }
         else
         {

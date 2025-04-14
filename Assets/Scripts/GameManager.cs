@@ -324,13 +324,14 @@ public class GameManager : MonoBehaviour
     public enum RequirementFlags
     {
         None = 0,
-        Race = 1 << 0,
-        Kingdom = 1 << 1,
-        Occupation = 1 << 2,
-        Age = 1 << 3,
-        Guild = 1 << 4,
-        GuildRank = 1 << 5,
-        PurchaseItem = 1 << 6
+        Race = 1 << 0,         // 1
+        Kingdom = 1 << 1,      // 2
+        Occupation = 1 << 2,   // 4
+        Age = 1 << 3,         // 8
+        Guild = 1 << 4,       // 16
+        GuildRank = 1 << 5,    // 32
+        PurchaseItem = 1 << 6  // 64
+
     }
 
     public class ItemRequirements
@@ -344,32 +345,58 @@ public class GameManager : MonoBehaviour
         public GuildRank RequiredGuildRank { get; set; }
     }
 
-    private bool RequirementMismatch<T>(ItemRequirements itemRequirements, RequirementFlags flag, T required, T actual)
-    {
-        return itemRequirements.ActiveRequirements.HasFlag(flag) &&
-               !EqualityComparer<T>.Default.Equals(required, actual);
-    }
-
-
     public bool CheckRequirements
-    (
-    ItemRequirements itemRequirements,
-    Race customerRace,
-    Kingdom customerKingdom,
-    Occupation customerOccupation,
-    int customerAge,
-    Guild customerGuild,
-    GuildRank customerGuildRank
-    )
+        (ItemRequirements itemRequirements,
+        Race customerRace,
+        Kingdom customerKingdom,
+        Occupation customerOccupation,
+        int customerAge,
+        Guild customerGuild,
+        GuildRank customerGuildRank)
     {
-        if (RequirementMismatch(itemRequirements, RequirementFlags.Race, itemRequirements.RequiredRace, customerRace)) return false;
-        if (RequirementMismatch(itemRequirements, RequirementFlags.Kingdom, itemRequirements.RequiredKingdom, customerKingdom)) return false;
-        if (RequirementMismatch(itemRequirements, RequirementFlags.Occupation, itemRequirements.RequiredOccupation, customerOccupation)) return false;
-        if (RequirementMismatch(itemRequirements, RequirementFlags.Age, itemRequirements.RequiredAge, customerAge)) return false;
-        if (RequirementMismatch(itemRequirements, RequirementFlags.Guild, itemRequirements.RequiredGuild, customerGuild)) return false;
-        if (RequirementMismatch(itemRequirements, RequirementFlags.GuildRank, itemRequirements.RequiredGuildRank, customerGuildRank)) return false;
+        // Check Race requirement
+        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Race) &&
+            itemRequirements.RequiredRace != customerRace)
+        {
+            return false;
+        }
 
+        // Check Kingdom requirement
+        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Kingdom) &&
+            itemRequirements.RequiredKingdom != customerKingdom)
+        {
+            return false;
+        }
+
+        // Check Occupation requirement
+        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Occupation) &&
+            itemRequirements.RequiredOccupation != customerOccupation)
+        {
+            return false;
+        }
+
+        // Check Level requirement
+        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Age) &&
+            itemRequirements.RequiredAge > customerAge)
+        {
+            return false;
+        }
+
+        // Check Guild requirement
+        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.Guild) &&
+            itemRequirements.RequiredGuild != customerGuild)
+        {
+            return false;
+        }
+
+        // Check GuildRank requirement
+        if (itemRequirements.ActiveRequirements.HasFlag(RequirementFlags.GuildRank) &&
+            itemRequirements.RequiredGuildRank != customerGuildRank)
+        {
+            return false;
+        }
+
+        // All active requirements are met
         return true;
     }
-
 }
