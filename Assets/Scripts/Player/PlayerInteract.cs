@@ -232,6 +232,8 @@ public class PlayerInteract : MonoBehaviour
         else
         {
             UnhighlightCurrentObject();
+            GameManager.Instance.TogglePopup(PopupSide.RIGHT, false);
+            GameManager.Instance.TogglePopup(PopupSide.LEFT, false);
         }
     }
 
@@ -246,6 +248,8 @@ public class PlayerInteract : MonoBehaviour
                 GameManager.Instance.TogglePopup(PopupSide.LEFT, false);
             }
 
+            GameManager.Instance.TogglePopup(PopupSide.RIGHT, false);
+            GameManager.Instance.TogglePopup(PopupSide.LEFT, false);
             highlightedObject = null;
         }
     }
