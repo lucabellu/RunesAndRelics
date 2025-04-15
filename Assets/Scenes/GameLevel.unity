@@ -2787,6 +2787,9 @@ MonoBehaviour:
   textSpeed: 0.1
   dialogue: Ah, it seems as if you managed to serve my customers today, lets hope
     you don't end up like my last helper... Lets just say he got a bit too... ambitious
+  cleanDialogue: Your performance so far has been average, so go and clean all of
+    the cobwebs and make this place presentable
+  firstBossDialogue: 1
   isCustomer: 0
   sfxList:
   - {fileID: 8300000, guid: ebb52a16dc0b1784495adc80b653ec7c, type: 3}
@@ -12282,9 +12285,7 @@ MonoBehaviour:
   customerIndex: 0
   leftPopup: {fileID: 1822677495}
   rightPopup: {fileID: 1184723828}
-  playDropSound: {fileID: 859325193}
-  playEnterSound: {fileID: 859325194}
-  trinketSpawnPoints: []
+  mistakesMade: 0
   days:
   - trinkets:
     - {fileID: 4992815286747852652, guid: 44e75b2bf7ccac94f8127fbe24d30514, type: 3}
@@ -12335,14 +12336,14 @@ MonoBehaviour:
   currentTrinkets:
   - {fileID: 1005782632}
   currentCustomers: []
-  cobwebs: []
-  canCleanCobwebs: 0
   documentSpawnPoints:
   - {fileID: 1666222276}
   - {fileID: 1917834806}
   - {fileID: 1589646113}
   pauseMenu: {fileID: 872367118}
+  canTalkWithBoss: 0
   hasTalkedWithBoss: 0
+  highlightBossDoorOnce: 1
   shopDoor: {fileID: 1419182623}
   bossDoor: {fileID: 191281864}
   cursorTexture: {fileID: 2800000, guid: 8dd87fdc4e5489a4bbe1bd20cac7a799, type: 3}
@@ -12351,10 +12352,14 @@ MonoBehaviour:
   tutorialDocument: {fileID: 1706998587}
   fadeTransition: {fileID: 39860347}
   transitionInProgress: 0
-  mistakesMade: 0
   resumeButtom: {fileID: 2112554765}
   restartButtom: {fileID: 1907498944}
   loseText: {fileID: 931565430}
+  trinketSpawnPoints: []
+  playDropSound: {fileID: 859325193}
+  playEnterSound: {fileID: 859325194}
+  cobwebs: []
+  canCleanCobwebs: 0
 --- !u!4 &859325192
 Transform:
   m_ObjectHideFlags: 0
