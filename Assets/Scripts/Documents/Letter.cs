@@ -26,7 +26,7 @@ public class Letter : Document
 
         if (!isCustomSet)
         {
-            senderText.text = customerLogic.letterSender;
+            senderText.text = "To " + customerLogic.letterSender;
             recipientText.text = customerLogic.letterRecipient;
             contentText.text = customerLogic.letterContent;
             titleText.text = customerLogic.letterTitle;
