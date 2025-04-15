@@ -6,13 +6,15 @@ public class CleanTask : Task
 {
     public override void StartTask()
     {
+        GameManager.Instance.canTalkWithBoss = true;
         GameManager.Instance.canCleanCobwebs = true;
-        Debug.Log("Cleaning task started");
     }
 
     public override void CompleteTask()
     {
         GameManager.Instance.currentTaskIndex++;
+        GameManager.Instance.bossDoor.transform.GetComponent<Dialogue>().firstBossDialogue = false;
+        GameManager.Instance.bossDoor.UnhighlightDoor();
     }
 
 }

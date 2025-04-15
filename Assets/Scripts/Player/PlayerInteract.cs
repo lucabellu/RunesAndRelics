@@ -113,7 +113,7 @@ public class PlayerInteract : MonoBehaviour
 
     private void HandleDoorInteraction(ShopDoor door)
     {
-        if (door != null && door.canInteract)
+        if (door != null && door.canInteract && !GameManager.Instance.bossDoor.transform.GetComponent<Dialogue>().firstBossDialogue)
         {
             GameManager.Instance.EndDay();
         }

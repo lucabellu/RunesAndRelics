@@ -39,10 +39,9 @@ public class GameManager : MonoBehaviour
     public GameObject leftPopup;
     public GameObject rightPopup;
 
-    [SerializeField] private AudioSource playDropSound;
-    [SerializeField] private AudioSource playEnterSound;
 
-    public List<Transform> trinketSpawnPoints;
+    public int mistakesMade = 0;
+    [SerializeField] private const int MaxMistakesAllowed = 3;
 
     [Serializable]
     public class DayData
@@ -59,20 +58,19 @@ public class GameManager : MonoBehaviour
     public List<Trinket> currentTrinkets;
     public List<CustomerLogic> currentCustomers;
 
-    public List<GameObject> cobwebs;
-    public bool canCleanCobwebs = false;
-
     public int currentDay { get; private set; } = 0;
 
     public List<Transform> documentSpawnPoints;
 
     [SerializeField] private GameObject pauseMenu;
 
-    public bool canTalkWithBoss { get; private set; } = false;
+    public bool canTalkWithBoss = false;
     public bool hasTalkedWithBoss = false;
+    public bool highlightBossDoorOnce = true;
 
     [SerializeField] private ShopDoor shopDoor;
-    [SerializeField] private ShopDoor bossDoor;
+
+    public ShopDoor bossDoor;
 
     [SerializeField] private Texture2D cursorTexture;
     public GameObject crosshair;
@@ -89,13 +87,18 @@ public class GameManager : MonoBehaviour
     public bool isInPauseMenu { get; private set; } = false;
     public bool hasLost { get; private set; } = false;
 
-    public int mistakesMade = 0;
     [SerializeField] private GameObject resumeButtom;
     [SerializeField] private GameObject restartButtom;
     [SerializeField] private GameObject loseText;
 
-    private bool highlightDoorOnce = true;
-    private const int MaxMistakesAllowed = 3;
+    public List<Transform> trinketSpawnPoints;
+
+    [SerializeField] private AudioSource playDropSound;
+    [SerializeField] private AudioSource playEnterSound;
+
+
+    public List<GameObject> cobwebs;
+    public bool canCleanCobwebs = false;
 
     private void Start()
     {
@@ -118,16 +121,21 @@ public class GameManager : MonoBehaviour
 
     private void HandleDoorHighlighting()
     {
-        if (canTalkWithBoss && highlightDoorOnce)
+        if (canTalkWithBoss && highlightBossDoorOnce)
         {
             bossDoor.HighlightDoor();
-            highlightDoorOnce = false;
+            highlightBossDoorOnce = false;
         }
 
-        if (hasTalkedWithBoss)
+        if (hasTalkedWithBoss && !bossDoor.transform.GetComponent<Dialogue>().firstBossDialogue)
         {
             bossDoor.UnhighlightDoor();
             shopDoor.HighlightDoor();
+            canTalkWithBoss = false;
+        }
+        else if (hasTalkedWithBoss)
+        {
+            bossDoor.UnhighlightDoor();
             canTalkWithBoss = false;
         }
     }

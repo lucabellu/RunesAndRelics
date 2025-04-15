@@ -9,7 +9,11 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private float textSpeed;
+
     [SerializeField] private string dialogue;
+
+    [SerializeField] private string cleanDialogue;
+    public bool firstBossDialogue = true;
 
     private CustomerMovement customerMovement;
 
@@ -36,7 +40,16 @@ public class Dialogue : MonoBehaviour
         }
 
         canvas.gameObject.SetActive(false);
-        dialogueText.text = dialogue;
+
+
+        if (isCustomer)
+        {
+            dialogueText.text = dialogue;
+        }
+        else
+        {
+            dialogueText.text = cleanDialogue;
+        }
     }
 
     private void Update()
@@ -160,9 +173,13 @@ public class Dialogue : MonoBehaviour
                 StartOrResetDialogue(dialogue);
             }
 
-            else if (GameManager.Instance.canTalkWithBoss)
+            else if (GameManager.Instance.canTalkWithBoss && firstBossDialogue)
             {
                 StartOrResetDialogue(dialogue);
+            }
+            else if (GameManager.Instance.canTalkWithBoss && !firstBossDialogue)
+            {
+                StartOrResetDialogue(cleanDialogue);
             }
         }
     }
