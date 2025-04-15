@@ -166,6 +166,14 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            foreach (GameObject cobweb in cobwebs)
+            {
+                Destroy(cobweb);
+            }
+        }
     }
 
     private void CheckCobwebCompletion()
@@ -237,6 +245,11 @@ public class GameManager : MonoBehaviour
         SpawnNewTrinkets(data.trinkets);
         currentCustomers = data.customers;
         currentTasks = data.tasks;
+
+        foreach (Task task in data.tasks)
+        {
+            print(task);
+        }
 
         currentDay++;
         StartCoroutine(fadeTransition.FadeInOut());

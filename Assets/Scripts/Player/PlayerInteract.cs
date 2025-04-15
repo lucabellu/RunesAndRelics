@@ -91,7 +91,10 @@ public class PlayerInteract : MonoBehaviour
                     break;
 
                 case "Cobweb":
-                    HandleCobwebInteraction(hit.transform);
+                    if (GameManager.Instance.canCleanCobwebs)
+                    {
+                        HandleCobwebInteraction(hit.transform);
+                    }
                     break;
 
                 case "Customer":
@@ -207,7 +210,7 @@ public class PlayerInteract : MonoBehaviour
                 {
                     GameManager.Instance.TogglePopup(PopupSide.LEFT, true);
                 }
-                else
+                else if (!hitObject.CompareTag("Cobweb"))
                 {
                     GameManager.Instance.TogglePopup(PopupSide.RIGHT, true);
                 }
@@ -365,8 +368,9 @@ public class PlayerInteract : MonoBehaviour
 
     private IEnumerator StartNextTaskWithDelay(float delay)
     {
+        GameManager.Instance.currentTasks[GameManager.Instance.currentTaskIndex].CompleteTask();
         yield return new WaitForSeconds(delay);
         GameManager.Instance.StartNextTask();
-        print("Next task started");
+        print(GameManager.Instance.currentTasks[GameManager.Instance.currentTaskIndex]);
     }
 }
