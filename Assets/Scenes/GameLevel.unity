@@ -12308,7 +12308,6 @@ MonoBehaviour:
     - {fileID: 1837545177901407731, guid: a09bee6e4ed511e43b97175e871f6dcb, type: 3}
     tasks:
     - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
-    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
     - {fileID: 11400000, guid: 275cbb0db9d72e64b89a7a9b8996020c, type: 2}
   - trinkets:
     - {fileID: 4992815286747852652, guid: 44e75b2bf7ccac94f8127fbe24d30514, type: 3}
@@ -12342,7 +12341,8 @@ MonoBehaviour:
   - {fileID: 1589646113}
   pauseMenu: {fileID: 872367118}
   canTalkWithBoss: 0
-  hasTalkedWithBoss: 0
+  hasTalkedWithBossOnce: 0
+  hasTalkedWithBossTwice: 0
   highlightBossDoorOnce: 1
   shopDoor: {fileID: 1419182623}
   bossDoor: {fileID: 191281864}
