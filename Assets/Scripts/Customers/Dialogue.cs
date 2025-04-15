@@ -91,9 +91,13 @@ public class Dialogue : MonoBehaviour
         talkingCoroutine = StartCoroutine(TypeLine(newText));
         audioCoroutine = StartCoroutine(PlayAudioForDuration());
 
-        if (!isCustomer)
+        if (!isCustomer && firstBossDialogue)
         {
-            GameManager.Instance.hasTalkedWithBoss = true;
+            GameManager.Instance.hasTalkedWithBossOnce = true;
+        }
+        else if (!isCustomer && !firstBossDialogue)
+        {
+            GameManager.Instance.hasTalkedWithBossTwice = true;
         }
 
         if (!isInPlayerRange)
@@ -175,11 +179,11 @@ public class Dialogue : MonoBehaviour
 
             else if (GameManager.Instance.canTalkWithBoss && firstBossDialogue)
             {
-                StartOrResetDialogue(dialogue);
+                StartOrResetDialogue(cleanDialogue);
             }
             else if (GameManager.Instance.canTalkWithBoss && !firstBossDialogue)
             {
-                StartOrResetDialogue(cleanDialogue);
+                StartOrResetDialogue(dialogue);
             }
         }
     }

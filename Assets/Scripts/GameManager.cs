@@ -65,7 +65,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
 
     public bool canTalkWithBoss = false;
-    public bool hasTalkedWithBoss = false;
+    public bool hasTalkedWithBossOnce = false;
+    public bool hasTalkedWithBossTwice = false;
     public bool highlightBossDoorOnce = true;
 
     [SerializeField] private ShopDoor shopDoor;
@@ -99,6 +100,7 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> cobwebs;
     public bool canCleanCobwebs = false;
+    private bool allTasksCompleted = false;
 
     private void Start()
     {
@@ -127,16 +129,20 @@ public class GameManager : MonoBehaviour
             highlightBossDoorOnce = false;
         }
 
-        if (hasTalkedWithBoss && !bossDoor.transform.GetComponent<Dialogue>().firstBossDialogue)
+        if (hasTalkedWithBossOnce && !allTasksCompleted)
         {
             bossDoor.UnhighlightDoor();
-            shopDoor.HighlightDoor();
             canTalkWithBoss = false;
         }
-        else if (hasTalkedWithBoss)
+
+        if (hasTalkedWithBossTwice)
         {
-            bossDoor.UnhighlightDoor();
-            canTalkWithBoss = false;
+            shopDoor.HighlightDoor();
+            shopDoor.canInteract = true;
+        }
+        else
+        {
+            shopDoor.canInteract = false;
         }
     }
 
@@ -181,6 +187,7 @@ public class GameManager : MonoBehaviour
             {
                 Destroy(cobweb);
             }
+            cobwebs.Clear();
         }
     }
 
@@ -188,6 +195,7 @@ public class GameManager : MonoBehaviour
     {
         if (cobwebs.Count <= 0 && canCleanCobwebs)
         {
+            print("cobwebs cleaned");
             currentTasks[currentTaskIndex].CompleteTask();
             canCleanCobwebs = false;
             StartNextTask();
@@ -235,13 +243,17 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            allTasksCompleted = true;
             canTalkWithBoss = true;
+            highlightBossDoorOnce = true;
             Debug.Log("All tasks completed for today!");
         }
     }
 
     private void IncrementDay()
     {
+        allTasksCompleted = false;
+
         if (currentDay >= days.Count)
         {
             Debug.LogError("Invalid day number");
@@ -275,7 +287,8 @@ public class GameManager : MonoBehaviour
         customerIndex = 0;
         IncrementDay();
         canTalkWithBoss = false;
-        hasTalkedWithBoss = false;
+        hasTalkedWithBossOnce = false;
+        hasTalkedWithBossTwice = false;
 
         if (currentCustomers.Count > 0)
         {
