@@ -107,7 +107,7 @@ public enum Guild
     ASSASSINS,
     MERCHANTS,
     MAGES,
-    NATURE,
+    DRUIDS,
     NONE
 }
 
