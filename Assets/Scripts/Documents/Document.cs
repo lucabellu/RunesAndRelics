@@ -35,7 +35,7 @@ public class Document : MonoBehaviour, IInteractable, IHighlightable
 
     public void OnHighlight(bool isHovering)
     {
-        if (isHovering)
+        if (isHovering && !transform.CompareTag("Scroll"))
         {
             GetComponent<Outline>().enabled = true;
             GameManager.Instance.TogglePopup(PopupSide.LEFT, true);
