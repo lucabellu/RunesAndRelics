@@ -932,6 +932,7 @@ GameObject:
   - component: {fileID: 8331260755541916840}
   - component: {fileID: 4982768799748412807}
   - component: {fileID: 6148197351605871060}
+  - component: {fileID: 8815336656160776429}
   m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
@@ -1005,6 +1006,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8815336656160776429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7903878976886753955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &7913530503241039052
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,14 +1323,5 @@ MonoBehaviour:
   isTutorialDocument: 0
   nameText: {fileID: 711417704366509755}
   ageText: {fileID: 1063468065066994824}
-  raceText: {fileID: 0}
-  occupationText: {fileID: 2005990096236179972}
-  customerImageDisplay: {fileID: 1696411555419247011}
-  sealDisplay: {fileID: 3083725325849905488}
-  isCustomSet: 0
-  customName: 
-  customAge: 0
-  customRaceText: 
-  customOccupation: 0
-  customPortrait: {fileID: 0}
-  customSeal: {fileID: 0}
+  raceOccupationText: {fileID: 2005990096236179972}
+  customerPortrait: {fileID: 1696411555419247011}
