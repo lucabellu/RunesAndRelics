@@ -1210,7 +1210,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e2d6c031d182ef947947fd4b1da4e22b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 17769077ebbbfd7419845850a3700e38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2114,12 +2114,29 @@ MonoBehaviour:
   guildText: {fileID: 779639563939747009}
   guildRankText: {fileID: 1063468065066994824}
   kingdomText: {fileID: 2005990096236179972}
-  customerImageDisplay: {fileID: 1696411555419247011}
-  sealDisplay: {fileID: 3083725325849905488}
-  isCustomSet: 0
-  customName: Custom Test
-  customGuild: 0
-  customGuildRank: 0
-  customKingdom: 0
-  customPortrait: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  customSeal: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  customerPortrait: {fileID: 1696411555419247011}
+  guildIcon: {fileID: 3083725325849905488}
+  background: {fileID: 6148197351605871060}
+  cardinalDirections:
+  - {fileID: 3816893695614104249}
+  - {fileID: 2737241442587392347}
+  - {fileID: 4575736888839820023}
+  - {fileID: 7859384944083388960}
+  guildIcons:
+  - {fileID: 21300000, guid: 7cfacd6a3ef90cf4cadc9717e380be03, type: 3}
+  - {fileID: 21300000, guid: 17769077ebbbfd7419845850a3700e38, type: 3}
+  - {fileID: 21300000, guid: 6ed9c81bf36f9f54c9837a8685ea3f4c, type: 3}
+  - {fileID: 21300000, guid: 16eb4f6fec4f23c4989822e9f17d6f4c, type: 3}
+  - {fileID: 21300000, guid: 17ea3ee90ef0f2944b85632fccb5cb6f, type: 3}
+  backgroundImages:
+  - {fileID: 3007414528925982469}
+  - {fileID: 3520347892817006960}
+  - {fileID: 2030633618542190518}
+  - {fileID: 2870641806196646912}
+  - {fileID: 4483424802454560907}
+  IdColour:
+  - {r: 0.9294118, g: 0.8470589, b: 0.9294118, a: 0}
+  - {r: 0.9294118, g: 0.8470589, b: 0.8470589, a: 0}
+  - {r: 0.9294118, g: 0.9215687, b: 0.8470589, a: 0}
+  - {r: 0.8470589, g: 0.909804, b: 0.9294118, a: 0}
+  - {r: 0.86666673, g: 0.9294118, b: 0.8470589, a: 0}
