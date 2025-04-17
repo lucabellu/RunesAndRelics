@@ -19,7 +19,7 @@ public class GuildID : Document
     [SerializeField] private List<GameObject> cardinalDirections;
     [SerializeField] private List<Sprite> guildIcons;
     [SerializeField] private List<GameObject> backgroundImages;
-    [SerializeField] private List<Color> IDcolour;
+    [SerializeField] private List<Color> IdColour;
 
     protected override void Start()
     {
@@ -37,14 +37,26 @@ public class GuildID : Document
             case Guild.HOLY:
                 SetGuildData(0);
                 break;
+            case Guild.ASSASSINS:
+                SetGuildData(1);
+                break;
+            case Guild.MERCHANTS:
+                SetGuildData(2);
+                break;
+            case Guild.MAGES:
+                SetGuildData(3);
+                break;
+            case Guild.DRUIDS:
+                SetGuildData(4);
+                break;
         }
     }
 
     private void SetGuildData(int guildType)
     {
         guildIcon.sprite = guildIcons[guildType];
-        backgroundImages[guildType].GetComponent<Image>().color = IDcolour[0] + new Color(0, 0, 0, 0.5f);
-        background.color = IDcolour[guildType];
+        backgroundImages[guildType].GetComponent<Image>().color = IdColour[0] + new Color(0, 0, 0, 0.5f);
+        background.color = IdColour[guildType];
 
         SetBackgroundImage(guildType);
         SetKingdom();
