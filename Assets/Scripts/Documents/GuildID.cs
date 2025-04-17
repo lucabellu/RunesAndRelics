@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,41 +11,84 @@ public class GuildID : Document
     [SerializeField] private TextMeshProUGUI guildRankText;
     [SerializeField] private TextMeshProUGUI kingdomText;
 
-    [SerializeField] private Image customerImageDisplay;
-    [SerializeField] private Image sealDisplay;
+    [SerializeField] private Image customerPortrait;
+    [SerializeField] private Image guildIcon;
+    [SerializeField] private Image background;
 
-    [SerializeField] private bool isCustomSet = false;
 
-    [Header("Custom Data")]
-    [SerializeField] private string customName;
-    [SerializeField] private Guild customGuild;
-    [SerializeField] private GuildRank customGuildRank;
-    [SerializeField] private Kingdom customKingdom;
-    [SerializeField] private Sprite customPortrait;
-    [SerializeField] private Sprite customSeal;
+    [SerializeField] private List<GameObject> cardinalDirections;
+    [SerializeField] private List<Sprite> guildIcons;
+    [SerializeField] private List<GameObject> backgroundImages;
+    [SerializeField] private List<Color> IDcolour;
 
     protected override void Start()
     {
         base.Start();
 
-        if (!isCustomSet)
-        {
-            nameText.text = "Name: " + customerLogic.customerName;
-            guildText.text = customerLogic.customerGuild.ToString() + " GUILD";
-            guildRankText.text = "Rank: " + customerLogic.customerGuildRank.ToString();
-            kingdomText.text = "Kingdom: " + customerLogic.customerKingdom.ToString();
+        nameText.text = customerLogic.customerName;
+        guildText.text = customerLogic.customerGuild.ToString() + " GUILD";
+        guildRankText.text = customerLogic.customerGuildRank.ToString();
+        kingdomText.text = customerLogic.customerKingdom.ToString();
 
-            customerImageDisplay.sprite = customerLogic.customerPortrait;
-            sealDisplay.sprite = customerLogic.letterSeal;
-        }
-        else
+        customerPortrait.sprite = customerLogic.customerPortrait;
+
+        switch (customerLogic.customerGuild)
         {
-            nameText.text = "Name: " + customName;
-            guildText.text = "Guild: " + customGuild.ToString();
-            guildRankText.text = "Rank: " + customGuildRank.ToString();
-            kingdomText.text = "Kingdom: " + customKingdom.ToString();
-            customerImageDisplay.sprite = customPortrait;
-            sealDisplay.sprite = customSeal;
+            case Guild.HOLY:
+                SetGuildData(0);
+                break;
         }
     }
+
+    private void SetGuildData(int guildType)
+    {
+        guildIcon.sprite = guildIcons[guildType];
+        backgroundImages[guildType].GetComponent<Image>().color = IDcolour[0] + new Color(0, 0, 0, 0.5f);
+        background.color = IDcolour[guildType];
+
+        SetBackgroundImage(guildType);
+        SetKingdom();
+    }
+
+    private void SetBackgroundImage(int backgroundType)
+    {
+        backgroundImages[0].SetActive(false);
+        backgroundImages[1].SetActive(false);
+        backgroundImages[2].SetActive(false);
+        backgroundImages[3].SetActive(false);
+        backgroundImages[4].SetActive(false);
+
+        backgroundImages[backgroundType].SetActive(true);
+    }
+
+    private void SetKingdom()
+    {
+        switch (customerLogic.customerKingdom)
+        {
+            case Kingdom.NORTH:
+                SetKingdomState(0);
+                break;
+            case Kingdom.EAST:
+                SetKingdomState(1);
+                break;
+            case Kingdom.SOUTH:
+                SetKingdomState(2);
+                break;
+            case Kingdom.WEST:
+                SetKingdomState(3);
+                break;
+        }
+    }
+
+    private void SetKingdomState(int kingdomType)
+    {
+        cardinalDirections[0].SetActive(false);
+        cardinalDirections[1].SetActive(false);
+        cardinalDirections[2].SetActive(false);
+        cardinalDirections[3].SetActive(false);
+
+        cardinalDirections[kingdomType].SetActive(true);
+    }
+
+
 }
