@@ -14809,7 +14809,7 @@ MonoBehaviour:
   playPickUp: {fileID: 1027130954}
   pickUp: {fileID: 8300000, guid: e1115ba6cebac2c498cac9f7db31d718, type: 3}
   cameraShake: {fileID: 330585551}
-  shakeIntensity: 0.5
+  shakeIntensity: 0.75
   shopDoor: {fileID: 191281864}
 --- !u!120 &1027130950
 LineRenderer:
