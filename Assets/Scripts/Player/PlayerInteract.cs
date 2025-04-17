@@ -376,4 +376,12 @@ public class PlayerInteract : MonoBehaviour
         yield return new WaitForSeconds(delay);
         GameManager.Instance.StartNextTask();
     }
+
+    public void CloseManifest()
+    {
+        currentDocument.OnInteract(false);
+        GameManager.Instance.SetPlayerDocumentState(false);
+        isInteractingWithDocument = false;
+        currentDocument = null;
+    }
 }
