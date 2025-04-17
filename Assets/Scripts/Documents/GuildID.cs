@@ -14,12 +14,13 @@ public class GuildID : Document
     [SerializeField] private Image customerPortrait;
     [SerializeField] private Image guildIcon;
     [SerializeField] private Image background;
-
+    [SerializeField] private Image compass;
 
     [SerializeField] private List<GameObject> cardinalDirections;
     [SerializeField] private List<Sprite> guildIcons;
     [SerializeField] private List<GameObject> backgroundImages;
     [SerializeField] private List<Color> IdColour;
+    [SerializeField] private float saturationIncrease;
 
     protected override void Start()
     {
@@ -55,8 +56,19 @@ public class GuildID : Document
     private void SetGuildData(int guildType)
     {
         guildIcon.sprite = guildIcons[guildType];
-        backgroundImages[guildType].GetComponent<Image>().color = IdColour[0] + new Color(0, 0, 0, 0.5f);
         background.color = IdColour[guildType];
+
+        Color currentColour = IdColour[guildType];
+
+        float h, s, v;
+        Color.RGBToHSV(currentColour, out h, out s, out v);
+        s = Mathf.Clamp01(s + saturationIncrease);
+
+        Color newColour = Color.HSVToRGB(h, s, v);
+        newColour.a = 1f;
+
+        backgroundImages[guildType].GetComponent<Image>().color = newColour;
+        compass.GetComponent<Image>().color = newColour;
 
         SetBackgroundImage(guildType);
         SetKingdom();
