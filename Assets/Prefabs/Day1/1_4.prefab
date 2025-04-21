@@ -101,9 +101,9 @@ MonoBehaviour:
   customerAge: 12
   customerRace: 0
   customerKingdom: 3
-  customerOccupation: 6
-  customerGuild: 5
-  customerGuildRank: 5
+  customerOccupation: 2
+  customerGuild: 2
+  customerGuildRank: 1
   customerPortrait: {fileID: 21300000, guid: 10a688aeb89ab1f4d8d7c67eff5e6c5c, type: 3}
   purchaseTrinket: {fileID: 4992815286747852652, guid: 44e75b2bf7ccac94f8127fbe24d30514, type: 3}
   letterSender: 

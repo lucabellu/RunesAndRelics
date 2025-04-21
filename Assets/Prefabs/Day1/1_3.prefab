@@ -103,7 +103,7 @@ MonoBehaviour:
   customerKingdom: 3
   customerOccupation: 5
   customerGuild: 1
-  customerGuildRank: 5
+  customerGuildRank: 0
   customerPortrait: {fileID: 21300000, guid: 10a688aeb89ab1f4d8d7c67eff5e6c5c, type: 3}
   purchaseTrinket: {fileID: 4992815286747852652, guid: deb4785dc243a784e815ea69f62e76de, type: 3}
   letterSender: 
@@ -1108,6 +1108,8 @@ MonoBehaviour:
   textSpeed: 0.04
   dialogue: My ship sunk off the coast a few miles away. I must retrieve the cargo
     as it is of great importance to me
+  cleanDialogue: 
+  firstBossDialogue: 1
   isCustomer: 1
   sfxList:
   - {fileID: 8300000, guid: ebb52a16dc0b1784495adc80b653ec7c, type: 3}
