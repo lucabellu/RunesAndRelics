@@ -1530,7 +1530,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0001373291, y: -0.00005340576}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8518356077515757420
@@ -2022,7 +2022,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.99999994}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8411785190556057788
 Rigidbody:
@@ -2113,7 +2113,6 @@ MonoBehaviour:
   nameText: {fileID: 711417704366509755}
   guildText: {fileID: 779639563939747009}
   guildRankText: {fileID: 1063468065066994824}
-  kingdomText: {fileID: 2005990096236179972}
   customerPortrait: {fileID: 1696411555419247011}
   guildIcon: {fileID: 3083725325849905488}
   background: {fileID: 6148197351605871060}
@@ -2141,7 +2140,7 @@ MonoBehaviour:
   - {r: 0.9294118, g: 0.9215687, b: 0.8470589, a: 1}
   - {r: 0.8470589, g: 0.909804, b: 0.9294118, a: 1}
   - {r: 0.86666673, g: 0.9294118, b: 0.8470589, a: 1}
-  saturationIncrease: 0.2
+  saturationIncrease: 0.1
 --- !u!1 &7972757940794807249
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,6 @@ public class GuildID : Document
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI guildText;
     [SerializeField] private TextMeshProUGUI guildRankText;
-    [SerializeField] private TextMeshProUGUI kingdomText;
 
     [SerializeField] private Image customerPortrait;
     [SerializeField] private Image guildIcon;
@@ -29,7 +28,6 @@ public class GuildID : Document
         nameText.text = customerLogic.customerName;
         guildText.text = customerLogic.customerGuild.ToString() + " GUILD";
         guildRankText.text = customerLogic.customerGuildRank.ToString();
-        kingdomText.text = customerLogic.customerKingdom.ToString();
 
         customerPortrait.sprite = customerLogic.customerPortrait;
 
@@ -111,7 +109,9 @@ public class GuildID : Document
         cardinalDirections[2].SetActive(false);
         cardinalDirections[3].SetActive(false);
 
+        Debug.Log($"Before activating: {cardinalDirections[kingdomType].GetComponentInChildren<TextMeshProUGUI>().text}");
         cardinalDirections[kingdomType].SetActive(true);
+        Debug.Log($"After activating: {cardinalDirections[kingdomType].GetComponentInChildren<TextMeshProUGUI>().text}");
     }
 
 
