@@ -12407,7 +12407,15 @@ MonoBehaviour:
     - {fileID: 1837545177901407731, guid: a95af862dd5248b45a51128385c10bbe, type: 3}
     - {fileID: 1837545177901407731, guid: a09bee6e4ed511e43b97175e871f6dcb, type: 3}
     tasks:
-    - {fileID: 11400000, guid: 275cbb0db9d72e64b89a7a9b8996020c, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
+    - {fileID: 11400000, guid: 54a1559662441c949ad94b05fef48869, type: 2}
   currentTasks: []
   currentTaskIndex: 0
   currentTrinkets:
