@@ -102,10 +102,10 @@ MonoBehaviour:
     spells of fire and brimstone
   trinketImage: {fileID: 21300000, guid: 5dfe1aa3931e4b14880f61bf4f85149a, type: 3}
   requiredRace: 0
-  requiredKingdom: 2
+  requiredKingdom: 1
   requiredOccupation: 1
   requiredAge: 20
-  requiredGuild: 5
+  requiredGuild: 2
   requiredGuildRank: 5
   duration: 1
 --- !u!114 &3452669511734531719

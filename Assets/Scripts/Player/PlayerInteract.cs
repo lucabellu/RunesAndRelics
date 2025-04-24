@@ -79,31 +79,26 @@ public class PlayerInteract : MonoBehaviour
     {
         if (isInteractingWithDocument) return;
 
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out RaycastHit hit, interactDistance, layerMask))
+        Transform cameraTransform = playerCam.transform;
+
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit hit, interactDistance, layerMask))
         {
             switch (hit.transform.tag)
             {
                 case "Scroll":
                     return;
-
                 case "Door":
                     HandleDoorInteraction(hit.transform.GetComponent<ShopDoor>());
                     break;
-
                 case "Cobweb":
-                    if (GameManager.Instance.canCleanCobwebs)
-                    {
-                        HandleCobwebInteraction(hit.transform);
-                    }
+                    if (GameManager.Instance.canCleanCobwebs) HandleCobwebInteraction(hit.transform);
                     break;
-
                 case "Customer":
                     if (GameManager.Instance.currentCustomer.GetComponent<CustomerMovement>().isAtCounter)
                     {
                         HandleCustomerInteraction(GameManager.Instance.currentCustomer.purchaseTrinket);
                     }
                     break;
-
                 default:
                     PickUpObject(hit.transform);
                     break;
