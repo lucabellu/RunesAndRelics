@@ -112,7 +112,6 @@ public class Dialogue : MonoBehaviour
     {
         isTalking = true;
         dialogueText.text = "";
-        dialogueText.text = "";
         foreach (char c in line)
         {
             dialogueText.text += c;
