@@ -18,14 +18,13 @@ public class ServeCustomerTask : Task
     {
         if (GameManager.Instance.customerIndex < GameManager.Instance.currentCustomers.Count)
         {
-            CustomerLogic customer = Instantiate(GameManager.Instance.currentCustomers[GameManager.Instance.customerIndex], GameManager.Instance.customerSpawn.position, GameManager.Instance.customerSpawn.rotation);
+            CustomerLogic customer = Instantiate(GameManager.Instance.currentCustomers[GameManager.Instance.customerIndex], 
+                GameManager.Instance.customerSpawn.position, 
+                GameManager.Instance.customerSpawn.rotation);
+
             GameManager.Instance.currentCustomer = customer;
             GameManager.Instance.customerIndex++;
             GameManager.Instance.PlayEnterAudio();
-        }
-        else
-        {
-            Debug.Log("All customers served today!");
         }
     }
 }
